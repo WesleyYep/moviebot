@@ -1,0 +1,35 @@
+{
+    "status": "NOT_BUILT",
+    "intents": [
+        {
+            "intentVersion": "$LATEST",
+            "intentName": "Welcome"
+        }
+    ],
+    "name": "MovieBot",
+    "locale": "en-US",
+    "checksum": "1bc51355-b73e-4fb1-aca6-a1b4fedfbfdc",
+    "abortStatement": {
+        "messages": [
+            {
+                "content": "Sorry, I could not understand. Goodbye.",
+                "contentType": "PlainText"
+            }
+        ]
+    },
+    "version": "$LATEST",
+    "lastUpdatedDate": 1495863499.836,
+    "createdDate": 1495854082.043,
+    "clarificationPrompt": {
+        "maxAttempts": 5,
+        "messages": [
+            {
+                "content": "Sorry, can you please repeat that?",
+                "contentType": "PlainText"
+            }
+        ]
+    },
+    "voiceId": "Joanna",
+    "childDirected": false,
+    "idleSessionTTLInSeconds": 300
+}
