@@ -6,9 +6,9 @@
             "intentName": "Welcome"
         }
     ], 
-    "name": "MovieBot", 
+    "name": "MovieBotProd", 
     "locale": "en-US", 
-    "checksum": "b3bb4ef6-78e9-412b-abd5-561fae43f479", 
+    "checksum": "dbc7fd90-9f47-4104-9e58-4a32e672e481", 
     "abortStatement": {
         "messages": [
             {
@@ -18,8 +18,8 @@
         ]
     }, 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1496043680.077, 
-    "createdDate": 1495854082.043, 
+    "lastUpdatedDate": 1496051278.288, 
+    "createdDate": 1496051254.078, 
     "clarificationPrompt": {
         "maxAttempts": 5, 
         "messages": [
