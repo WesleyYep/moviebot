@@ -1,20 +1,14 @@
 var http = require('http');
 
-function handleSearchPersonSuccResponse(chunk) {
-  var jsonReponseObj = JSON.parse(chunk);
-  var resultList = jsonReponseObj.results;
-
-  for (index = 0; index< resultList.length; index++) {
-    console.log(resultList[index].name);
-  }
-
-  if (jsonReponseObj.total_results == 1) {
-    // just one actor/actoress matching perfect !
-  } else if (jsonReponseObj.total_result > 1) {
-    // multiple actors and actors return
-  } else {
-    // no actors and actress return
-  }  
+function close(sessionAttributes, fulfillmentState, message) {
+    return {
+        sessionAttributes,
+        dialogAction: {
+            type: 'Close',
+            fulfillmentState,
+            message,
+        },
+    };
 }
 
 exports.handler = (event, context, callback) => {
@@ -35,12 +29,28 @@ exports.handler = (event, context, callback) => {
 
     http.get(url, function (res) {
         
-      res.on('data', handleSearchPersonSuccResponse);
+      res.on('data', function (chunk) {
+        var jsonReponseObj = JSON.parse(chunk);
+        var resultList = jsonReponseObj.results;
 
-      context.done(null);
+        for (index = 0; index< resultList.length; index++) {
+          console.log(resultList[index].name);
+        }
+
+        if (jsonReponseObj.total_results == 1) {
+          // just one actor/actoress matching perfect !
+          callback(null,close({}, 'Fulfilled', {contentType: 'PlainText', content: 'The name of the actor/actress is ' + resultList[0].name}))
+        } else if (jsonReponseObj.total_results > 1) {
+          // multiple actors and actors return
+          callback(null,close({}, 'Failed', {contentType: 'PlainText', content: 'Multiple actors and actors return'}))
+        } else {
+          // no actors and actress return
+          callback(null,close({}, 'Failed', {contentType: 'PlainText', content: 'No actors and actress return'}))
+        }  
+      });
     }).on('error', function (err) {
       console.log('Error, with: ' + err.message);
-      context.done("Failed");
+      callback(err)
     });
 
   } else {
