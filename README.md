@@ -11,6 +11,6 @@ Chatbot for movies
 - node
 
 ## Deploying
-- `sh lambda-deploy-windows.sh [dev/prod]`
-- `sh lex-deploy-windows.sh [dev/prod] [init]`
-- use "init" parameter when deploying a lex bot for the first time to either dev or prod
+- `sh lambda-windows.sh [dev/prod]`
+- `sh lex-deploy-windows.sh [save/deploy] [dev/prod]`
+- lex has the option to save (get config from AWS) or deploy (push config to AWS)
