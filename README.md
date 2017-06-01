@@ -12,5 +12,5 @@ Chatbot for movies
 
 ## Deploying
 - `sh lambda-windows.sh [dev/prod]`
-- `sh lex-deploy-windows.sh [save/deploy] [dev/prod]`
+- `sh lex-windows.sh [save/deploy] [dev/prod]`
 - lex has the option to save (get config from AWS) or deploy (push config to AWS)
