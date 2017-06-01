@@ -21,6 +21,17 @@ EOF
         intentName=$(tr -dc '[[:print:]]' <<< "$intentName") # remove non-printed chars
         aws lex-models get-intent --name $intentName --intent-version "\$LATEST" > lex/$intentName.json
     done
+
+    ## get slots
+    aws lex-models get-slot-types > lex/.slots_temp.json
+    # filter ones that have description = moviebot
+    node > lex/slots.json <<EOF
+var data = require('./lex/.slots_temp.json');
+data = data.slotTypes.filter((s) => { return s.description.startsWith("moviebot"); })
+console.log(JSON.stringify(data));
+EOF
+    rm lex/.slots_temp.json
+
 elif [ "$1" = "deploy" ]; then
     if [ "$2" = "prod" ]; then 
         echo deploying lex prod
@@ -68,5 +79,11 @@ EOF
     aws lex-models put-bot --cli-input-json file://lex/out_MovieBot.json
 
 fi
+
+
+
+
+# TODO - delete removed slots/intents from json folder
+
 
 echo done!
