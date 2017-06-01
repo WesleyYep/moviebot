@@ -1,0 +1,1 @@
+{"name":"Welcome","checksum":"2f34b385-4c0a-4991-8636-4034da70d422","sampleUtterances":["Hello","Hi","Good morning","Good afternoon","Good day","How are you","Morning","Hey","What's up","Sup"],"slots":[],"fulfillmentActivity":{"type":"CodeHook","codeHook":{"uri":"arn:aws:lambda:us-east-1:231755972326:function:moviebotFunctionProd","messageVersion":"1.0"}}}

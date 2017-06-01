@@ -74,7 +74,7 @@ function welcome(intentRequest, callback) {
     // const pickUpCity = slots.PickUpCity;
 //    const confirmationStatus = intentRequest.currentIntent.confirmationStatus;
     const sessionAttributes = intentRequest.sessionAttributes || {};
-    callback(elicitIntent(sessionAttributes, { contentType: 'PlainText', content: 'Welcome to movie bot1' }));
+    callback(elicitIntent(sessionAttributes, { contentType: 'PlainText', content: 'Welcome to movie bot' }));
     return;
 }
 
