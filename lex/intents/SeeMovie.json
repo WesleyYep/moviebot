@@ -1,0 +1,38 @@
+{
+    "name": "SeeMovie", 
+    "checksum": "8521d7f3-53db-435a-ab2c-045330889d9c", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1496313905.933, 
+    "createdDate": 1496313186.425, 
+    "sampleUtterances": [
+        "I want to watch a movie at {MovieLocation}", 
+        "I want to go to the movies at {MovieLocation}", 
+        "I would like to go to the movies in {MovieLocation}", 
+        "I'd like to go to the cinema", 
+        "I would like to go to the {MovieLocation} cinemas", 
+        "I want to go to the {MovieLocation} cinema", 
+        "I want to see a movie"
+    ], 
+    "slots": [
+        {
+            "slotType": "MovieLocationsAuckland", 
+            "name": "MovieLocation", 
+            "slotConstraint": "Required", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "Which cinema do you wish to go to?", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 1, 
+            "slotTypeVersion": "1", 
+            "sampleUtterances": []
+        }
+    ], 
+    "fulfillmentActivity": {
+        "type": "ReturnIntent"
+    }
+}
