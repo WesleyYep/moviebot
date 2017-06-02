@@ -1,0 +1,13 @@
+{
+    "enumerationValues": [
+        {
+            "value": "test"
+        }
+    ], 
+    "name": "TestSlot", 
+    "checksum": "2200cabb-09ef-48c8-bf2e-6bc80a5c78ed", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1496396602.677, 
+    "createdDate": 1496396602.677, 
+    "description": "moviebot"
+}
