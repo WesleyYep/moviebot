@@ -1,9 +1,9 @@
 {
     "name": "SeeMovie", 
-    "checksum": "8521d7f3-53db-435a-ab2c-045330889d9c", 
+    "checksum": "42adce9d-662c-4c28-92c6-bb5009d01ce0", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1496313905.933, 
-    "createdDate": 1496313186.425, 
+    "lastUpdatedDate": 1496443542.289, 
+    "createdDate": 1496443542.289, 
     "sampleUtterances": [
         "I want to watch a movie at {MovieLocation}", 
         "I want to go to the movies at {MovieLocation}", 
@@ -28,7 +28,7 @@
                 ]
             }, 
             "priority": 1, 
-            "slotTypeVersion": "1", 
+            "slotTypeVersion": "$LATEST", 
             "sampleUtterances": []
         }
     ], 

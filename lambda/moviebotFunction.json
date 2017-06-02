@@ -1,0 +1,23 @@
+{
+    "Code": {
+        "RepositoryType": "S3", 
+        "Location": "https://prod-04-2014-tasks.s3.amazonaws.com/snapshots/231755972326/moviebotFunction-b2994611-a5d6-4cd8-802b-fd636e19acd3?X-Amz-Security-Token=FQoDYXdzEMf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDIBBAvDtFlxz1LO4eSK3Ay1DO2t0NljG2Uj9%2FDNKnwGFPWIy0AchL9sFBj3JtSqVS72ynRke75%2Bcj4nAjKotNypwIa%2FW28kh49vAKhthB813k4tnVaJWFLjzgcno4R3GdiDy1U0jiPXpwSH2O0x8NvOt4wPAiatpC8j0oXxaqca%2BMjCZ3Wi4CCCR6dnsv9TeioWb%2B7jM7C6x%2BG0ldy%2FM27QQShebRN6f%2BTYyami2h%2F%2F2Lv2aDidPXrxs93gqU%2FDdGu6%2FiqyZedBeG%2Bc10HFH8Lr6NdLySa187naoSiSDGryCtsTLSWajumUBVPD8%2B5va8wA1D1xo3yWU1lWGLri1UTnAPd7T3B%2FFhmGB2U7UqxIQFDGQq645WqibqO%2F31%2BoXUn8PCWHHNnQ9FHKV9a7wIU%2Fp2Biy3oCV2YNqd6kbw5oORKJKD2pP0glRPl41q3GFP9IomDwn707AUCFpkoVQdIlRm5bNwfY4okB3rlsC4d8jkmMnjjKwxj8QX94zlC%2BxAji6lHJH9TxRATtkWxRLr6vvVY5O8QWZtqoh8LfO5X%2FQrl%2F9xTZsTIYr8Jk%2BzN%2Bvv6io%2Fvuu78rWTTvP6sqX9madnS2rN5YoprTHyQU%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20170602T224527Z&X-Amz-SignedHeaders=host&X-Amz-Expires=600&X-Amz-Credential=ASIAIVKD3456GPCOAW6Q%2F20170602%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=f0a75b7c0af1d05c955e7c763929835849aef1f2f154e9031b8da29f911859ad"
+    }, 
+    "Configuration": {
+        "TracingConfig": {
+            "Mode": "PassThrough"
+        }, 
+        "Version": "$LATEST", 
+        "CodeSha256": "aO2c5w+zaIFKruguz76nWcrmaxFZhYa49+jncOwPwyE=", 
+        "FunctionName": "moviebotFunction", 
+        "MemorySize": 128, 
+        "CodeSize": 3058, 
+        "FunctionArn": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
+        "Handler": "moviebotFunction.handler", 
+        "Role": "arn:aws:iam::231755972326:role/service-role/orderTripRole", 
+        "Timeout": 10, 
+        "LastModified": "2017-06-02T09:33:26.077+0000", 
+        "Runtime": "nodejs4.3", 
+        "Description": "Handles the movie bot behaviour"
+    }
+}

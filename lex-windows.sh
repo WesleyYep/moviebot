@@ -40,7 +40,10 @@ EOF
 
 ## DEPLOY ##
 elif [ "$1" = "deploy" ]; then
-    echo deploying lex dev
+    # get link to lambda
+    echo "checking for lambda function moviebotFunction..."
+    aws lambda get-function --function-name moviebotFunction > lambda/moviebotFunction.json
+
     name=MovieBot
 
     # Find bot to update
@@ -107,6 +110,7 @@ EOF
         intentName=$(tr -dc '[[:print:]]' <<< "$intentName") # remove non-printed chars        
         node > lex/intents/out_tempIntent.json <<EOF
 var data = require('./lex/intents/${intentName}.json');
+var lambdaData = require('./lambda/moviebotFunction.json');
 delete data.createdDate;
 delete data.version;
 delete data.lastUpdatedDate;
@@ -114,6 +118,9 @@ delete data.checksum;
 data.slots.forEach((s) => {
     s.slotTypeVersion = "\$LATEST";
 })
+if (data.fulfillmentActivity.type === "CodeHook") {
+    data.fulfillmentActivity.codeHook.uri = lambdaData.Configuration.FunctionArn;
+}
 console.log(JSON.stringify(data));
 EOF
         echo updating intent $intentName
