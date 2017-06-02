@@ -50,11 +50,16 @@ delete data.status;
 delete data.createdDate;
 delete data.version;
 delete data.lastUpdatedDate;
+delete data.checksum;
 data['processBehavior'] = "BUILD";
 data['name'] = '${name}';
+data.intents.forEach((i) => {
+    i.intentVersion = "\$LATEST";
+})
 console.log(JSON.stringify(data));
 EOF
     # delete existing bot
+    echo deleting existing $name
     aws lex-models delete-bot --name $name
 
     # find intents to update
@@ -64,26 +69,17 @@ var names = data.intents.map((i) => { return i.intentName; })
 console.log(names.join("\r\n"));
 EOF
 
+    # delete intents
     readarray -t intents < lex/intents/intents.txt
     for intentName in "${intents[@]}"
     do
         : 
         intentName=$(tr -dc '[[:print:]]' <<< "$intentName") # remove non-printed chars        
-        node > lex/intents/out_tempIntent.json <<EOF
-var data = require('./lex/intents/${intentName}.json');
-delete data.createdDate;
-delete data.version;
-delete data.lastUpdatedDate;
-console.log(JSON.stringify(data));
-EOF
-
-        echo updating intent $intentName
+        echo deleting intent $intentName
         aws lex-models delete-intent --name $intentName
-        aws lex-models put-intent --name $intentName --cli-input-json file://lex/intents/out_tempIntent.json
-
     done
 
-    # update slots
+    # delete and update slots
     readarray -t slots < lex/slots/slots.txt
     for slotName in "${slots[@]}"
     do
@@ -102,6 +98,28 @@ EOF
         aws lex-models put-slot-type --name $slotName --cli-input-json file://lex/slots/out_tempSlot.json
 
     done
+
+    # update intents
+    readarray -t intents < lex/intents/intents.txt
+    for intentName in "${intents[@]}"
+    do
+        : 
+        intentName=$(tr -dc '[[:print:]]' <<< "$intentName") # remove non-printed chars        
+        node > lex/intents/out_tempIntent.json <<EOF
+var data = require('./lex/intents/${intentName}.json');
+delete data.createdDate;
+delete data.version;
+delete data.lastUpdatedDate;
+delete data.checksum;
+data.slots.forEach((s) => {
+    s.slotTypeVersion = "\$LATEST";
+})
+console.log(JSON.stringify(data));
+EOF
+        echo updating intent $intentName
+        aws lex-models put-intent --name $intentName --cli-input-json file://lex/intents/out_tempIntent.json
+    done
+
 
     # update bot
     echo updating MovieBot
