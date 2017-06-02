@@ -16,3 +16,4 @@ Chatbot for movies
 - lex has the option to save (get config from AWS) or deploy (push config to AWS)
 - lambda is deploy only - as it's easier to make changes locally anyway using an IDE (eg. VS code/sublime)
 - slots used in moviebot must have a description starting with "moviebot" so that they can be detected as relevant
+- IMPORTANT: make sure no other bots use the slots/intents used by moviebot
