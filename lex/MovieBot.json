@@ -1,5 +1,5 @@
 {
-    "status": "READY", 
+    "status": "BUILDING", 
     "intents": [
         {
             "intentVersion": "$LATEST", 
@@ -12,7 +12,7 @@
     ], 
     "name": "MovieBot", 
     "locale": "en-US", 
-    "checksum": "56d64ac0-1c61-49d4-9ea3-55d346af5916", 
+    "checksum": "edf1d22c-39a6-4ebd-b467-fb67bbc0aab0", 
     "abortStatement": {
         "messages": [
             {
@@ -22,8 +22,8 @@
         ]
     }, 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1496443568.594, 
-    "createdDate": 1496443545.88, 
+    "lastUpdatedDate": 1496444103.171, 
+    "createdDate": 1496444103.171, 
     "clarificationPrompt": {
         "maxAttempts": 5, 
         "messages": [
