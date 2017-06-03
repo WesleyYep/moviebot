@@ -91,10 +91,10 @@ function retrieveMovieListByActor(sessionAttributes, callback) {
             if ( movieList.length == 0) {
                 callback(close(sessionAttributes, 'Failed',
                 { contentType: 'PlainText', content: 'Found the actor/actress but unable to find any movie with actor' }));
-            } else {
-                callback(close(sessionAttributes, 'Fulfilled',
-                { contentType: 'PlainText', content: 'I found a movie called ' + movieList[0].title }));
-            }
+            } 
+
+            callback(close(sessionAttributes, 'Fulfilled',
+            { contentType: 'PlainText', content: 'I found a movie called ' + movieList[0].title }));    
         })
         .catch(function (err){
             callback(close(sessionAttributes, 'Failed',
@@ -119,9 +119,6 @@ function findMovieByActor(intentRequest, callback) {
     const sessionAttributes = intentRequest.sessionAttributes || {};
     const slots = intentRequest.currentIntent.slots;
 
-    var actorId = null;
-    var validationResult = null;
-
     // validate user input
     if (intentRequest.invocationSource === 'DialogCodeHook') {
         const actorName = slots.Actor;
@@ -131,9 +128,8 @@ function findMovieByActor(intentRequest, callback) {
                 uri : 'http://api.themoviedb.org/3/search/person?api_key=' + apiKey + '&query=' + actorName,
                 json: true
             }
-            //first retrieve the person id
-            var validatioResult = null;
 
+            //first retrieve the person id
             rp(options)
                 .then(function(parsedBody) {
                     var resultList = parsedBody.results;
@@ -147,10 +143,10 @@ function findMovieByActor(intentRequest, callback) {
                         callback(delegate(sessionAttributes, intentRequest.currentIntent.slots));
                     } else if (parsedBody.total_results > 1) {
                         // multiple actors and actors return
-                        sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'Multiple actors and actress returned, please enter the actor/actoress name again')
+                        sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'Multiple actors and actress returned, please enter the actor/actress name again')
                     } else {
                         // no actors and actress return
-                        sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'No actors or actress is returned, , please enter the actor/actoress name again')
+                        sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'No actors or actress is returned, , please enter the actor/actress name again')
                     }  
                 })
                 .catch(function (err) {
@@ -175,6 +171,41 @@ function findMovieByActor(intentRequest, callback) {
     }
 }
 
+function findMovieByPlot(intentRequest, callback) {
+    const sessionAttributes = intentRequest.sessionAttributes || {};
+    const slots = intentRequest.currentIntent.slots;
+
+    if (intentRequest.invocationSource === 'DialogCodeHook') { 
+        // not sure what to valid so tell lex to go to next step
+        callback(delegate(sessionAttributes, intentRequest.currentIntent.slots));
+    } else {
+        //for now just check if it has actorId
+        var options = {
+            uri : 'https://api.themoviedb.org/3/search/movie?api_key=' + apiKey + "&query=" + slots.PlotDescription,
+            json: true
+        }
+
+        rp(options)
+            .then(function(parsedBody) {
+                if (parsedBody.total_results === 0) {
+                    callback(close(sessionAttributes, 'Failed',
+                    { contentType: 'PlainText', content: 'Unable to find any movie matching the given plot description' }));
+                }
+
+                var resultsList = parsedBody.results;
+                callback(close(sessionAttributes, 'Fulfilled',
+                { contentType: 'PlainText', content: 'I found a movie called ' + resultsList[0].title }));    
+            })
+            .catch(function (err) {
+                console.log('Error, with: ' + err.message);
+                callback(close(sessionAttributes, 'Failed',
+                { contentType: 'PlainText', content: 'Error unable to retrieve the movie list' })); 
+            });
+    }
+
+    return
+}
+
  // --------------- Intents -----------------------
 
 /**
@@ -191,6 +222,8 @@ function dispatch(intentRequest, callback) {
         return welcome(intentRequest, callback);
     } else if (intentName === 'FindMovieByActor') {
         return findMovieByActor(intentRequest, callback);
+    } else if (intentName === 'FindMovieByPlot') {
+        return findMovieByPlot(intentRequest, callback);
     }
     throw new Error(`Intent with name ${intentName} not supported`);
 }
