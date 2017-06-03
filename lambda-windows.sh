@@ -2,7 +2,11 @@
 
 echo running lambda deployment script....
 cd lambda
-../zip.exe -r ../lambda.zip * # replace with just "zip" if using a mac
+if [ "$1" = "mac" ]; then # save or deploy
+	zip -r ../lambda.zip * # replace with just "zip" if using a mac
+else
+	../zip.exe -r ../lambda.zip * # replace with just "zip" if using a mac
+fi
 cd ..
 
 echo deploying lambda to dev
