@@ -1,9 +1,9 @@
 {
     "name": "Welcome", 
-    "checksum": "b7e097ca-3ab4-4043-9c80-7f1ba2976eba", 
+    "checksum": "729b9d69-6815-4fd1-845e-b349765823fc", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1496444101.416, 
-    "createdDate": 1496444101.416, 
+    "lastUpdatedDate": 1496465968.686, 
+    "createdDate": 1496465968.686, 
     "sampleUtterances": [
         "Hello", 
         "Hi", 

@@ -10,7 +10,8 @@ var data = require('./lex/MovieBot.json');
 var names = data.intents.map((i) => { return i.intentName; })
 console.log(names.join("\r\n"));
 EOF
-    readarray -t intents < lex/intents/intents.txt
+    intents=($(awk -F= '{print $1}' lex/intents/intents.txt))
+#    readarray -t intents < lex/intents/intents.txt
     for intentName in "${intents[@]}"
     do
         :
@@ -30,7 +31,8 @@ EOF
     rm lex/slots/.slots_temp.json
 
     # save each slot
-    readarray -t slots < lex/slots/slots.txt
+    slots=($(awk -F= '{print $1}' lex/slots/slots.txt))
+ #   readarray -t slots < lex/slots/slots.txt
     for slotName in "${slots[@]}"
     do
         :
@@ -75,7 +77,9 @@ console.log(names.join("\r\n"));
 EOF
 
     # delete intents
-    readarray -t intents < lex/intents/intents.txt
+#    readarray -t intents < lex/intents/intents.txt
+    intents=($(awk -F= '{print $1}' lex/intents/intents.txt))
+
     for intentName in "${intents[@]}"
     do
         : 
@@ -85,7 +89,8 @@ EOF
     done
 
     # delete and update slots
-    readarray -t slots < lex/slots/slots.txt
+#    readarray -t slots < lex/slots/slots.txt
+    slots=($(awk -F= '{print $1}' lex/slots/slots.txt))
     for slotName in "${slots[@]}"
     do
         : 
@@ -106,7 +111,10 @@ EOF
     done
 
     # update intents
-    readarray -t intents < lex/intents/intents.txt
+
+    #readarray -t intents < lex/intents/intents.txt
+    intents=($(awk -F= '{print $1}' lex/intents/intents.txt))
+
     for intentName in "${intents[@]}"
     do
         : 
