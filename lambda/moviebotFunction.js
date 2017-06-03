@@ -2,6 +2,7 @@
 
 var http = require('http')
 var rp = require('request-promise');
+const apiKey = process.env.TMDB_KEY;
 
  /**
   * This sample demonstrates an implementation of the Lex Code Hook Interface
@@ -77,6 +78,32 @@ function welcome(intentRequest, callback) {
     return;
 }
 
+function retrieveMovieListByActor(sessionAttributes, callback) {
+    var options = {
+        uri : 'https://api.themoviedb.org/3/person/' + sessionAttributes.actorId + '/movie_credits?api_key=' + apiKey,
+        json: true
+    }
+
+    rp(options)
+        .then(function(parsedBody) {
+            var movieList = parsedBody.cast
+
+            if ( movieList.length == 0) {
+                callback(close(sessionAttributes, 'Failed',
+                { contentType: 'PlainText', content: 'Found the actor/actress but unable to find any movie with actor' }));
+            } else {
+                callback(close(sessionAttributes, 'Fulfilled',
+                { contentType: 'PlainText', content: 'I found a movie called ' + movieList[0].title }));
+            }
+        })
+        .catch(function (err){
+            callback(close(sessionAttributes, 'Failed',
+            { contentType: 'PlainText', content: 'Error unable to retrieve the movie list' })); 
+        });
+
+    return;
+}
+
 function sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, violatedSlot, messageContent) {
     const intentName = intentRequest.currentIntent.name;
     const slots = intentRequest.currentIntent.slots;
@@ -98,7 +125,6 @@ function findMovieByActor(intentRequest, callback) {
     // validate user input
     if (intentRequest.invocationSource === 'DialogCodeHook') {
         const actorName = slots.Actor;
-        const apiKey = process.env.TMDB_KEY;
 
         if (actorName) {
             var options = {
@@ -113,37 +139,18 @@ function findMovieByActor(intentRequest, callback) {
                     var resultList = parsedBody.results;
 
                     if (parsedBody.total_results == 1) {
-                        // just one actor/actoress matching perfect !
+                        // just one actor/actress matching perfect !
                         const actorId = resultList[0].id
                         sessionAttributes.actorId = actorId;
 
-                        var options = {
-                            uri : 'https://api.themoviedb.org/3/person/' + actorId + '/movie_credits?api_key=' + apiKey,
-                            json: true
-                        }
-
-                        rp(options)
-                            .then(function(parsedBody) {
-                                var movieList = parsedBody.cast
-
-                                if ( movieList.length == 0) {
-                                    callback(close(sessionAttributes, 'Fulfilled',
-                                    { contentType: 'PlainText', content: 'Found the actor/actress but unable to find any movie with actor' }));
-                                } else {
-                                    callback(close(sessionAttributes, 'Fulfilled',
-                                    { contentType: 'PlainText', content: 'I found a movie called ' + movieList[0].title }));
-                                }
-                            })
-                            .catch(function (err){
-                                callback(close(sessionAttributes, 'Fulfilled',
-                                { contentType: 'PlainText', content: 'Error unable to retrieve the movie list' })); 
-                            });
+                        // tell lex actor/actress name is valid
+                        callback(delegate(sessionAttributes, intentRequest.currentIntent.slots));
                     } else if (parsedBody.total_results > 1) {
                         // multiple actors and actors return
-                        sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'Multiple actors and actress returned')
+                        sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'Multiple actors and actress returned, please enter the actor/actoress name again')
                     } else {
                         // no actors and actress return
-                        sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'No actors or actress is returned')
+                        sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'No actors or actress is returned, , please enter the actor/actoress name again')
                     }  
                 })
                 .catch(function (err) {
@@ -153,15 +160,19 @@ function findMovieByActor(intentRequest, callback) {
 
             return;
         } else {
-            sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'You must provide an actor/actoress name')
+            // tell lex to ask for actor information
+            callback(delegate(sessionAttributes, intentRequest.currentIntent.slots));
             return;
         }
+    } else {
+        // in the case of fulfillment we assume we stored the actorId in sessionAttribute when we validated slot information otherwise return failed fulfillment to user
+        if (sessionAttributes.actorId) {
+            retrieveMovieListByActor(sessionAttributes, callback)
+        } else {
+            callback(close(sessionAttributes, 'Failed',
+            { contentType: 'PlainText', content: 'Failed to find actor and actress' }));
+        }
     }
-
-    //const resultList = getMovieListByActor(actorId);
-
-    callback(close(sessionAttributes, 'Fulfilled',
-    { contentType: 'PlainText', content: 'Thanks, I have placed your reservation.   Please let me know if you would like to book a car rental, or another hotel.' }));
 }
 
  // --------------- Intents -----------------------
