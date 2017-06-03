@@ -86,8 +86,11 @@ function retrieveMovieListByActor(sessionAttributes, callback) {
             { contentType: 'PlainText', content: 'Found the actor/actress but unable to find any movie with actor' }));
         } 
 
-        callback(close(sessionAttributes, 'Fulfilled',
-        { contentType: 'PlainText', content: 'I found a movie called ' + movieList[0].title }));   
+        var msg = { 
+            contentType: 'PlainText',
+            content: 'I found a movie called ' + movieList[0].title + '\n Was this the movie you were looking for ? You can also filter the result by quote and plot'
+        }
+        callback(elicitIntent(sessionAttributes, msg))   
     };
 
     var failHandler = function(err) {
@@ -171,9 +174,26 @@ function findMovieByPlot(intentRequest, callback) {
         // not sure what to valid so tell lex to go to next step
         callback(delegate(sessionAttributes, intentRequest.currentIntent.slots));
     } else {
-        if ('bla' in sessionAttributes) {
-            //for now only actor id in other info
+        if ('actorId' in sessionAttributes) {
+            var successHandler = function(parsedBody) {
+                var movieList = parsedBody.cast
 
+                if ( movieList.length == 0) {
+                    callback(close(sessionAttributes, 'Failed',
+                    { contentType: 'PlainText', content: 'Found the actor/actress but unable to find any movie with actor' }));
+                }
+
+                callback(close(sessionAttributes, 'Fulfilled',
+                { contentType: 'PlainText', content: 'I found a movie called ' + movieList[1].title })); 
+            }
+
+            var failHandler = function(err) {
+                console.log('Error, with: ' + err.message);
+                callback(close(sessionAttributes, 'Failed',
+                { contentType: 'PlainText', content: 'Error unable to retrieve the movie list' })); 
+            }
+
+            tmdbClient.getMovieListByActor(sessionAttributes.actorId, successHandler, failHandler);
         } else {
             var successHandler = function(parsedBody) {
                 if (parsedBody.total_results === 0) {
