@@ -1,5 +1,7 @@
 'use strict';
 
+var wikiQuoteSource = require('WikiQuoteSource');
+
  /**
   * This sample demonstrates an implementation of the Lex Code Hook Interface
   * in order to serve a sample bot which manages reservations for hotel rooms and car rentals.
@@ -78,6 +80,36 @@ function welcome(intentRequest, callback) {
     return;
 }
 
+function findMovie(intentRequest, callback) {
+    const sessionAttributes = intentRequest.sessionAttributes || {};
+    // retrieve slots
+    const quote = intentRequest.currentIntent.slots.MovieQuote;
+
+    // Should be aggregating the source results
+    wikiQuoteSource.getMovies(quote).then((val) => {
+
+        if (val.length > 0) {
+            callback(close(sessionAttributes, 'Fulfilled', {
+                contentType: 'PlainText',
+                content: 'I found a movie matching the quote called ' + val[0].getTitle()
+            }));
+        } else {
+            callback(close(sessionAttributes, 'Failed', {
+                contentType: 'PlainText',
+                content: 'Could not find a movie matching the quote'
+            }));
+        }
+
+    }).catch((reason) => {
+        callback(close(sessionAttributes, 'Failed', {
+            contentType: 'PlainText',
+            content: reason
+        }));
+    });
+
+    return;
+}
+
  // --------------- Intents -----------------------
 
 /**
@@ -92,6 +124,8 @@ function dispatch(intentRequest, callback) {
     // Dispatch to your skill's intent handlers
     if (intentName === 'Welcome') {
         return welcome(intentRequest, callback);
+    } else if (intentName == 'FindMovie') {
+        return findMovie(intentRequest, callback);
     }
     throw new Error(`Intent with name ${intentName} not supported`);
 }
