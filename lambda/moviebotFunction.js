@@ -114,10 +114,30 @@ function findMovieByActor(intentRequest, callback) {
 
                     if (parsedBody.total_results == 1) {
                         // just one actor/actoress matching perfect !
-                        validatioResult = {
-                            isValid : true,
-                            actorId : resultList[0].id
-                        };
+                        const actorId = resultList[0].id
+                        sessionAttributes.actorId = actorId;
+
+                        var options = {
+                            uri : 'https://api.themoviedb.org/3/person/' + actorId + '/movie_credits?api_key=' + apiKey,
+                            json: true
+                        }
+
+                        rp(options)
+                            .then(function(parsedBody) {
+                                var movieList = parsedBody.cast
+
+                                if ( movieList.length == 0) {
+                                    callback(close(sessionAttributes, 'Fulfilled',
+                                    { contentType: 'PlainText', content: 'Found the actor/actress but unable to find any movie with actor' }));
+                                } else {
+                                    callback(close(sessionAttributes, 'Fulfilled',
+                                    { contentType: 'PlainText', content: 'I found a movie called ' + movieList[0].title }));
+                                }
+                            })
+                            .catch(function (err){
+                                callback(close(sessionAttributes, 'Fulfilled',
+                                { contentType: 'PlainText', content: 'Error unable to retrieve the movie list' })); 
+                            });
                     } else if (parsedBody.total_results > 1) {
                         // multiple actors and actors return
                         sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'Multiple actors and actress returned')
