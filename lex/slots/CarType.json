@@ -1,0 +1,13 @@
+{
+    "enumerationValues": [
+        {
+            "value": "Small"
+        }
+    ], 
+    "name": "CarType", 
+    "checksum": "d0afc3ae-7f84-4c4d-b984-2411f4faf929", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1496403025.779, 
+    "createdDate": 1496403025.779, 
+    "description": "moviebot"
+}
