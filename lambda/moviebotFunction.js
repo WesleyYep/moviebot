@@ -1,5 +1,8 @@
 'use strict';
 
+var http = require('http')
+var rp = require('request-promise');
+
  /**
   * This sample demonstrates an implementation of the Lex Code Hook Interface
   * in order to serve a sample bot which manages reservations for hotel rooms and car rentals.
@@ -35,7 +38,6 @@ function elicitIntent(sessionAttributes, message) {
     };
 }
 
-
 function confirmIntent(sessionAttributes, intentName, slots, message) {
     return {
         sessionAttributes,
@@ -70,12 +72,76 @@ function delegate(sessionAttributes, slots) {
 }
 
 function welcome(intentRequest, callback) {
-    // const slots = intentRequest.currentIntent.slots;
-    // const pickUpCity = slots.PickUpCity;
-//    const confirmationStatus = intentRequest.currentIntent.confirmationStatus;
     const sessionAttributes = intentRequest.sessionAttributes || {};
     callback(elicitIntent(sessionAttributes, { contentType: 'PlainText', content: 'Welcome to movie bot' }));
     return;
+}
+
+function sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, violatedSlot, messageContent) {
+    const intentName = intentRequest.currentIntent.name;
+    const slots = intentRequest.currentIntent.slots;
+
+    var message = { contentType: 'PlainText', content: messageContent };
+    
+    slots[`${violatedSlot}`] = null;
+    callback(elicitSlot(sessionAttributes, intentName, slots, violatedSlot, message));
+    return
+}
+
+function findMovieByActor(intentRequest, callback) {
+    const sessionAttributes = intentRequest.sessionAttributes || {};
+    const slots = intentRequest.currentIntent.slots;
+
+    var actorId = null;
+    var validationResult = null;
+
+    // validate user input
+    if (intentRequest.invocationSource === 'DialogCodeHook') {
+        const actorName = slots.Actor;
+        const apiKey = process.env.TMDB_KEY;
+
+        if (actorName) {
+            var options = {
+                uri : 'http://api.themoviedb.org/3/search/person?api_key=' + apiKey + '&query=' + actorName,
+                json: true
+            }
+            //first retrieve the person id
+            var validatioResult = null;
+
+            rp(options)
+                .then(function(parsedBody) {
+                    var resultList = parsedBody.results;
+
+                    if (parsedBody.total_results == 1) {
+                        // just one actor/actoress matching perfect !
+                        validatioResult = {
+                            isValid : true,
+                            actorId : resultList[0].id
+                        };
+                    } else if (parsedBody.total_results > 1) {
+                        // multiple actors and actors return
+                        sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'Multiple actors and actress returned')
+                    } else {
+                        // no actors and actress return
+                        sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'No actors or actress is returned')
+                    }  
+                })
+                .catch(function (err) {
+                    console.log('Error, with: ' + err.message);
+                    sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'Unable validate this actor')
+                });
+
+            return;
+        } else {
+            sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'You must provide an actor/actoress name')
+            return;
+        }
+    }
+
+    //const resultList = getMovieListByActor(actorId);
+
+    callback(close(sessionAttributes, 'Fulfilled',
+    { contentType: 'PlainText', content: 'Thanks, I have placed your reservation.   Please let me know if you would like to book a car rental, or another hotel.' }));
 }
 
  // --------------- Intents -----------------------
@@ -92,6 +158,8 @@ function dispatch(intentRequest, callback) {
     // Dispatch to your skill's intent handlers
     if (intentName === 'Welcome') {
         return welcome(intentRequest, callback);
+    } else if (intentName === 'FindMovieByActor') {
+        return findMovieByActor(intentRequest, callback);
     }
     throw new Error(`Intent with name ${intentName} not supported`);
 }
@@ -107,19 +175,8 @@ function loggingCallback(response, originalCallback) {
 // The JSON body of the request is provided in the event slot.
 exports.handler = (event, context, callback) => {
     try {
-        // By default, treat the user request as coming from the America/New_York time zone.
-        process.env.TZ = 'America/New_York';
         console.log(`event.bot.name=${event.bot.name}`);
 
-        /**
-         * Uncomment this if statement and populate with your Lex bot name, alias and / or version as
-         * a sanity check to prevent invoking this Lambda function from an undesired source.
-         */
-        /*
-        if (event.bot.name != 'BookTrip') {
-             callback('Invalid Bot Name');
-        }
-        */
         dispatch(event, (response) => loggingCallback(response, callback));
     } catch (err) {
         callback(err);
