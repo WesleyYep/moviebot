@@ -1,18 +1,18 @@
 {
-    "status": "READY", 
+    "status": "BUILDING", 
     "intents": [
         {
-            "intentVersion": "6", 
+            "intentVersion": "$LATEST", 
             "intentName": "SeeMovie"
         }, 
         {
-            "intentVersion": "5", 
+            "intentVersion": "$LATEST", 
             "intentName": "Welcome"
         }
     ], 
     "name": "MovieBot", 
     "locale": "en-US", 
-    "checksum": "173e6e24-61ce-4cf4-a413-943c3476924d", 
+    "checksum": "edf1d22c-39a6-4ebd-b467-fb67bbc0aab0", 
     "abortStatement": {
         "messages": [
             {
@@ -22,8 +22,8 @@
         ]
     }, 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1496313932.014, 
-    "createdDate": 1496051600.872, 
+    "lastUpdatedDate": 1496444103.171, 
+    "createdDate": 1496444103.171, 
     "clarificationPrompt": {
         "maxAttempts": 5, 
         "messages": [

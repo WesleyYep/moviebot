@@ -40,7 +40,10 @@ EOF
 
 ## DEPLOY ##
 elif [ "$1" = "deploy" ]; then
-    echo deploying lex dev
+    # get link to lambda
+    echo "checking for lambda function moviebotFunction..."
+    aws lambda get-function --function-name moviebotFunction > lambda/moviebotFunction.json
+
     name=MovieBot
 
     # Find bot to update
@@ -53,9 +56,11 @@ delete data.lastUpdatedDate;
 delete data.checksum;
 data['processBehavior'] = "BUILD";
 data['name'] = '${name}';
-data.intents.forEach((i) => {
-    i.intentVersion = "\$LATEST";
-})
+if (data.intents) {
+    data.intents.forEach((i) => {
+        i.intentVersion = "\$LATEST";
+    })
+}
 console.log(JSON.stringify(data));
 EOF
     # delete existing bot
@@ -93,8 +98,9 @@ delete data.lastUpdatedDate;
 delete data.checksum;
 console.log(JSON.stringify(data));
 EOF
-        echo updating slot $slotName
+        echo deleting slot $slotName
         aws lex-models delete-slot-type --name $slotName
+        echo updating slot $slotName
         aws lex-models put-slot-type --name $slotName --cli-input-json file://lex/slots/out_tempSlot.json
 
     done
@@ -107,13 +113,19 @@ EOF
         intentName=$(tr -dc '[[:print:]]' <<< "$intentName") # remove non-printed chars        
         node > lex/intents/out_tempIntent.json <<EOF
 var data = require('./lex/intents/${intentName}.json');
+var lambdaData = require('./lambda/moviebotFunction.json');
 delete data.createdDate;
 delete data.version;
 delete data.lastUpdatedDate;
 delete data.checksum;
-data.slots.forEach((s) => {
-    s.slotTypeVersion = "\$LATEST";
-})
+if (data.slots) {
+    data.slots.forEach((s) => {
+        s.slotTypeVersion = "\$LATEST";
+    })
+}
+if (data.fulfillmentActivity.type === "CodeHook") {
+    data.fulfillmentActivity.codeHook.uri = lambdaData.Configuration.FunctionArn;
+}
 console.log(JSON.stringify(data));
 EOF
         echo updating intent $intentName
