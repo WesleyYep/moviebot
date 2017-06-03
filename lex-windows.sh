@@ -42,7 +42,7 @@ EOF
 elif [ "$1" = "deploy" ]; then
     # get link to lambda
     echo "checking for lambda function moviebotFunction..."
-    aws lambda get-function --function-name moviebotFunction > lambda/moviebotFunction.json
+    aws lambda get-function --function-name moviebotFunction > lambda/.temp_moviebotFunction.json
 
     name=MovieBot
 
@@ -113,7 +113,7 @@ EOF
         intentName=$(tr -dc '[[:print:]]' <<< "$intentName") # remove non-printed chars        
         node > lex/intents/out_tempIntent.json <<EOF
 var data = require('./lex/intents/${intentName}.json');
-var lambdaData = require('./lambda/moviebotFunction.json');
+var lambdaData = require('./lambda/.temp_moviebotFunction.json');
 delete data.createdDate;
 delete data.version;
 delete data.lastUpdatedDate;
@@ -132,6 +132,7 @@ EOF
         aws lex-models put-intent --name $intentName --cli-input-json file://lex/intents/out_tempIntent.json
     done
 
+    rm ./lambda/.temp_moviebotFunction.json
 
     # update bot
     echo updating MovieBot
