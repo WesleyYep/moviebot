@@ -12,11 +12,15 @@
         {
             "intentVersion": "8", 
             "intentName": "FindMovieByActor"
+        }, 
+        {
+            "intentVersion": "2", 
+            "intentName": "FindMovieByPlot"
         }
     ], 
     "name": "MovieBot", 
     "locale": "en-US", 
-    "checksum": "a6793488-dc29-4cfd-bad0-108dc8bb79fc", 
+    "checksum": "67d10396-d68f-420a-9fe0-b7ca2a259b86", 
     "abortStatement": {
         "messages": [
             {
@@ -26,7 +30,7 @@
         ]
     }, 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1496463557.907, 
+    "lastUpdatedDate": 1496490382.515, 
     "createdDate": 1496456341.042, 
     "clarificationPrompt": {
         "maxAttempts": 5, 
