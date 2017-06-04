@@ -60,5 +60,10 @@ typings/
 # dotenv environment variables file
 .env
 
+
 # zip file
 .zip
+
+# vscode
+**/.vscode
+
