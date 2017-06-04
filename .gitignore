@@ -62,7 +62,7 @@ typings/
 
 
 # zip file
-.zip
+*.zip
 
 # vscode
 **/.vscode
