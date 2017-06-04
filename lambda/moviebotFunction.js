@@ -1,7 +1,9 @@
 'use strict';
 
+
 var rp = require('request-promise');
 var tmdbClient = require('tmdbClient');
+var wikiQuoteSource = require('WikiQuoteSource');
 
  /**
   * This sample demonstrates an implementation of the Lex Code Hook Interface
@@ -223,6 +225,36 @@ function findMovieByPlot(intentRequest, callback) {
     return
 }
 
+function findMovie(intentRequest, callback) {
+    const sessionAttributes = intentRequest.sessionAttributes || {};
+    // retrieve slots
+    const quote = intentRequest.currentIntent.slots.MovieQuote;
+
+    // Should be aggregating the source results
+    wikiQuoteSource.getMovies(quote).then((val) => {
+
+        if (val.length > 0) {
+            callback(close(sessionAttributes, 'Fulfilled', {
+                contentType: 'PlainText',
+                content: 'I found a movie matching the quote called ' + val[0].getTitle()
+            }));
+        } else {
+            callback(close(sessionAttributes, 'Failed', {
+                contentType: 'PlainText',
+                content: 'Could not find a movie matching the quote'
+            }));
+        }
+
+    }).catch((reason) => {
+        callback(close(sessionAttributes, 'Failed', {
+            contentType: 'PlainText',
+            content: reason
+        }));
+    });
+
+    return;
+}
+
  // --------------- Intents -----------------------
 
 /**
@@ -241,6 +273,8 @@ function dispatch(intentRequest, callback) {
         return findMovieByActor(intentRequest, callback);
     } else if (intentName === 'FindMovieByPlot') {
         return findMovieByPlot(intentRequest, callback);
+    } else if (intentName == 'FindMovie') {
+        return findMovie(intentRequest, callback);
     }
     throw new Error(`Intent with name ${intentName} not supported`);
 }
