@@ -127,12 +127,17 @@ delete data.version;
 delete data.lastUpdatedDate;
 delete data.checksum;
 if (data.slots) {
-    data.slots.forEach((s) => {
+    data.slots.filter((s) => {
+        return !s.slotType.startsWith("AMAZON");
+    }).forEach((s) => {
         s.slotTypeVersion = "\$LATEST";
     })
 }
 if (data.fulfillmentActivity.type === "CodeHook") {
     data.fulfillmentActivity.codeHook.uri = lambdaData.Configuration.FunctionArn;
+}
+if (data.dialogCodeHook) {
+    data.dialogCodeHook.uri = lambdaData.Configuration.FunctionArn;
 }
 console.log(JSON.stringify(data));
 EOF
