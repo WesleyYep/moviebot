@@ -12,8 +12,8 @@ Chatbot for movies
 
 ## Deploying
 - `aws lambda add-permission --function-name moviebotFunction --statement-id 1111 --action lambda:InvokeFunction --principal lex.amazonaws.com` to allow invoke function for lex - this only needs to be called once
-- `sh lambda-windows.sh`
-- `sh lex-windows.sh [save/deploy]`
+- `sh lambda.sh`
+- `sh lex.sh [save/deploy]`
 - lex has the option to save (get config from AWS) or deploy (push config to AWS)
 - lambda is deploy only - as it's easier to make changes locally anyway using an IDE (eg. VS code/sublime)
 - slots used in moviebot must have a description starting with "moviebot" so that they can be detected as relevant
