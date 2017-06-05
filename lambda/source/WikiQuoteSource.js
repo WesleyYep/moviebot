@@ -1,7 +1,7 @@
 'use strict';
 
 var rp = require('request-promise');
-var movieBuilder = require('Movie');
+var movieBuilder = require('../model/Movie');
 
 // This returns a promise. Async operation.
 var getMovies = function(quote) {
