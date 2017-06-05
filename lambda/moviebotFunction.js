@@ -1,9 +1,8 @@
 'use strict';
 
-
 var rp = require('request-promise');
-var tmdbClient = require('tmdbClient');
-var wikiQuoteSource = require('WikiQuoteSource');
+var tmdbClient = require('source/tmdbSource');
+var wikiQuoteSource = require('source/WikiQuoteSource');
 
  /**
   * This sample demonstrates an implementation of the Lex Code Hook Interface
@@ -80,28 +79,22 @@ function welcome(intentRequest, callback) {
 }
 
 function retrieveMovieListByActor(sessionAttributes, callback) {
-    var successHandler = function(parsedBody) {
-        var movieList = parsedBody.cast
 
-        if ( movieList.length == 0) {
-            callback(close(sessionAttributes, 'Failed',
-            { contentType: 'PlainText', content: 'Found the actor/actress but unable to find any movie with actor' }));
-        } 
+    const actorId = sessionAttributes.actorId;
 
-        var msg = { 
+    tmdbClient.getMovieListByActor(actorId).then(function(val) {
+        var msg = {
             contentType: 'PlainText',
-            content: 'I found a movie called ' + movieList[0].title + '\n Was this the movie you were looking for ? You can also filter the result by quote and plot'
-        }
-        callback(elicitIntent(sessionAttributes, msg))   
-    };
+            content: 'I found a movie called ' + val[0].getTitle() + '\n Was this the movie you were looking for ? You can also filter the result by quote and plot'
+        };
+        callback(elicitIntent(sessionAttributes, msg));
+    }).catch(function(err) {
+        callback(close(sessionAttributes, 'Failed', {
+            contentType: 'PlainText',
+            content: err
+        }))
+    });
 
-    var failHandler = function(err) {
-        callback(close(sessionAttributes, 'Failed',
-        { contentType: 'PlainText', content: 'Error unable to retrieve the movie list' })); 
-    };
-
-    const actorId = sessionAttributes.actorId
-    tmdbClient.getMovieListByActor(actorId, successHandler, failHandler);
     return;
 }
 
@@ -125,30 +118,15 @@ function findMovieByActor(intentRequest, callback) {
         const actorName = slots.Actor;
 
         if (actorName) {
-            var successHandler = function(parsedBody) {
-                var resultList = parsedBody.results;
 
-                if (parsedBody.total_results == 1) {
-                    // just one actor/actress matching perfect !
-                    sessionAttributes.actorId = resultList[0].id;
-
-                    // tell lex actor/actress name is valid
+            tmdbClient.getActor(actorName)
+                .then(function(val) {
+                    // update session attributes actorId
+                    sessionAttributes.actorId = val;
                     callback(delegate(sessionAttributes, intentRequest.currentIntent.slots));
-                } else if (parsedBody.total_results > 1) {
-                    // multiple actors and actors return
-                    sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'Multiple actors and actress returned, please enter the actor/actress name again')
-                } else {
-                    // no actors and actress return
-                    sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'No actors or actress is returned, , please enter the actor/actress name again')
-                } 
-            };
-
-            var failHandler = function(err) {
-                console.log('Error, with: ' + err.message);
-                sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', 'Unable validate this actor')
-            };
-
-            tmdbClient.getActor(actorName, successHandler, failHandler);
+                }).catch(function(err) {
+                    sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', err);
+                });
 
             return;
         } else {
@@ -177,52 +155,37 @@ function findMovieByPlot(intentRequest, callback) {
         callback(delegate(sessionAttributes, intentRequest.currentIntent.slots));
     } else {
         if ('actorId' in sessionAttributes) {
-            var successHandler = function(parsedBody) {
-                var movieList = parsedBody.cast
-
-                if ( movieList.length == 0) {
-                    callback(close(sessionAttributes, 'Failed',
-                    { contentType: 'PlainText', content: 'Found the actor/actress but unable to find any movie with actor' }));
-                }
-
-                callback(close(sessionAttributes, 'Fulfilled',
-                { contentType: 'PlainText', content: 'I found a movie called ' + movieList[1].title })); 
-            }
-
-            var failHandler = function(err) {
-                console.log('Error, with: ' + err.message);
-                callback(close(sessionAttributes, 'Failed',
-                { contentType: 'PlainText', content: 'Error unable to retrieve the movie list' })); 
-            }
-
-            tmdbClient.getMovieListByActor(sessionAttributes.actorId, successHandler, failHandler);
+            tmdbClient.getMovieListByActor(sessionAttributes.actorId).then(function(val) {
+                const firstMovieTitle = val[1].getTitle();
+                callback(close(sessionAttributes, 'Fulfilled', {
+                    contentType: 'PlainText',
+                    content: 'I found a movie called ' + firstMovieTitle
+                }))
+            }).catch(function(err) {
+                callback(close(sessionAttributes, 'Failed', {
+                    contentType: 'PlainText',
+                    content: err
+                }))
+            });
         } else {
-            var successHandler = function(parsedBody) {
-                if (parsedBody.total_results === 0) {
-                    callback(close(sessionAttributes, 'Failed',
-                    { contentType: 'PlainText', content: 'Unable to find any movie matching the given plot description' }));
-
-                    return;
-                }
-
+            tmdbClient.searchMovie(plotDescription).then(function(val) {
                 sessionAttributes.plotDescription = plotDescription;
+                const movieTitle = val[0].getTitle();
 
-                var resultsList = parsedBody.results;
-                callback(close(sessionAttributes, 'Fulfilled',
-                { contentType: 'PlainText', content: 'I found a movie called ' + resultsList[0].title }));    
-            }
-
-            var failHandler = function(err) {
-                console.log('Error, with: ' + err.message);
-                callback(close(sessionAttributes, 'Failed',
-                { contentType: 'PlainText', content: 'Error unable to retrieve the movie list' })); 
-            }
-
-            tmdbClient.searchMovie(plotDescription, successHandler, failHandler)
+                callback(close(sessionAttributes, 'Fulfilled', {
+                    contentType: 'PlainText',
+                    content: 'I found a movie called ' + movieTitle
+                }))
+            }).catch(function(err) {
+                callback(close(sessionAttributes, 'Failed', {
+                    contentType: 'PlainText',
+                    content: err
+                }))
+            });
         }
     }
 
-    return
+    return;
 }
 
 function findMovie(intentRequest, callback) {

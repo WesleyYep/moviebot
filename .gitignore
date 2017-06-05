@@ -67,3 +67,5 @@ typings/
 # vscode
 **/.vscode
 
+# temp
+**/out_*.json
