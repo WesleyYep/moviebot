@@ -188,7 +188,7 @@ function findMovieByPlot(intentRequest, callback) {
     return;
 }
 
-function findMovie(intentRequest, callback) {
+function findMovieOld(intentRequest, callback) {
     const sessionAttributes = intentRequest.sessionAttributes || {};
     // retrieve slots
     const quote = intentRequest.currentIntent.slots.MovieQuote;
@@ -218,6 +218,28 @@ function findMovie(intentRequest, callback) {
     return;
 }
 
+function findMovie(intentRequest, callback) {
+    const sessionAttributes = intentRequest.sessionAttributes || {};
+    const slots = intentRequest.slots;
+
+    movieFinder.find(slots, sessionAttributes).then((singleMovieList) => {
+        //movieFinder will return a list of movie result
+        callback(close(sessionAttributes, 'Fulfilled', {
+            contentType: 'PlainText',
+            content: 'I found a movie matching the quote called ' + singleMovieList[0].getTitle()
+        }));
+    }).catch((err) => {
+        //error object structure
+        if (err.type === "Validation") {
+
+        } else if (err.type == "NotFound" ) {
+
+        } else {
+
+        }
+    });
+}
+
  // --------------- Intents -----------------------
 
 /**
@@ -232,10 +254,6 @@ function dispatch(intentRequest, callback) {
     // Dispatch to your skill's intent handlers
     if (intentName === 'Welcome') {
         return welcome(intentRequest, callback);
-    } else if (intentName === 'FindMovieByActor') {
-        return findMovieByActor(intentRequest, callback);
-    } else if (intentName === 'FindMovieByPlot') {
-        return findMovieByPlot(intentRequest, callback);
     } else if (intentName == 'FindMovie') {
         return findMovie(intentRequest, callback);
     }
