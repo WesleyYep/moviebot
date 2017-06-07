@@ -1,16 +1,17 @@
+var sourceDispatcher = require('dispatcher/SourceDispatcher');
+var aggregator = require('aggregator/IntersectionAggregator');
+
 var find = function(slots, sessionAttributes) {
     queryInfo = {
-        slots : slots,
+        slots: slots,
         sessionAttributes: sessionAttributes
     };
 
     return new Promise(function(resolve, reject) {
         validateSlots(queryInfo)
-        .then(findMovieFromSources(queryInfo))
-        .then(processMovieList(movieLists))
-        .then((singleMovieList) => {
-            resolve(singleMovieList);
-        })
+        .then(() => findMovieFromSources(queryInfo))
+        .then((movieLists) => processMovieLists(movieLists))
+        .then((singleMovieList) => resolve(singleMovieList))
         .catch((err) => {
             reject(err);
         });
@@ -27,23 +28,38 @@ var find = function(slots, sessionAttributes) {
  */
 function validateSlots(queryInfo) {
     return new Promise(function(resolve, reject){
-
+        resolve(queryInfo);
     });
 }
 
+/**
+ * Finds movies from the sources based on the provided queryInfo
+ * @param {*} queryInfo 
+ */
 function findMovieFromSources(queryInfo) {
+    console.log("Finding movie from sources");
     return new Promise(function(resolve, reject) {
-
+        sourceDispatcher.dispatch(queryInfo).then((movies) => {
+            console.log("Received movies from sources");
+            console.log(movies);
+            resolve(movies);
+        }).catch((err) => {
+            reject(err);
+        });
     });
 }
 
 
 function processMovieLists(movieLists) {
-    return new Promise(function(resolve, reject){
-
+    console.log("Processing movie list");
+    return new Promise(function(resolve, reject) {
+        const movieList = aggregator.aggregate(movieLists);
+        console.log("Aggregated movies");
+        console.log(movieList);
+        resolve(movieList);
     });
 }
 
-modules.exports = {
+module.exports = {
     find : find
 }

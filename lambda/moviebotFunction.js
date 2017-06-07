@@ -3,6 +3,7 @@
 var rp = require('request-promise');
 var tmdbClient = require('source/tmdbSource');
 var wikiQuoteSource = require('source/WikiQuoteSource');
+var movieFinder = require('movieFinder');
 
  /**
   * This sample demonstrates an implementation of the Lex Code Hook Interface
@@ -220,7 +221,7 @@ function findMovieOld(intentRequest, callback) {
 
 function findMovie(intentRequest, callback) {
     const sessionAttributes = intentRequest.sessionAttributes || {};
-    const slots = intentRequest.slots;
+    const slots = intentRequest.currentIntent.slots;
 
     movieFinder.find(slots, sessionAttributes).then((singleMovieList) => {
         //movieFinder will return a list of movie result
