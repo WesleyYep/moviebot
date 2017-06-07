@@ -7,7 +7,7 @@ var find = function(slots, sessionAttributes) {
     return new Promise(function(resolve, reject) {
         validateSlots(queryInfo)
         .then(findMovieFromSources(queryInfo))
-        .then(procesMovieList(movieLists))
+        .then(processMovieList(movieLists))
         .then((singleMovieList) => {
             resolve(singleMovieList);
         })
