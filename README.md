@@ -18,3 +18,7 @@ Chatbot for movies
 - lambda is deploy only - as it's easier to make changes locally anyway using an IDE (eg. VS code/sublime)
 - slots used in moviebot must have a description starting with "moviebot" so that they can be detected as relevant
 - IMPORTANT: make sure no other bots use the slots/intents used by moviebot
+
+## Running workers
+`nohup node movieWorker.js > err.out 2>&1 &`
+`nohup node wikipediaWorker.js > err.out 2>&1 &`
