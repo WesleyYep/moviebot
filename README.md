@@ -20,5 +20,5 @@ Chatbot for movies
 - IMPORTANT: make sure no other bots use the slots/intents used by moviebot
 
 ## Running workers
-`nohup node movieWorker.js > err.out 2>&1 &`
+`nohup node movieWorker.js > err.out 2>&1 &`  
 `nohup node wikipediaWorker.js > err.out 2>&1 &`
