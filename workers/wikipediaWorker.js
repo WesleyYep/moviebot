@@ -9,7 +9,7 @@ var logger = fs.createWriteStream('err.txt', {
 })
 
 var DEBUG = true;
-var init = 0;
+var init = 119420;
 var max = 400000;
 
 for (var i = init; i <= max; i++) {
@@ -22,7 +22,7 @@ for (var i = init; i <= max; i++) {
             if (DEBUG) { console.log('error:', error); }// Print the error if one occurred
             if (DEBUG) { console.log('statusCode:', response && response.statusCode); }// Print the response status code if a response was received
 
-            if (response.statusCode === 200) {
+            if (response && response.statusCode === 200) {
                 var data = JSON.parse(response.body);
                 var title = data.title;
                 var year = parseInt(data.release_date.split("-")[0]);
@@ -30,16 +30,16 @@ for (var i = init; i <= max; i++) {
                 var queryString = title + " " + year + ' film';
                 if (DEBUG) { console.log('search wikipedia for title: ' + queryString); }
                 
-                request('https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=' + queryString, function (error, response, body) {
-                    if (response.statusCode === 200) {
-                        var data = JSON.parse(response.body);
-                        if (data.query.search[0]) {
+                request('https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=' + queryString, function (error, wikiResponse, body) {
+                    if (wikiResponse && wikiResponse.statusCode === 200) {
+                        var data = JSON.parse(wikiResponse.body);
+                        if (data.query && data.query.search[0]) {
                             var title = data.query.search[0].title;
                             if (DEBUG) { console.log("searching for wikipedia page: " + title); }
-                            request('https://en.wikipedia.org/w/api.php?format=json&redirects=1&indexpageids&action=query&prop=extracts&exintro=&explaintext=&titles=' + title, function (error, response, body) {
-                                if (response.statusCode === 200) {
-                                    var data = JSON.parse(response.body);
-                                    if (data.query.pageids[0] && data.query.pages[data.query.pageids[0]]) {
+                            request('https://en.wikipedia.org/w/api.php?format=json&redirects=1&indexpageids&action=query&prop=extracts&exintro=&explaintext=&titles=' + title, function (error, wikiResponse2, body) {
+                                if (wikiResponse2 && wikiResponse2.statusCode === 200) {
+                                    var data = JSON.parse(wikiResponse2.body);
+                                    if (data.query && data.query.pageids[0] && data.query.pages[data.query.pageids[0]]) {
                                         var intro = data.query.pages[data.query.pageids[0]].extract
                                         if (DEBUG) { console.log(intro); }
                                         requestPlot(title, intro);
@@ -67,9 +67,9 @@ for (var i = init; i <= max; i++) {
 
 requestPlot = (title, intro) => {
     request('https://en.wikipedia.org/w/api.php?format=json&redirects=1&indexpageids&action=query&prop=extracts&explaintext=&titles=' + title, function (error, response, body) {
-        if (response.statusCode === 200) {
+        if (response && response.statusCode === 200) {
             var data = JSON.parse(response.body);
-            if (data.query.pageids[0] && data.query.pages[data.query.pageids[0]]) {
+            if (data.query && data.query.pageids[0] && data.query.pages[data.query.pageids[0]]) {
                 var pageText = data.query.pages[data.query.pageids[0]].extract
                 var pattern = /== (Plot|PlotEdit) ==\n([\S\s]*?)\n\n\n/g;
                 var match = pattern.exec(pageText);
@@ -99,7 +99,7 @@ sendToElastic = (title, plot, intro) => {
             if (DEBUG) { console.log('error:', elasticError); } // Print the error if one occurred
             if (DEBUG) { console.log('statusCode:', elasticResponse && elasticResponse.statusCode); } // Print the response status code if a response was received
             if (DEBUG) { console.log(elasticResponse.body); }
-            if (elasticResponse.statusCode !== 200 && elasticResponse.statusCode !== 201) {
+            if (elasticResponse && elasticResponse.statusCode !== 200 && elasticResponse.statusCode !== 201) {
                 logger.write("Error sending to elastic" + "\n");
                 logger.write(elasticResponse.statusCode + "\n");        
                 logger.write(JSON.stringify(elasticError) + "\n"); 
