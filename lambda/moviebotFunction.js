@@ -52,14 +52,15 @@ function confirmIntent(sessionAttributes, intentName, slots, message) {
     };
 }
 
-function close(sessionAttributes, fulfillmentState, message) {
+function close(sessionAttributes, fulfillmentState, message, responseCard) {
     return {
         sessionAttributes,
         dialogAction: {
             type: 'Close',
             fulfillmentState,
             message,
-        },
+            responseCard
+        }
     };
 }
 
@@ -71,6 +72,18 @@ function delegate(sessionAttributes, slots) {
             slots,
         },
     };
+}
+
+function movieToResponseCards(movieList) {
+    return {
+        contentType: "application/vnd.amazonaws.card.generic",
+        genericAttachments: movieList.slice(0, 10).map(movie => {
+            return {
+                title: movie.getTitle(),
+                imageUrl: "https://images-na.ssl-images-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_UY1200_CR90,0,630,1200_AL_.jpg"
+            }
+        })
+    }
 }
 
 function welcome(intentRequest, callback) {
@@ -227,8 +240,8 @@ function findMovie(intentRequest, callback) {
         //movieFinder will return a list of movie result
         callback(close(sessionAttributes, 'Fulfilled', {
             contentType: 'PlainText',
-            content: 'I found a movie matching the quote called ' + singleMovieList[0].getTitle()
-        }));
+            content: 'There are ' + singleMovieList.length + ' matching movies'
+        }, movieToResponseCards(singleMovieList)));
     }).catch((err) => {
         //error object structure
         if (err.type === "Validation") {
@@ -256,6 +269,8 @@ function dispatch(intentRequest, callback) {
     if (intentName === 'Welcome') {
         return welcome(intentRequest, callback);
     } else if (intentName == 'FindMovie') {
+        return findMovie(intentRequest, callback);
+    } else if (intentName == 'FindMovieByQuote') {
         return findMovie(intentRequest, callback);
     }
     throw new Error(`Intent with name ${intentName} not supported`);

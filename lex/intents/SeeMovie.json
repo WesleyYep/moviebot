@@ -1,38 +1,38 @@
 {
-    "name": "SeeMovie", 
-    "checksum": "d52a4b00-aa49-4aa6-9caf-f83696ff9cf8", 
-    "version": "$LATEST", 
-    "lastUpdatedDate": 1496458326.228, 
-    "createdDate": 1496456336.05, 
-    "sampleUtterances": [
-        "I want to watch a movie at {MovieLocation}", 
-        "I want to go to the movies at {MovieLocation}", 
-        "I would like to go to the movies in {MovieLocation}", 
-        "I'd like to go to the cinema", 
-        "I would like to go to the {MovieLocation} cinemas", 
-        "I want to go to the {MovieLocation} cinema", 
-        "I want to see a movie"
-    ], 
+    "name": "SeeMovie",
     "slots": [
         {
-            "slotType": "MovieLocationsAuckland", 
-            "name": "MovieLocation", 
-            "slotConstraint": "Required", 
+            "name": "MovieLocation",
+            "slotConstraint": "Required",
+            "slotType": "MovieLocationsAuckland",
+            "slotTypeVersion": "1",
             "valueElicitationPrompt": {
-                "maxAttempts": 2, 
                 "messages": [
                     {
-                        "content": "Which cinema do you wish to go to?", 
-                        "contentType": "PlainText"
+                        "contentType": "PlainText",
+                        "content": "Which cinema do you wish to go to?"
                     }
-                ]
-            }, 
-            "priority": 1, 
-            "slotTypeVersion": "1", 
+                ],
+                "maxAttempts": 2
+            },
+            "priority": 1,
             "sampleUtterances": []
         }
-    ], 
+    ],
+    "sampleUtterances": [
+        "I want to watch a movie at {MovieLocation}",
+        "I want to go to the movies at {MovieLocation}",
+        "I would like to go to the movies in {MovieLocation}",
+        "I'd like to go to the cinema",
+        "I would like to go to the {MovieLocation} cinemas",
+        "I want to go to the {MovieLocation} cinema",
+        "I want to see a movie"
+    ],
     "fulfillmentActivity": {
         "type": "ReturnIntent"
-    }
+    },
+    "lastUpdatedDate": 1497164428.739,
+    "createdDate": 1496572604.607,
+    "version": "$LATEST",
+    "checksum": "a3189d5d-87ee-416c-a021-e254be0bb987"
 }

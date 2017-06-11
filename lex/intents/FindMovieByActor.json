@@ -1,41 +1,41 @@
 {
-    "dialogCodeHook": {
-        "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
-        "messageVersion": "1.0"
-    }, 
-    "name": "FindMovieByActor", 
-    "checksum": "78a1887d-ef18-4115-b78b-d01fd4ccb0aa", 
-    "version": "$LATEST", 
-    "lastUpdatedDate": 1496463516.358, 
-    "createdDate": 1496314815.728, 
-    "sampleUtterances": [
-        "actor", 
-        "find movie by actor", 
-        "I want to find movie that has         {Actor} in it"
-    ], 
+    "name": "FindMovieByActor",
     "slots": [
         {
-            "slotType": "AMAZON.Actor", 
-            "name": "Actor", 
-            "slotConstraint": "Required", 
+            "name": "Actor",
+            "slotConstraint": "Required",
+            "slotType": "AMAZON.Actor",
             "valueElicitationPrompt": {
-                "maxAttempts": 2, 
                 "messages": [
                     {
-                        "content": "Please provide an actor/actoress name", 
-                        "contentType": "PlainText"
+                        "contentType": "PlainText",
+                        "content": "Please provide an actor/actoress name"
                     }
-                ]
-            }, 
-            "priority": 1, 
+                ],
+                "maxAttempts": 2
+            },
+            "priority": 1,
             "sampleUtterances": []
         }
-    ], 
+    ],
+    "sampleUtterances": [
+        "actor",
+        "find movie by actor",
+        "I want to find movie that has         {Actor} in it"
+    ],
+    "dialogCodeHook": {
+        "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
+        "messageVersion": "1.0"
+    },
     "fulfillmentActivity": {
-        "type": "CodeHook", 
+        "type": "CodeHook",
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
+            "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
             "messageVersion": "1.0"
         }
-    }
+    },
+    "lastUpdatedDate": 1497158471.152,
+    "createdDate": 1497158471.152,
+    "version": "$LATEST",
+    "checksum": "ee431ae7-6e67-41cb-b829-e73b97d561c8"
 }
