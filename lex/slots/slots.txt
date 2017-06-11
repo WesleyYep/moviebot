@@ -1,4 +1,5 @@
 CarType
 MovieLocationsAuckland
+MovieQuote
 PlotDescription
 TestSlot
