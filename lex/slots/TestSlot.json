@@ -1,13 +1,13 @@
 {
+    "name": "TestSlot",
+    "description": "moviebot",
     "enumerationValues": [
         {
             "value": "test"
         }
-    ], 
-    "name": "TestSlot", 
-    "checksum": "f91bc55b-3c65-4486-bc19-b3aaea085edc", 
-    "version": "$LATEST", 
-    "lastUpdatedDate": 1496456333.752, 
-    "createdDate": 1496456333.752, 
-    "description": "moviebot"
+    ],
+    "lastUpdatedDate": 1497158466.257,
+    "createdDate": 1497158466.257,
+    "version": "$LATEST",
+    "checksum": "b1d4bb8f-e54f-4f40-a8ea-affdac88fb9f"
 }
