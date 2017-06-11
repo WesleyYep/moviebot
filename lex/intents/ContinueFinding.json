@@ -1,0 +1,16 @@
+{
+    "name": "ContinueFinding", 
+    "checksum": "dbab61e0-c180-4cf9-acec-ce8f3a1e3992", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1497171378.548, 
+    "createdDate": 1497167883.713, 
+    "sampleUtterances": [], 
+    "slots": [], 
+    "fulfillmentActivity": {
+        "type": "CodeHook", 
+        "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
+            "messageVersion": "1.0"
+        }
+    }
+}

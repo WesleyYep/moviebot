@@ -1,9 +1,9 @@
 {
     "name": "SeeMovie", 
-    "checksum": "d52a4b00-aa49-4aa6-9caf-f83696ff9cf8", 
+    "checksum": "8e3c064e-7fc9-499e-8b13-10a2dfb29613", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1496458326.228, 
-    "createdDate": 1496456336.05, 
+    "lastUpdatedDate": 1496737844.476, 
+    "createdDate": 1496653852.202, 
     "sampleUtterances": [
         "I want to watch a movie at {MovieLocation}", 
         "I want to go to the movies at {MovieLocation}", 

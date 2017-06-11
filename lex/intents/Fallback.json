@@ -1,0 +1,32 @@
+{
+    "name": "Fallback", 
+    "checksum": "4da091cc-adab-4852-b53d-f6a31bb3cbf4", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1497138255.332, 
+    "createdDate": 1497137982.646, 
+    "sampleUtterances": [
+        "I think {Something} is in it"
+    ], 
+    "slots": [
+        {
+            "slotType": "Theme", 
+            "name": "Something", 
+            "slotConstraint": "Required", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "Sorry", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 1, 
+            "slotTypeVersion": "2", 
+            "sampleUtterances": []
+        }
+    ], 
+    "fulfillmentActivity": {
+        "type": "ReturnIntent"
+    }
+}
