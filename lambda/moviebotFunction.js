@@ -257,6 +257,8 @@ function dispatch(intentRequest, callback) {
         return welcome(intentRequest, callback);
     } else if (intentName == 'FindMovie') {
         return findMovie(intentRequest, callback);
+    } else if (intentName == 'FindMovieByQuote') {
+        return findMovie(intentRequest, callback);
     }
     throw new Error(`Intent with name ${intentName} not supported`);
 }
