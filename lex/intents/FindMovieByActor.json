@@ -1,8 +1,4 @@
 {
-    "dialogCodeHook": {
-        "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
-        "messageVersion": "1.0"
-    }, 
     "name": "FindMovieByActor", 
     "checksum": "0d4e946e-ad59-4c7c-875e-34b182d79d11", 
     "version": "$LATEST", 
@@ -19,26 +15,30 @@
     ], 
     "slots": [
         {
-            "slotType": "AMAZON.Actor", 
-            "name": "Actor", 
-            "slotConstraint": "Required", 
+            "name": "Actor",
+            "slotConstraint": "Required",
+            "slotType": "AMAZON.Actor",
             "valueElicitationPrompt": {
-                "maxAttempts": 2, 
                 "messages": [
                     {
-                        "content": "Please provide an actor/actoress name", 
-                        "contentType": "PlainText"
+                        "contentType": "PlainText",
+                        "content": "Please provide an actor/actoress name"
                     }
-                ]
-            }, 
-            "priority": 1, 
+                ],
+                "maxAttempts": 2
+            },
+            "priority": 1,
             "sampleUtterances": []
         }
-    ], 
+    ]
+    "dialogCodeHook": {
+        "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
+        "messageVersion": "1.0"
+    },
     "fulfillmentActivity": {
-        "type": "CodeHook", 
+        "type": "CodeHook",
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
+            "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
             "messageVersion": "1.0"
         }
     }

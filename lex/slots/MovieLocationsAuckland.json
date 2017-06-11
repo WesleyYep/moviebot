@@ -1,22 +1,22 @@
 {
+    "name": "MovieLocationsAuckland",
+    "description": "moviebot",
     "enumerationValues": [
         {
             "value": "city"
-        }, 
+        },
         {
             "value": "lynmall"
-        }, 
+        },
         {
             "value": "st lukes"
-        }, 
+        },
         {
             "value": "queen street"
         }
-    ], 
-    "name": "MovieLocationsAuckland", 
-    "checksum": "e1f65ba8-597a-4221-8c7f-335c684b149f", 
-    "version": "$LATEST", 
-    "lastUpdatedDate": 1496653841.073, 
-    "createdDate": 1496653841.073, 
-    "description": "moviebot"
+    ],
+    "lastUpdatedDate": 1496572596.976,
+    "createdDate": 1496572596.976,
+    "version": "$LATEST",
+    "checksum": "25203850-c9ef-438b-93b6-7b81fb98235f"
 }

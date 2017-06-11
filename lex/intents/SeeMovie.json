@@ -3,35 +3,35 @@
     "checksum": "8e3c064e-7fc9-499e-8b13-10a2dfb29613", 
     "version": "$LATEST", 
     "lastUpdatedDate": 1496737844.476, 
-    "createdDate": 1496653852.202, 
-    "sampleUtterances": [
-        "I want to watch a movie at {MovieLocation}", 
-        "I want to go to the movies at {MovieLocation}", 
-        "I would like to go to the movies in {MovieLocation}", 
-        "I'd like to go to the cinema", 
-        "I would like to go to the {MovieLocation} cinemas", 
-        "I want to go to the {MovieLocation} cinema", 
-        "I want to see a movie"
-    ], 
+    "createdDate": 1496653852.202,
     "slots": [
         {
-            "slotType": "MovieLocationsAuckland", 
-            "name": "MovieLocation", 
-            "slotConstraint": "Required", 
-            "valueElicitationPrompt": {
-                "maxAttempts": 2, 
+            "name": "MovieLocation",
+            "slotConstraint": "Required",
+            "slotType": "MovieLocationsAuckland",
+            "slotTypeVersion": "1",
+            "valueElicitationPrompt": { 
                 "messages": [
                     {
-                        "content": "Which cinema do you wish to go to?", 
-                        "contentType": "PlainText"
+                        "contentType": "PlainText",
+                        "content": "Which cinema do you wish to go to?"
                     }
-                ]
-            }, 
-            "priority": 1, 
-            "slotTypeVersion": "1", 
+                ],
+                "maxAttempts": 2
+            },
+            "priority": 1,
             "sampleUtterances": []
         }
-    ], 
+    ],
+    "sampleUtterances": [
+        "I want to watch a movie at {MovieLocation}",
+        "I want to go to the movies at {MovieLocation}",
+        "I would like to go to the movies in {MovieLocation}",
+        "I'd like to go to the cinema",
+        "I would like to go to the {MovieLocation} cinemas",
+        "I want to go to the {MovieLocation} cinema",
+        "I want to see a movie"
+    ],
     "fulfillmentActivity": {
         "type": "ReturnIntent"
     }

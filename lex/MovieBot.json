@@ -1,10 +1,10 @@
 {
-    "status": "READY", 
+    "name": "MovieBot",
     "intents": [
         {
-            "intentVersion": "1", 
-            "intentName": "SeeMovie"
-        }, 
+            "intentName": "SeeMovie",
+            "intentVersion": "1"
+        },
         {
             "intentVersion": "2", 
             "intentName": "ContinueFinding"
@@ -24,32 +24,36 @@
         {
             "intentVersion": "1", 
             "intentName": "FindMovieByPlot"
+        },
+        {
+            "intentName": "FindMovieByQuote",
+            "intentVersion": "3"
         }
     ], 
-    "name": "MovieBot", 
-    "locale": "en-US", 
-    "checksum": "59d3d22f-779f-4c0e-98e3-796f25344ce5", 
+    "clarificationPrompt": {
+        "messages": [
+            {
+                "contentType": "PlainText",
+                "content": "Sorry, can you please repeat that?"
+            }
+        ],
+        "maxAttempts": 2
+    },
     "abortStatement": {
         "messages": [
             {
-                "content": "Sorry, I could not understand. Goodbye.", 
-                "contentType": "PlainText"
+                "contentType": "PlainText",
+                "content": "Sorry, I could not understand. Goodbye."
             }
         ]
-    }, 
-    "version": "$LATEST", 
+    },
+    "status": "READY",
     "lastUpdatedDate": 1497175584.351, 
     "createdDate": 1496653861.69, 
-    "clarificationPrompt": {
-        "maxAttempts": 2, 
-        "messages": [
-            {
-                "content": "Sorry, can you please repeat that?", 
-                "contentType": "PlainText"
-            }
-        ]
-    }, 
-    "voiceId": "Joanna", 
-    "childDirected": false, 
-    "idleSessionTTLInSeconds": 300
+    "idleSessionTTLInSeconds": 300,
+    "voiceId": "Joanna",
+    "checksum": "b7bc20c3-7f18-4e9a-996d-2f6de8558edd",
+    "version": "$LATEST",
+    "locale": "en-US",
+    "childDirected": false
 }

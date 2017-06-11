@@ -1,6 +1,7 @@
 SeeMovie
 ContinueFinding
 Fallback
-FindMovieByActor
 Welcome
+FindMovieByActor
 FindMovieByPlot
+FindMovieByQuote
