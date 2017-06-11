@@ -1,13 +1,13 @@
 {
-    "name": "CarType",
-    "description": "moviebot",
     "enumerationValues": [
         {
             "value": "Small"
         }
-    ],
-    "lastUpdatedDate": 1497158457.279,
-    "createdDate": 1497158457.279,
-    "version": "$LATEST",
-    "checksum": "a670491d-a9a8-4557-a69b-bb78108c45b3"
+    ], 
+    "name": "CarType", 
+    "checksum": "9c77acbe-bfed-42fe-96fc-8d435a041f4c", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1497181356.93, 
+    "createdDate": 1497181356.93, 
+    "description": "moviebot"
 }

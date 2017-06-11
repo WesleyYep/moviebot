@@ -1,16 +1,16 @@
 {
-    "name": "PlotDescription",
-    "description": "moviebot",
     "enumerationValues": [
         {
             "value": "man stranded on an island"
-        },
+        }, 
         {
             "value": "kill people who stole his car and kill his dog"
         }
-    ],
-    "lastUpdatedDate": 1497158463.305,
-    "createdDate": 1497158463.305,
-    "version": "$LATEST",
-    "checksum": "7c9c629d-bdb0-4f1c-80a0-b7ab15e4b07a"
+    ], 
+    "name": "PlotDescription", 
+    "checksum": "d79c2dc3-f890-4aa5-aede-7fc68174ea8a", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1497181370.376, 
+    "createdDate": 1497181370.376, 
+    "description": "moviebot"
 }

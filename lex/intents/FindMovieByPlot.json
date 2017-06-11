@@ -1,40 +1,40 @@
 {
+    "dialogCodeHook": {
+        "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
+        "messageVersion": "1.0"
+    }, 
     "name": "FindMovieByPlot", 
-    "checksum": "8f3cbf79-1227-4fd0-a94e-35807cefcca2", 
+    "checksum": "502658fc-1dab-4f9e-939a-0d1f54c70183", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497175155.046, 
-    "createdDate": 1496653859.406, 
+    "lastUpdatedDate": 1497181443.142, 
+    "createdDate": 1497181392.877, 
+    "sampleUtterances": [
+        "The plot is {PlotDescription}", 
+        "I want to filter by plot"
+    ], 
     "slots": [
         {
-            "name": "PlotDescription",
-            "slotConstraint": "Required",
-            "slotType": "PlotDescription",
-            "slotTypeVersion": "1",
+            "slotType": "PlotDescription", 
+            "name": "PlotDescription", 
+            "slotConstraint": "Required", 
             "valueElicitationPrompt": {
+                "maxAttempts": 2, 
                 "messages": [
                     {
-                        "contentType": "PlainText",
-                        "content": "What is the plot of the movie ?"
+                        "content": "What is the plot of the movie ?", 
+                        "contentType": "PlainText"
                     }
-                ],
-                "maxAttempts": 2
-            },
-            "priority": 1,
+                ]
+            }, 
+            "priority": 1, 
+            "slotTypeVersion": "1", 
             "sampleUtterances": []
         }
-    ],
-    "sampleUtterances": [
-        "The plot is {PlotDescription}",
-        "I want to filter by plot"
-    ],
-    "dialogCodeHook": {
-        "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
-        "messageVersion": "1.0"
-    },
+    ], 
     "fulfillmentActivity": {
-        "type": "CodeHook",
+        "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
+            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
     }

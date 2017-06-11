@@ -17,9 +17,9 @@
         }
     ], 
     "name": "ResultResponse", 
-    "checksum": "ae4dd63a-6e41-4fdb-a2cf-b194f38e83ee", 
+    "checksum": "399be090-62e2-4ece-8e15-23c488bc9d3d", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497075101.805, 
-    "createdDate": 1496831411.186, 
+    "lastUpdatedDate": 1497181374.63, 
+    "createdDate": 1497181374.63, 
     "description": "moviebot"
 }
