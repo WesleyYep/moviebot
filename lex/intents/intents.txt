@@ -1,5 +1,7 @@
 SeeMovie
+ContinueFinding
+Fallback
 FindMovieByActor
 FindMovieByPlot
-Welcome
 FindMovieByQuote
+Welcome

@@ -1,51 +1,59 @@
 {
-    "name": "MovieBot",
+    "status": "READY", 
     "intents": [
         {
-            "intentName": "SeeMovie",
-            "intentVersion": "1"
-        },
+            "intentVersion": "1", 
+            "intentName": "SeeMovie"
+        }, 
         {
-            "intentName": "FindMovieByActor",
-            "intentVersion": "1"
-        },
+            "intentVersion": "1", 
+            "intentName": "ContinueFinding"
+        }, 
         {
-            "intentName": "FindMovieByPlot",
-            "intentVersion": "1"
-        },
+            "intentVersion": "1", 
+            "intentName": "Fallback"
+        }, 
         {
-            "intentName": "Welcome",
-            "intentVersion": "1"
-        },
+            "intentVersion": "1", 
+            "intentName": "FindMovieByActor"
+        }, 
         {
-            "intentName": "FindMovieByQuote",
-            "intentVersion": "3"
+            "intentVersion": "1", 
+            "intentName": "FindMovieByPlot"
+        }, 
+        {
+            "intentVersion": "2", 
+            "intentName": "FindMovieByQuote"
+        }, 
+        {
+            "intentVersion": "1", 
+            "intentName": "Welcome"
         }
-    ],
-    "clarificationPrompt": {
-        "messages": [
-            {
-                "contentType": "PlainText",
-                "content": "Sorry, can you please repeat that?"
-            }
-        ],
-        "maxAttempts": 5
-    },
+    ], 
+    "name": "MovieBot", 
+    "locale": "en-US", 
+    "checksum": "e4a14108-4e79-41df-8b6e-d4cf128aff68", 
     "abortStatement": {
         "messages": [
             {
-                "contentType": "PlainText",
-                "content": "Sorry, I could not understand. Goodbye."
+                "content": "Sorry, I could not understand. Goodbye.", 
+                "contentType": "PlainText"
             }
         ]
-    },
-    "status": "READY",
-    "lastUpdatedDate": 1497165937.6,
-    "createdDate": 1497158474.464,
-    "idleSessionTTLInSeconds": 300,
-    "voiceId": "Joanna",
-    "checksum": "b7bc20c3-7f18-4e9a-996d-2f6de8558edd",
-    "version": "$LATEST",
-    "locale": "en-US",
-    "childDirected": false
+    }, 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1497181829.196, 
+    "createdDate": 1497181397.573, 
+    "clarificationPrompt": {
+        "maxAttempts": 2, 
+        "messages": [
+            {
+                "content": "Sorry, can you please repeat that?", 
+                "contentType": "PlainText"
+            }
+        ]
+    }, 
+    "voiceId": "Joanna", 
+    "childDirected": false, 
+    "idleSessionTTLInSeconds": 300
 }

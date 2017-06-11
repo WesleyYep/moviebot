@@ -1,61 +1,61 @@
 {
-    "name": "FindMovieByQuote",
-    "slots": [
-        {
-            "name": "MovieQuote",
-            "slotConstraint": "Required",
-            "slotType": "MovieQuote",
-            "slotTypeVersion": "1",
-            "valueElicitationPrompt": {
-                "messages": [
-                    {
-                        "contentType": "PlainText",
-                        "content": "What quote is in the movie?"
-                    }
-                ],
-                "maxAttempts": 2
-            },
-            "priority": 1,
-            "sampleUtterances": []
-        }
-    ],
-    "sampleUtterances": [
-        "I would like to filter by movie quote",
-        "Can I find by movie quote",
-        "Can I find by quote",
-        "The movie has {MovieQuote} quote in it",
-        "{MovieQuote} quote is in it",
-        "I want to find by movie quote",
-        "This {MovieQuote} quote is in it",
-        "Find by movie quote",
-        "Filter by movie quote"
-    ],
     "confirmationPrompt": {
+        "maxAttempts": 3, 
         "messages": [
             {
-                "contentType": "PlainText",
-                "content": "Is \"{MovieQuote}\" the correct quote to find the movie by?"
+                "content": "Is \"{MovieQuote}\" the correct quote to find the movie by?", 
+                "contentType": "PlainText"
             }
-        ],
-        "maxAttempts": 3
-    },
+        ]
+    }, 
+    "name": "FindMovieByQuote", 
+    "checksum": "3d764ffd-efb1-46ba-98b4-78f60daaa29d", 
+    "version": "$LATEST", 
     "rejectionStatement": {
         "messages": [
             {
-                "contentType": "PlainText",
-                "content": "Okay. Finding movie by quote is cancelled"
+                "content": "Okay. Finding movie by quote is cancelled", 
+                "contentType": "PlainText"
             }
         ]
-    },
+    }, 
+    "createdDate": 1497181395.23, 
+    "lastUpdatedDate": 1497181797.955, 
+    "sampleUtterances": [
+        "I would like to filter by movie quote", 
+        "Can I find by movie quote", 
+        "Can I find by quote", 
+        "The movie has {MovieQuote} quote in it", 
+        "{MovieQuote} quote is in it", 
+        "I want to find by movie quote", 
+        "This {MovieQuote} quote is in it", 
+        "Find by movie quote", 
+        "Filter by movie quote"
+    ], 
+    "slots": [
+        {
+            "slotType": "MovieQuote", 
+            "name": "MovieQuote", 
+            "slotConstraint": "Required", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "What quote is in the movie?", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 1, 
+            "slotTypeVersion": "2", 
+            "sampleUtterances": []
+        }
+    ], 
     "fulfillmentActivity": {
-        "type": "CodeHook",
+        "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
+            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
-    },
-    "lastUpdatedDate": 1497166044.265,
-    "createdDate": 1497163857.292,
-    "version": "$LATEST",
-    "checksum": "0a12752e-b429-4ffd-a700-96a32d36b0f2"
+    }
 }
