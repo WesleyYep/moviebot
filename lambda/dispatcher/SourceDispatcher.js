@@ -1,5 +1,6 @@
 var SlotConstants = require('../model/Slots');
 var wikiQuoteSource = require('../source/WikiQuoteSource');
+var elasticSource = require('../source/ElasticSource');
 
 /**
  * 
@@ -33,6 +34,12 @@ var dispatch = function(queryInfo) {
             //         reject(err);
             //     });
             // }
+        } else if (slots.hasOwnProperty(SlotConstants.MOVIEPLOT)) {
+            console.log("Elastic source is called");
+            const plot = slots[SlotConstants.MOVIEPLOT];
+            sourcePromises.push(elasticSource.getMovies(plot));
+
+            
         }
 
         // Other sources. Not sure how it will work
