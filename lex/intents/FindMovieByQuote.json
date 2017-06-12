@@ -9,7 +9,7 @@
         ]
     }, 
     "name": "FindMovieByQuote", 
-    "checksum": "3d764ffd-efb1-46ba-98b4-78f60daaa29d", 
+    "checksum": "367d653d-c617-4bc7-ae5d-e859225b2f7e", 
     "version": "$LATEST", 
     "rejectionStatement": {
         "messages": [
@@ -19,8 +19,8 @@
             }
         ]
     }, 
-    "createdDate": 1497181395.23, 
-    "lastUpdatedDate": 1497181797.955, 
+    "createdDate": 1497221015.106, 
+    "lastUpdatedDate": 1497232375.872, 
     "sampleUtterances": [
         "I would like to filter by movie quote", 
         "Can I find by movie quote", 
@@ -47,14 +47,14 @@
                 ]
             }, 
             "priority": 1, 
-            "slotTypeVersion": "2", 
+            "slotTypeVersion": "1", 
             "sampleUtterances": []
         }
     ], 
     "fulfillmentActivity": {
         "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
+            "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
     }

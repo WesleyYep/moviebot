@@ -3,4 +3,5 @@ MovieLocationsAuckland
 MovieQuote
 PlotDescription
 ResultResponse
+TestSlot
 Theme

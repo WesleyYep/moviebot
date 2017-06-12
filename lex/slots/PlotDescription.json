@@ -1,6 +1,12 @@
 {
     "enumerationValues": [
         {
+            "value": "a girl turned into a bear by spirits"
+        }, 
+        {
+            "value": "jedi fighting sith"
+        }, 
+        {
             "value": "man stranded on an island"
         }, 
         {
@@ -8,9 +14,9 @@
         }
     ], 
     "name": "PlotDescription", 
-    "checksum": "d79c2dc3-f890-4aa5-aede-7fc68174ea8a", 
+    "checksum": "e06ac733-75d4-42e7-b992-413467d859d1", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497181370.376, 
-    "createdDate": 1497181370.376, 
+    "lastUpdatedDate": 1497264966.845, 
+    "createdDate": 1497220997.188, 
     "description": "moviebot"
 }
