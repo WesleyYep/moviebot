@@ -9,8 +9,8 @@ var logger = fs.createWriteStream('err.txt', {
 })
 
 var DEBUG = true;
-var init = 119420;
-var max = 400000;
+var init = 321522;
+var max = 321522;
 
 for (var i = init; i <= max; i++) {
     
