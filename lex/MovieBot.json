@@ -3,10 +3,6 @@
     "intents": [
         {
             "intentVersion": "1", 
-            "intentName": "SeeMovie"
-        }, 
-        {
-            "intentVersion": "1", 
             "intentName": "ContinueFinding"
         }, 
         {
