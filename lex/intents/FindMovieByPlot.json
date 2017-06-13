@@ -4,10 +4,10 @@
         "messageVersion": "1.0"
     }, 
     "name": "FindMovieByPlot", 
-    "checksum": "8de224c8-886b-4a92-9179-79cc4ba2b810", 
+    "checksum": "502658fc-1dab-4f9e-939a-0d1f54c70183", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1496490332.559, 
-    "createdDate": 1496465327.75, 
+    "lastUpdatedDate": 1497181443.142, 
+    "createdDate": 1497181392.877, 
     "sampleUtterances": [
         "The plot is {PlotDescription}", 
         "I want to filter by plot"

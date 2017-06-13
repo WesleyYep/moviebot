@@ -7,20 +7,32 @@
         }, 
         {
             "intentVersion": "1", 
-            "intentName": "Welcome"
+            "intentName": "ContinueFinding"
         }, 
         {
-            "intentVersion": "8", 
+            "intentVersion": "1", 
+            "intentName": "Fallback"
+        }, 
+        {
+            "intentVersion": "1", 
             "intentName": "FindMovieByActor"
         }, 
         {
-            "intentVersion": "2", 
+            "intentVersion": "1", 
             "intentName": "FindMovieByPlot"
+        }, 
+        {
+            "intentVersion": "2", 
+            "intentName": "FindMovieByQuote"
+        }, 
+        {
+            "intentVersion": "1", 
+            "intentName": "Welcome"
         }
     ], 
     "name": "MovieBot", 
     "locale": "en-US", 
-    "checksum": "67d10396-d68f-420a-9fe0-b7ca2a259b86", 
+    "checksum": "e4a14108-4e79-41df-8b6e-d4cf128aff68", 
     "abortStatement": {
         "messages": [
             {
@@ -30,10 +42,10 @@
         ]
     }, 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1496490382.515, 
-    "createdDate": 1496456341.042, 
+    "lastUpdatedDate": 1497181829.196, 
+    "createdDate": 1497181397.573, 
     "clarificationPrompt": {
-        "maxAttempts": 5, 
+        "maxAttempts": 2, 
         "messages": [
             {
                 "content": "Sorry, can you please repeat that?", 

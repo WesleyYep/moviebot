@@ -1,0 +1,13 @@
+{
+    "enumerationValues": [
+        {
+            "value": "You either die a hero, or you live long enough to see yourself become the villain."
+        }
+    ], 
+    "name": "MovieQuote", 
+    "checksum": "5912cc25-cfcd-4d9e-ba6a-90586b6e0bc5", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1497181684.063, 
+    "createdDate": 1497181365.962, 
+    "description": "moviebot"
+}

@@ -8,6 +8,10 @@ class Movie {
     getTitle() {
         return this.title;
     }
+
+    equals(otherMovie) {
+        return this.title == otherMovie.getTitle();
+    }
 }
 
 var builder = function(title) {

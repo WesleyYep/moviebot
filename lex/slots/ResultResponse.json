@@ -1,0 +1,25 @@
+{
+    "enumerationValues": [
+        {
+            "value": "yes thats the movie I was looking for"
+        }, 
+        {
+            "value": "none of the movies is what i'm looking for"
+        }, 
+        {
+            "value": "yes these are the movie i'm looking for"
+        }, 
+        {
+            "value": "thank you so much, these movies are the one im looking one"
+        }, 
+        {
+            "value": "no, i'm not looking for these movie"
+        }
+    ], 
+    "name": "ResultResponse", 
+    "checksum": "399be090-62e2-4ece-8e15-23c488bc9d3d", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1497181374.63, 
+    "createdDate": 1497181374.63, 
+    "description": "moviebot"
+}

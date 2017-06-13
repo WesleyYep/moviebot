@@ -1,3 +1,7 @@
 SeeMovie
-Welcome
+ContinueFinding
+Fallback
 FindMovieByActor
+FindMovieByPlot
+FindMovieByQuote
+Welcome

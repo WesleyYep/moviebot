@@ -3,6 +3,7 @@
 var rp = require('request-promise');
 var tmdbClient = require('source/tmdbSource');
 var wikiQuoteSource = require('source/WikiQuoteSource');
+var movieFinder = require('movieFinder');
 
  /**
   * This sample demonstrates an implementation of the Lex Code Hook Interface
@@ -51,14 +52,15 @@ function confirmIntent(sessionAttributes, intentName, slots, message) {
     };
 }
 
-function close(sessionAttributes, fulfillmentState, message) {
+function close(sessionAttributes, fulfillmentState, message, responseCard) {
     return {
         sessionAttributes,
         dialogAction: {
             type: 'Close',
             fulfillmentState,
             message,
-        },
+            responseCard
+        }
     };
 }
 
@@ -70,6 +72,18 @@ function delegate(sessionAttributes, slots) {
             slots,
         },
     };
+}
+
+function movieToResponseCards(movieList) {
+    return {
+        contentType: "application/vnd.amazonaws.card.generic",
+        genericAttachments: movieList.slice(0, 10).map(movie => {
+            return {
+                title: movie.getTitle(),
+                imageUrl: "https://images-na.ssl-images-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_UY1200_CR90,0,630,1200_AL_.jpg"
+            }
+        })
+    }
 }
 
 function welcome(intentRequest, callback) {
@@ -85,9 +99,10 @@ function retrieveMovieListByActor(sessionAttributes, callback) {
     tmdbClient.getMovieListByActor(actorId).then(function(val) {
         var msg = {
             contentType: 'PlainText',
-            content: 'I found a movie called ' + val[0].getTitle() + '\n Was this the movie you were looking for ? You can also filter the result by quote and plot'
+            content: 'I found a movie called ' + val[0].getTitle() + 'Do you want to keep looking ?'
         };
-        callback(elicitIntent(sessionAttributes, msg));
+
+        callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg))
     }).catch(function(err) {
         callback(close(sessionAttributes, 'Failed', {
             contentType: 'PlainText',
@@ -157,10 +172,13 @@ function findMovieByPlot(intentRequest, callback) {
         if ('actorId' in sessionAttributes) {
             tmdbClient.getMovieListByActor(sessionAttributes.actorId).then(function(val) {
                 const firstMovieTitle = val[1].getTitle();
-                callback(close(sessionAttributes, 'Fulfilled', {
+
+                var msg = {
                     contentType: 'PlainText',
-                    content: 'I found a movie called ' + firstMovieTitle
-                }))
+                    content: 'I found a movie called ' + firstMovieTitle + '. Do you want to keep looking ?'
+                }
+
+                callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg))
             }).catch(function(err) {
                 callback(close(sessionAttributes, 'Failed', {
                     contentType: 'PlainText',
@@ -172,10 +190,12 @@ function findMovieByPlot(intentRequest, callback) {
                 sessionAttributes.plotDescription = plotDescription;
                 const movieTitle = val[0].getTitle();
 
-                callback(close(sessionAttributes, 'Fulfilled', {
+                var msg = {
                     contentType: 'PlainText',
-                    content: 'I found a movie called ' + movieTitle
-                }))
+                    content: 'I found a movie called ' + movieTitle  + '. Do you want to keep looking ?'
+                }
+
+                callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg))
             }).catch(function(err) {
                 callback(close(sessionAttributes, 'Failed', {
                     contentType: 'PlainText',
@@ -188,7 +208,7 @@ function findMovieByPlot(intentRequest, callback) {
     return;
 }
 
-function findMovieOld(intentRequest, callback) {
+function findMovieByQuote(intentRequest, callback) {
     const sessionAttributes = intentRequest.sessionAttributes || {};
     // retrieve slots
     const quote = intentRequest.currentIntent.slots.MovieQuote;
@@ -220,14 +240,14 @@ function findMovieOld(intentRequest, callback) {
 
 function findMovie(intentRequest, callback) {
     const sessionAttributes = intentRequest.sessionAttributes || {};
-    const slots = intentRequest.slots;
+    const slots = intentRequest.currentIntent.slots;
 
     movieFinder.find(slots, sessionAttributes).then((singleMovieList) => {
         //movieFinder will return a list of movie result
         callback(close(sessionAttributes, 'Fulfilled', {
             contentType: 'PlainText',
-            content: 'I found a movie matching the quote called ' + singleMovieList[0].getTitle()
-        }));
+            content: 'There are ' + singleMovieList.length + ' matching movies'
+        }, movieToResponseCards(singleMovieList)));
     }).catch((err) => {
         //error object structure
         if (err.type === "Validation") {
@@ -240,6 +260,38 @@ function findMovie(intentRequest, callback) {
     });
 }
 
+function continueFinding(intentRequest, callback) {
+    console.log(intentRequest);
+
+    const sessionAttributes = intentRequest.sessionAttributes || {};
+    const slots = intentRequest.currentIntent.slots;
+
+    var msg = {
+        contentType : "PlainText",
+        content : "Do you have any other information"
+    }
+
+    var goodByeMsg = {
+        contentType : "PlainText",
+        content: "Thank you for using the movie bot. Good bye"
+    }
+
+    var errMsg = {
+        contentType: 'PlainText',
+        content: 'Sorry didn\'t understand your response. Do you want to keep looking ? (yes/no)'
+    }
+ 
+    if (intentRequest.currentIntent.confirmationStatus === 'Confirmed') {
+        callback(elicitIntent(sessionAttributes, msg))
+    } else if (intentRequest.currentIntent.confirmationStatus === 'Denied') {
+        callback(close(sessionAttributes, 'Fulfilled', goodByeMsg))
+    } else {
+        callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, errMsg))
+    }
+
+
+}
+
  // --------------- Intents -----------------------
 
 /**
@@ -248,6 +300,7 @@ function findMovie(intentRequest, callback) {
 function dispatch(intentRequest, callback) {
     // console.log(JSON.stringify(intentRequest, null, 2));
     console.log(`dispatch userId=${intentRequest.userId}, intentName=${intentRequest.currentIntent.name}`);
+    console.log(intentRequest);
 
     const intentName = intentRequest.currentIntent.name;
 
@@ -255,6 +308,14 @@ function dispatch(intentRequest, callback) {
     if (intentName === 'Welcome') {
         return welcome(intentRequest, callback);
     } else if (intentName == 'FindMovie') {
+        return findMovie(intentRequest, callback);
+    } else if (intentName == 'FindMovieByActor') {
+        return findMovieByActor(intentRequest, callback);
+    } else if (intentName == 'FindMovieByPlot') {
+        return findMovieByPlot(intentRequest, callback); 
+    } else if (intentName == 'ContinueFinding') {
+        return continueFinding(intentRequest, callback);
+    } else if (intentName == 'FindMovieByQuote') {
         return findMovie(intentRequest, callback);
     }
     throw new Error(`Intent with name ${intentName} not supported`);
