@@ -1,16 +1,13 @@
 {
-    "dialogCodeHook": {
-        "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
-        "messageVersion": "1.0"
-    }, 
     "name": "FindMovieByPlot", 
-    "checksum": "502658fc-1dab-4f9e-939a-0d1f54c70183", 
+    "checksum": "2c796060-df5e-4047-990e-5a1d77d6a259", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497181443.142, 
-    "createdDate": 1497181392.877, 
+    "lastUpdatedDate": 1497265225.461, 
+    "createdDate": 1497221013.279, 
     "sampleUtterances": [
         "The plot is {PlotDescription}", 
-        "I want to filter by plot"
+        "I want to filter by plot", 
+        "the movie is about {PlotDescription}"
     ], 
     "slots": [
         {
@@ -27,14 +24,14 @@
                 ]
             }, 
             "priority": 1, 
-            "slotTypeVersion": "1", 
+            "slotTypeVersion": "2", 
             "sampleUtterances": []
         }
     ], 
     "fulfillmentActivity": {
         "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
+            "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
     }

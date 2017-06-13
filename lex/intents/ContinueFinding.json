@@ -1,15 +1,15 @@
 {
     "name": "ContinueFinding", 
-    "checksum": "d8d13231-9223-4ae6-91bc-a47a312739af", 
+    "checksum": "54d48fe4-ee4c-4bf9-a5d7-079e3575f7ca", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497181442.241, 
-    "createdDate": 1497181383.858, 
+    "lastUpdatedDate": 1497232420.449, 
+    "createdDate": 1497221007.772, 
     "sampleUtterances": [], 
     "slots": [], 
     "fulfillmentActivity": {
         "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
+            "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
     }

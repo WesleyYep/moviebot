@@ -158,5 +158,5 @@ fi
 
 # TODO - delete removed slots/intents from json folder
 
-
+echo ======== PLEASE ENSURE NEW SLOTS HAVE DESCRIPTION=moviebot ========
 echo done!

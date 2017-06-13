@@ -3,10 +3,6 @@
     "intents": [
         {
             "intentVersion": "1", 
-            "intentName": "SeeMovie"
-        }, 
-        {
-            "intentVersion": "1", 
             "intentName": "ContinueFinding"
         }, 
         {
@@ -18,11 +14,11 @@
             "intentName": "FindMovieByActor"
         }, 
         {
-            "intentVersion": "1", 
+            "intentVersion": "4", 
             "intentName": "FindMovieByPlot"
         }, 
         {
-            "intentVersion": "2", 
+            "intentVersion": "1", 
             "intentName": "FindMovieByQuote"
         }, 
         {
@@ -32,7 +28,7 @@
     ], 
     "name": "MovieBot", 
     "locale": "en-US", 
-    "checksum": "e4a14108-4e79-41df-8b6e-d4cf128aff68", 
+    "checksum": "b7208dd5-b236-4b5a-8c27-35c1092c7c11", 
     "abortStatement": {
         "messages": [
             {
@@ -42,8 +38,8 @@
         ]
     }, 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497181829.196, 
-    "createdDate": 1497181397.573, 
+    "lastUpdatedDate": 1497265262.003, 
+    "createdDate": 1497221018.77, 
     "clarificationPrompt": {
         "maxAttempts": 2, 
         "messages": [
