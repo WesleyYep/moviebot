@@ -40,7 +40,7 @@ function elicitIntent(sessionAttributes, message) {
     };
 }
 
-function confirmIntent(sessionAttributes, intentName, slots, message) {
+function confirmIntent(sessionAttributes, intentName, slots, message, responseCard) {
     return {
         sessionAttributes,
         dialogAction: {
@@ -88,7 +88,13 @@ function movieToResponseCards(movieList) {
 
 function welcome(intentRequest, callback) {
     const sessionAttributes = intentRequest.sessionAttributes || {};
-    callback(elicitIntent(sessionAttributes, { contentType: 'PlainText', content: 'Welcome to movie bot' }));
+
+    var welcomeMsg = {
+        contentType: 'PlainText',
+        content : 'Hi I\'m moviebot. I find movies that you can\'t remember. What can you remember about a particular movie?'
+    }
+
+    callback(elicitIntent(sessionAttributes, welcomeMsg));
     return;
 }
 
@@ -99,10 +105,10 @@ function retrieveMovieListByActor(sessionAttributes, callback) {
     tmdbClient.getMovieListByActor(actorId).then(function(val) {
         var msg = {
             contentType: 'PlainText',
-            content: 'I found a movie called ' + val[0].getTitle() + 'Do you want to keep looking ?'
+            content: 'I found a movie called ' + val[0].getTitle() + ' Do you want to keep looking ?'
         };
 
-        callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg))
+        callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg, movieToResponseCards(val)))
     }).catch(function(err) {
         callback(close(sessionAttributes, 'Failed', {
             contentType: 'PlainText',
@@ -178,7 +184,7 @@ function findMovieByPlot(intentRequest, callback) {
                     content: 'I found a movie called ' + firstMovieTitle + '. Do you want to keep looking ?'
                 }
 
-                callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg))
+                callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg, movieToResponseCards(val)))
             }).catch(function(err) {
                 callback(close(sessionAttributes, 'Failed', {
                     contentType: 'PlainText',
@@ -195,7 +201,7 @@ function findMovieByPlot(intentRequest, callback) {
                     content: 'I found a movie called ' + movieTitle  + '. Do you want to keep looking ?'
                 }
 
-                callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg))
+                callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg, movieToResponseCards(val)))
             }).catch(function(err) {
                 callback(close(sessionAttributes, 'Failed', {
                     contentType: 'PlainText',
@@ -244,10 +250,12 @@ function findMovie(intentRequest, callback) {
 
     movieFinder.find(slots, sessionAttributes).then((singleMovieList) => {
         //movieFinder will return a list of movie result
-        callback(close(sessionAttributes, 'Fulfilled', {
+        var msg = {
             contentType: 'PlainText',
-            content: 'There are ' + singleMovieList.length + ' matching movies'
-        }, movieToResponseCards(singleMovieList)));
+            content: 'There are ' + singleMovieList.length + ' matching movies' + '. Do you want to keep looking ?'
+        }
+
+        callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg, movieToResponseCards(singleMovieList)))
     }).catch((err) => {
         //error object structure
         if (err.type === "Validation") {
@@ -268,7 +276,7 @@ function continueFinding(intentRequest, callback) {
 
     var msg = {
         contentType : "PlainText",
-        content : "Do you have any other information"
+        content : "Can you remember any more information?"
     }
 
     var goodByeMsg = {
@@ -288,8 +296,6 @@ function continueFinding(intentRequest, callback) {
     } else {
         callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, errMsg))
     }
-
-
 }
 
  // --------------- Intents -----------------------

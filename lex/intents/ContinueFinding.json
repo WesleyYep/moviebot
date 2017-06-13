@@ -1,9 +1,9 @@
 {
     "name": "ContinueFinding", 
-    "checksum": "d8d13231-9223-4ae6-91bc-a47a312739af", 
+    "checksum": "1a428604-3cec-4a36-b21b-f848ad87b822", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497181442.241, 
-    "createdDate": 1497181383.858, 
+    "lastUpdatedDate": 1497262074.782, 
+    "createdDate": 1497261969.489, 
     "sampleUtterances": [], 
     "slots": [], 
     "fulfillmentActivity": {

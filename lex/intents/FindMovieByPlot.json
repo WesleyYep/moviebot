@@ -4,13 +4,17 @@
         "messageVersion": "1.0"
     }, 
     "name": "FindMovieByPlot", 
-    "checksum": "502658fc-1dab-4f9e-939a-0d1f54c70183", 
+    "checksum": "f7c6f18f-4e1e-4870-b0d3-30685467445b", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497181443.142, 
-    "createdDate": 1497181392.877, 
+    "lastUpdatedDate": 1497262075.673, 
+    "createdDate": 1497261976.446, 
     "sampleUtterances": [
         "The plot is {PlotDescription}", 
-        "I want to filter by plot"
+        "I want to filter by plot", 
+        "plot", 
+        "The movie was about {PlotDescription}", 
+        "the story was {PlotDescription}", 
+        "can I find the movie by plot"
     ], 
     "slots": [
         {

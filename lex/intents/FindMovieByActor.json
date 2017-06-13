@@ -4,10 +4,10 @@
         "messageVersion": "1.0"
     }, 
     "name": "FindMovieByActor", 
-    "checksum": "f5c1a88b-4088-4e07-8ed4-3c441d65e559", 
+    "checksum": "f7335a92-a731-428a-8756-2a47d3abe5d6", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497181388.4, 
-    "createdDate": 1497181388.4, 
+    "lastUpdatedDate": 1497350857.995, 
+    "createdDate": 1497261974.115, 
     "sampleUtterances": [
         "I think one of the actors is {Actor}", 
         "{Actor} starred in it", 
@@ -15,7 +15,8 @@
         "I think one of the actress is {Actor}", 
         "an actress is {Actor}", 
         "find movie by actor", 
-        "can I filter by actor"
+        "can I filter by actor", 
+        "actor"
     ], 
     "slots": [
         {
@@ -26,7 +27,7 @@
                 "maxAttempts": 2, 
                 "messages": [
                     {
-                        "content": "Please provide an actor/actoress name", 
+                        "content": "Sure what actor/actress do you know is in the movie?", 
                         "contentType": "PlainText"
                     }
                 ]

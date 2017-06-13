@@ -1,26 +1,9 @@
 {
-    "confirmationPrompt": {
-        "maxAttempts": 3, 
-        "messages": [
-            {
-                "content": "Is \"{MovieQuote}\" the correct quote to find the movie by?", 
-                "contentType": "PlainText"
-            }
-        ]
-    }, 
     "name": "FindMovieByQuote", 
-    "checksum": "3d764ffd-efb1-46ba-98b4-78f60daaa29d", 
+    "checksum": "c5652106-4c66-4754-9309-8a917d874bc5", 
     "version": "$LATEST", 
-    "rejectionStatement": {
-        "messages": [
-            {
-                "content": "Okay. Finding movie by quote is cancelled", 
-                "contentType": "PlainText"
-            }
-        ]
-    }, 
-    "createdDate": 1497181395.23, 
-    "lastUpdatedDate": 1497181797.955, 
+    "lastUpdatedDate": 1497265203.452, 
+    "createdDate": 1497261981.067, 
     "sampleUtterances": [
         "I would like to filter by movie quote", 
         "Can I find by movie quote", 
@@ -30,7 +13,8 @@
         "I want to find by movie quote", 
         "This {MovieQuote} quote is in it", 
         "Find by movie quote", 
-        "Filter by movie quote"
+        "Filter by movie quote", 
+        "quote"
     ], 
     "slots": [
         {
@@ -47,7 +31,7 @@
                 ]
             }, 
             "priority": 1, 
-            "slotTypeVersion": "2", 
+            "slotTypeVersion": "3", 
             "sampleUtterances": []
         }
     ], 
