@@ -108,6 +108,8 @@ function retrieveMovieListByActor(sessionAttributes, callback) {
             content: 'I found a movie called ' + val[0].getTitle() + ' Do you want to keep looking ?'
         };
 
+
+
         callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg, movieToResponseCards(val)))
     }).catch(function(err) {
         callback(close(sessionAttributes, 'Failed', {
@@ -144,6 +146,7 @@ function findMovieByActor(intentRequest, callback) {
                 .then(function(val) {
                     // update session attributes actorId
                     sessionAttributes.actorId = val;
+                    sessionAttributes.Actor = actorName;
                     callback(delegate(sessionAttributes, intentRequest.currentIntent.slots));
                 }).catch(function(err) {
                     sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', err);
@@ -252,7 +255,7 @@ function findMovie(intentRequest, callback) {
         //movieFinder will return a list of movie result
         var msg = {
             contentType: 'PlainText',
-            content: 'There are ' + singleMovieList.length + ' matching movies' + '. Do you want to keep looking ?'
+            content: 'There are ' + singleMovieList.length + ' matching movies. The first movie was called ' + singleMovieList[0].title + '. Do you want to keep looking ?'
         }
 
         callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg, movieToResponseCards(singleMovieList)))

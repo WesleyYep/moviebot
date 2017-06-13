@@ -13,12 +13,15 @@ var dispatch = function(queryInfo) {
     // sessionAttributes can store previous information state i.e. data
     var sessionAttributes = queryInfo['sessionAttributes'];
 
+    const actor = retrieveInfo(SlotConstants.MOVIE_ACTOR, queryInfo);
+    const quote = retrieveInfo(SlotConstants.MOVIEQUOTE, queryInfo);
+    const plot = retrieveInfo(SlotConstants.MOVIEPLOT, queryInfo);
+
     var sourcePromises = [];
 
     return new Promise(function(resolve, reject) {
-        if (slots.hasOwnProperty(SlotConstants.MOVIEQUOTE)) {
+        if (quote) {
             console.log("WikiQuote source is added");
-            const quote = slots[SlotConstants.MOVIEQUOTE];
             sourcePromises.push(wikiQuoteSource.getMovies(quote));
             // if (sessionAttributes.hasOwnProperty('MovieQuote')) {
             //     // something like getting previous results from session attributes or could be from dynamodb
@@ -34,12 +37,12 @@ var dispatch = function(queryInfo) {
             //         reject(err);
             //     });
             // }
-        } else if (slots.hasOwnProperty(SlotConstants.MOVIEPLOT)) {
+        } else if (plot && actor) {
+            console.log("Elastic source is called for actor and plot");
+            sourcePromises.push(elasticSource.getMoviesByActorPlot(actor, plot))
+        } else if (plot) {
             console.log("Elastic source is called");
-            const plot = slots[SlotConstants.MOVIEPLOT];
-            sourcePromises.push(elasticSource.getMovies(plot));
-
-            
+            sourcePromises.push(elasticSource.getMoviesByPlot(plot));
         }
 
         // Other sources. Not sure how it will work
@@ -52,6 +55,18 @@ var dispatch = function(queryInfo) {
     });
 
 };
+
+function retrieveInfo(slotName, queryInfo) {
+    if (queryInfo.slots.hasOwnProperty(slotName)) {
+        return queryInfo.slots[slotName];
+    }
+
+    if (queryInfo.sessionAttributes.hasOwnProperty(slotName)) {
+        return queryInfo.sessionAttributes[slotName];
+    }
+
+    return null;
+}
 
 module.exports = {
     dispatch: dispatch
