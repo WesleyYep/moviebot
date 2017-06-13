@@ -3,10 +3,6 @@
     "intents": [
         {
             "intentVersion": "1", 
-            "intentName": "SeeMovie"
-        }, 
-        {
-            "intentVersion": "1", 
             "intentName": "ContinueFinding"
         }, 
         {
@@ -18,7 +14,7 @@
             "intentName": "FindMovieByActor"
         }, 
         {
-            "intentVersion": "1", 
+            "intentVersion": "4", 
             "intentName": "FindMovieByPlot"
         }, 
         {

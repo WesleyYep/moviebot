@@ -1,5 +1,7 @@
 const MOVIEQUOTE = 'MovieQuote';
+const MOVIEPLOT = 'PlotDescription';
 
 module.exports = {
-    MOVIEQUOTE: MOVIEQUOTE
+    MOVIEQUOTE: MOVIEQUOTE,
+    MOVIEPLOT: MOVIEPLOT
 };

@@ -1,8 +1,4 @@
 {
-    "dialogCodeHook": {
-        "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
-        "messageVersion": "1.0"
-    }, 
     "name": "FindMovieByPlot", 
     "checksum": "f7c6f18f-4e1e-4870-b0d3-30685467445b", 
     "version": "$LATEST", 
@@ -31,14 +27,14 @@
                 ]
             }, 
             "priority": 1, 
-            "slotTypeVersion": "1", 
+            "slotTypeVersion": "2", 
             "sampleUtterances": []
         }
     ], 
     "fulfillmentActivity": {
         "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
+            "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
     }

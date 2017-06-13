@@ -318,7 +318,7 @@ function dispatch(intentRequest, callback) {
     } else if (intentName == 'FindMovieByActor') {
         return findMovieByActor(intentRequest, callback);
     } else if (intentName == 'FindMovieByPlot') {
-        return findMovieByPlot(intentRequest, callback); 
+        return findMovie(intentRequest, callback); 
     } else if (intentName == 'ContinueFinding') {
         return continueFinding(intentRequest, callback);
     } else if (intentName == 'FindMovieByQuote') {
