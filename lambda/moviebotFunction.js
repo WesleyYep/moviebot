@@ -105,7 +105,7 @@ function retrieveMovieListByActor(sessionAttributes, callback) {
     tmdbClient.getMovieListByActor(actorId).then(function(val) {
         var msg = {
             contentType: 'PlainText',
-            content: 'I found a movie called ' + val[0].getTitle() + ' Do you want to keep looking ?'
+            content: 'I found a movie called ' + val[0].getTitle() + ' Did we find your movie? Or still unsure ?'
         };
 
 
@@ -255,11 +255,12 @@ function findMovie(intentRequest, callback) {
         //movieFinder will return a list of movie result
         var msg = {
             contentType: 'PlainText',
-            content: 'There are ' + singleMovieList.length + ' matching movies. The first movie was called ' + singleMovieList[0].title + '. Do you want to keep looking ?'
+            content: 'Hey! We found ' + singleMovieList.length + ' matching movies. The first movie was called ' + singleMovieList[0].title + '. Did we find your movie? Or still unsure ?'
         }
 
         callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg, movieToResponseCards(singleMovieList)))
     }).catch((err) => {
+        console.log(err)
         //error object structure
         if (err.type === "Validation") {
 
@@ -289,12 +290,12 @@ function continueFinding(intentRequest, callback) {
 
     var errMsg = {
         contentType: 'PlainText',
-        content: 'Sorry didn\'t understand your response. Do you want to keep looking ? (yes/no)'
+        content: 'Sorry didn\'t understand your response. So did we find your movie (yes/no)'
     }
  
-    if (intentRequest.currentIntent.confirmationStatus === 'Confirmed') {
+    if (intentRequest.currentIntent.confirmationStatus === 'Denied') {
         callback(elicitIntent(sessionAttributes, msg))
-    } else if (intentRequest.currentIntent.confirmationStatus === 'Denied') {
+    } else if (intentRequest.currentIntent.confirmationStatus === 'Confirmed') {
         callback(close(sessionAttributes, 'Fulfilled', goodByeMsg))
     } else {
         callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, errMsg))
