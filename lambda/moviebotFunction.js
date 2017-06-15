@@ -98,29 +98,6 @@ function welcome(intentRequest, callback) {
     return;
 }
 
-function retrieveMovieListByActor(sessionAttributes, callback) {
-
-    const actorId = sessionAttributes.actorId;
-
-    tmdbClient.getMovieListByActor(actorId).then(function(val) {
-        var msg = {
-            contentType: 'PlainText',
-            content: 'I found a movie called ' + val[0].getTitle() + ' Did we find your movie? Or still unsure ?'
-        };
-
-
-
-        callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg, movieToResponseCards(val)))
-    }).catch(function(err) {
-        callback(close(sessionAttributes, 'Failed', {
-            contentType: 'PlainText',
-            content: err
-        }))
-    });
-
-    return;
-}
-
 function sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, violatedSlot, messageContent) {
     const intentName = intentRequest.currentIntent.name;
     const slots = intentRequest.currentIntent.slots;
@@ -132,126 +109,18 @@ function sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, viol
     return
 }
 
-function findMovieByActor(intentRequest, callback) {
-    const sessionAttributes = intentRequest.sessionAttributes || {};
-    const slots = intentRequest.currentIntent.slots;
-
-    // validate user input
-    if (intentRequest.invocationSource === 'DialogCodeHook') {
-        const actorName = slots.Actor;
-
-        if (actorName) {
-
-            tmdbClient.getActor(actorName)
-                .then(function(val) {
-                    // update session attributes actorId
-                    sessionAttributes.actorId = val;
-                    sessionAttributes.Actor = actorName;
-                    callback(delegate(sessionAttributes, intentRequest.currentIntent.slots));
-                }).catch(function(err) {
-                    sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, 'Actor', err);
-                });
-
-            return;
-        } else {
-            // tell lex to ask for actor information
-            callback(delegate(sessionAttributes, intentRequest.currentIntent.slots));
-            return;
-        }
-    } else {
-        // in the case of fulfillment we assume we stored the actorId in sessionAttribute when we validated slot information otherwise return failed fulfillment to user
-        if (sessionAttributes.actorId) {
-            retrieveMovieListByActor(sessionAttributes, callback)
-        } else {
-            callback(close(sessionAttributes, 'Failed',
-            { contentType: 'PlainText', content: 'Failed to find actor and actress' }));
-        }
-    }
-}
-
-function findMovieByPlot(intentRequest, callback) {
-    const sessionAttributes = intentRequest.sessionAttributes || {};
-    const slots = intentRequest.currentIntent.slots;
-    const plotDescription = slots.PlotDescription;
-
-    if (intentRequest.invocationSource === 'DialogCodeHook') { 
-        // not sure what to valid so tell lex to go to next step
-        callback(delegate(sessionAttributes, intentRequest.currentIntent.slots));
-    } else {
-        if ('actorId' in sessionAttributes) {
-            tmdbClient.getMovieListByActor(sessionAttributes.actorId).then(function(val) {
-                const firstMovieTitle = val[1].getTitle();
-
-                var msg = {
-                    contentType: 'PlainText',
-                    content: 'I found a movie called ' + firstMovieTitle + '. Do you want to keep looking ?'
-                }
-
-                callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg, movieToResponseCards(val)))
-            }).catch(function(err) {
-                callback(close(sessionAttributes, 'Failed', {
-                    contentType: 'PlainText',
-                    content: err
-                }))
-            });
-        } else {
-            tmdbClient.searchMovie(plotDescription).then(function(val) {
-                sessionAttributes.plotDescription = plotDescription;
-                const movieTitle = val[0].getTitle();
-
-                var msg = {
-                    contentType: 'PlainText',
-                    content: 'I found a movie called ' + movieTitle  + '. Do you want to keep looking ?'
-                }
-
-                callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg, movieToResponseCards(val)))
-            }).catch(function(err) {
-                callback(close(sessionAttributes, 'Failed', {
-                    contentType: 'PlainText',
-                    content: err
-                }))
-            });
-        }
-    }
-
-    return;
-}
-
-function findMovieByQuote(intentRequest, callback) {
-    const sessionAttributes = intentRequest.sessionAttributes || {};
-    // retrieve slots
-    const quote = intentRequest.currentIntent.slots.MovieQuote;
-
-    // Should be aggregating the source results
-    wikiQuoteSource.getMovies(quote).then((val) => {
-
-        if (val.length > 0) {
-            callback(close(sessionAttributes, 'Fulfilled', {
-                contentType: 'PlainText',
-                content: 'I found a movie matching the quote called ' + val[0].getTitle()
-            }));
-        } else {
-            callback(close(sessionAttributes, 'Failed', {
-                contentType: 'PlainText',
-                content: 'Could not find a movie matching the quote'
-            }));
-        }
-
-    }).catch((reason) => {
-        callback(close(sessionAttributes, 'Failed', {
-            contentType: 'PlainText',
-            content: reason
-        }));
-    });
-
-    return;
-}
-
 function findMovie(intentRequest, callback) {
     const sessionAttributes = intentRequest.sessionAttributes || {};
     const slots = intentRequest.currentIntent.slots;
+    const intentName = intentRequest.currentIntent.name
 
-    movieFinder.find(slots, sessionAttributes).then((singleMovieList) => {
+    if (intentRequest.invocationSource === 'DialogCodeHook') {
+        callback(delegate(sessionAttributes, slots))
+        return
+    }
+
+    movieFinder.find(intentName, slots, sessionAttributes).then((singleMovieList) => {
+        //save slot information
         //movieFinder will return a list of movie result
         var msg = {
             contentType: 'PlainText',
@@ -261,13 +130,22 @@ function findMovie(intentRequest, callback) {
         callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg, movieToResponseCards(singleMovieList)))
     }).catch((err) => {
         console.log(err)
-        //error object structure
         if (err.type === "Validation") {
-
+            if (intentName === "FindMovieByActor") {
+                sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, err.incorrectSlotName, err.reason + ". What is the name of the actor/actress ?");
+            }
         } else if (err.type == "NotFound" ) {
-
+            var msg = {
+                contentType : "PlainText",
+                content : "Hmm couldn't find any movies, Can you remember any more information?"
+            }
+            callback(elicitIntent(sessionAttributes, msg))
         } else {
-
+            var msg = {
+                contentType : "PlainText",
+                content : "Oh no!! something went wrong. What information did you have about the movies?"
+            }
+            callback(elicitIntent(sessionAttributes, msg))
         }
     });
 }
@@ -296,7 +174,7 @@ function continueFinding(intentRequest, callback) {
     if (intentRequest.currentIntent.confirmationStatus === 'Denied') {
         callback(elicitIntent(sessionAttributes, msg))
     } else if (intentRequest.currentIntent.confirmationStatus === 'Confirmed') {
-        callback(close(sessionAttributes, 'Fulfilled', goodByeMsg))
+        callback(close({}, 'Fulfilled', goodByeMsg))
     } else {
         callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, errMsg))
     }
@@ -319,15 +197,12 @@ function dispatch(intentRequest, callback) {
         return welcome(intentRequest, callback);
     } else if (intentName == 'FindMovie') {
         return findMovie(intentRequest, callback);
-    } else if (intentName == 'FindMovieByActor') {
-        return findMovieByActor(intentRequest, callback);
-    } else if (intentName == 'FindMovieByPlot') {
-        return findMovie(intentRequest, callback); 
+    } else if (intentName == 'FindMovieByActor' || intentName == 'FindMovieByPlot' || intentName == 'FindMovieByQuote') {
+        return findMovie(intentRequest, callback);
     } else if (intentName == 'ContinueFinding') {
         return continueFinding(intentRequest, callback);
-    } else if (intentName == 'FindMovieByQuote') {
-        return findMovie(intentRequest, callback);
     }
+
     throw new Error(`Intent with name ${intentName} not supported`);
 }
 

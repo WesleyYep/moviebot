@@ -1,9 +1,13 @@
 {
+    "dialogCodeHook": {
+        "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
+        "messageVersion": "1.0"
+    }, 
     "name": "FindMovieByQuote", 
-    "checksum": "aaf409e0-9d05-4c18-961d-73844313ab86", 
+    "checksum": "9d374abf-f957-4aae-ae9d-d98fa7ca8e43", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497352451.962, 
-    "createdDate": 1497352370.649, 
+    "lastUpdatedDate": 1497525112.044, 
+    "createdDate": 1497515970.199, 
     "sampleUtterances": [
         "I would like to filter by movie quote", 
         "Can I find by movie quote", 
