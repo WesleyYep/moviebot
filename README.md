@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/WesleyYep/moviebot.svg?branch=master)](https://travis-ci.org/WesleyYep/moviebot)  
+  
 # moviebot
 Chatbot for movies
 
