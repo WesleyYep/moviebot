@@ -1,3 +1,5 @@
+CarType
+MovieLocationsAuckland
 MovieQuote
 PlotDescription
 ResultResponse

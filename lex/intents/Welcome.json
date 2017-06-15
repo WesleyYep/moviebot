@@ -1,9 +1,9 @@
 {
     "name": "Welcome", 
-    "checksum": "91945dbf-82af-4400-8c75-573b3948a10a", 
+    "checksum": "15848fb1-0cce-4f76-9094-fe2d9f77b274", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497233602.244, 
-    "createdDate": 1497221016.95, 
+    "lastUpdatedDate": 1497352451.242, 
+    "createdDate": 1497352372.967, 
     "sampleUtterances": [
         "Hello", 
         "Hi", 
@@ -20,7 +20,7 @@
     "fulfillmentActivity": {
         "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
+            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
     }

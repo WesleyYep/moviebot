@@ -1,9 +1,9 @@
 {
     "name": "Fallback", 
-    "checksum": "18e5b5db-0b17-4b1b-a99e-a274199328dd", 
+    "checksum": "fbf8dce4-9116-447d-a339-11bb4369edf3", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497232375.758, 
-    "createdDate": 1497221009.615, 
+    "lastUpdatedDate": 1497352451.829, 
+    "createdDate": 1497352363.156, 
     "sampleUtterances": [
         "I think {Something} is in it"
     ], 
@@ -22,7 +22,7 @@
                 ]
             }, 
             "priority": 1, 
-            "slotTypeVersion": "1", 
+            "slotTypeVersion": "3", 
             "sampleUtterances": []
         }
     ], 

@@ -13,33 +13,38 @@ var dispatch = function(queryInfo) {
     // sessionAttributes can store previous information state i.e. data
     var sessionAttributes = queryInfo['sessionAttributes'];
 
+    const actor = retrieveInfo(SlotConstants.MOVIE_ACTOR, queryInfo);
+    const quote = retrieveInfo(SlotConstants.MOVIEQUOTE, queryInfo);
+    const plot = retrieveInfo(SlotConstants.MOVIEPLOT, queryInfo);
+
     var sourcePromises = [];
 
     return new Promise(function(resolve, reject) {
-        if (slots.hasOwnProperty(SlotConstants.MOVIEQUOTE)) {
+        if (quote) {
             console.log("WikiQuote source is added");
-            const quote = slots[SlotConstants.MOVIEQUOTE];
             sourcePromises.push(wikiQuoteSource.getMovies(quote));
-            // if (sessionAttributes.hasOwnProperty('MovieQuote')) {
-            //     // something like getting previous results from session attributes or could be from dynamodb
-            //     const wikiQuoteMovies = sessionAttributes['MovieQuote'];
-            //     movies.push(wikiQuoteMovies);
-            // } else {
-            //     const quote = slots[SlotConstants.MOVIEQUOTE];
-            //     wikiQuoteSource.getMovies(quote).then((wikiQuoteMovies) => {
-            //         movies.push(wikiQuoteMovies);
-            //         // TODO need to find way to store it in session attributes. won't work adding in a list..
-            //         sessionAttributes['MovieQuote'] = wikiQuoteMovies;
-            //     }).catch((err) => {
-            //         reject(err);
-            //     });
-            // }
-        } else if (slots.hasOwnProperty(SlotConstants.MOVIEPLOT)) {
-            console.log("Elastic source is called");
-            const plot = slots[SlotConstants.MOVIEPLOT];
-            sourcePromises.push(elasticSource.getMovies(plot));
+        }
 
-            
+        var body = {
+            "query" : {
+                "bool" : {
+                    "should" : []
+                }
+            }
+        } 
+
+        if (plot) {
+            body["query"]["bool"]["should"].push({"match" : {"plot-detailed" : plot}})
+        }
+
+        if (actor) {
+            body["query"]["bool"]["should"].push({"match" : {"actors" : actor}})
+        }
+        
+        if ( plot || actor ) {
+            console.log("Elastic source is called");
+            console.log(body)
+            sourcePromises.push(elasticSource.getMovies(body));
         }
 
         // Other sources. Not sure how it will work
@@ -52,6 +57,18 @@ var dispatch = function(queryInfo) {
     });
 
 };
+
+function retrieveInfo(slotName, queryInfo) {
+    if (queryInfo.slots.hasOwnProperty(slotName)) {
+        return queryInfo.slots[slotName];
+    }
+
+    if (queryInfo.sessionAttributes.hasOwnProperty(slotName)) {
+        return queryInfo.sessionAttributes[slotName];
+    }
+
+    return null;
+}
 
 module.exports = {
     dispatch: dispatch

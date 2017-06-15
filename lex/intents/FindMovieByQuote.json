@@ -1,26 +1,9 @@
 {
-    "confirmationPrompt": {
-        "maxAttempts": 3, 
-        "messages": [
-            {
-                "content": "Is \"{MovieQuote}\" the correct quote to find the movie by?", 
-                "contentType": "PlainText"
-            }
-        ]
-    }, 
     "name": "FindMovieByQuote", 
-    "checksum": "367d653d-c617-4bc7-ae5d-e859225b2f7e", 
+    "checksum": "aaf409e0-9d05-4c18-961d-73844313ab86", 
     "version": "$LATEST", 
-    "rejectionStatement": {
-        "messages": [
-            {
-                "content": "Okay. Finding movie by quote is cancelled", 
-                "contentType": "PlainText"
-            }
-        ]
-    }, 
-    "createdDate": 1497221015.106, 
-    "lastUpdatedDate": 1497232375.872, 
+    "lastUpdatedDate": 1497352451.962, 
+    "createdDate": 1497352370.649, 
     "sampleUtterances": [
         "I would like to filter by movie quote", 
         "Can I find by movie quote", 
@@ -30,7 +13,8 @@
         "I want to find by movie quote", 
         "This {MovieQuote} quote is in it", 
         "Find by movie quote", 
-        "Filter by movie quote"
+        "Filter by movie quote", 
+        "quote"
     ], 
     "slots": [
         {
@@ -54,7 +38,7 @@
     "fulfillmentActivity": {
         "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
+            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
     }

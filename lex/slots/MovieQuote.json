@@ -1,13 +1,40 @@
 {
     "enumerationValues": [
         {
-            "value": "You either die a hero, or you live long enough to see yourself become the villain."
+            "value": "just keep swimming"
+        }, 
+        {
+            "value": "may the Force be with you"
+        }, 
+        {
+            "value": "I'm the king of the world"
+        }, 
+        {
+            "value": "here's johnny"
+        }, 
+        {
+            "value": "mama says, 'stupid is as stupid does'"
+        }, 
+        {
+            "value": "I'm going to make him an offer he can't refuse"
+        }, 
+        {
+            "value": "you either die a hero, or you live long enough to see yourself become the villain."
+        }, 
+        {
+            "value": "Houston, we have a problem"
+        }, 
+        {
+            "value": "Don't think you are,know you are."
+        }, 
+        {
+            "value": "you complete me"
         }
     ], 
     "name": "MovieQuote", 
-    "checksum": "e09ee783-75ce-4983-9820-ab0248625cb6", 
+    "checksum": "920323a9-4728-49e3-87d1-a295c96b6c6a", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497220993.694, 
-    "createdDate": 1497220993.694, 
+    "lastUpdatedDate": 1497352345.24, 
+    "createdDate": 1497352345.24, 
     "description": "moviebot"
 }
