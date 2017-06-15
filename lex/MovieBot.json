@@ -10,15 +10,15 @@
             "intentName": "Fallback"
         }, 
         {
-            "intentVersion": "2", 
+            "intentVersion": "1", 
             "intentName": "FindMovieByActor"
         }, 
         {
-            "intentVersion": "4", 
+            "intentVersion": "1", 
             "intentName": "FindMovieByPlot"
         }, 
         {
-            "intentVersion": "3", 
+            "intentVersion": "1", 
             "intentName": "FindMovieByQuote"
         }, 
         {
@@ -28,7 +28,7 @@
     ], 
     "name": "MovieBot", 
     "locale": "en-US", 
-    "checksum": "e5e9c3eb-d4d4-4ca3-ac06-a9e164914632", 
+    "checksum": "7e4b60cd-ee7b-436c-8ebe-3093f1cb1993", 
     "abortStatement": {
         "messages": [
             {
@@ -38,8 +38,8 @@
         ]
     }, 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497350996.046, 
-    "createdDate": 1497261983.271, 
+    "lastUpdatedDate": 1497352492.412, 
+    "createdDate": 1497352375.246, 
     "clarificationPrompt": {
         "maxAttempts": 2, 
         "messages": [

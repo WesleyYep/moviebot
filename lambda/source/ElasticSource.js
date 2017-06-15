@@ -4,7 +4,7 @@ var AWS = require('aws-sdk')
 var movieBuilder = require('../model/Movie'); 
 
 var esUri = 'search-moviebot-squiezr3n3t55xzc3c46awndia.us-east-1.es.amazonaws.com'
-var indexName = 'movies-v6'
+var indexName = 'movies-v7'
 
 // This returns a promise. Async operation.
 var getMovies = function(body) {

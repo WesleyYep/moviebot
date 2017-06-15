@@ -1,13 +1,13 @@
 {
     "dialogCodeHook": {
-        "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
+        "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
         "messageVersion": "1.0"
     }, 
     "name": "FindMovieByActor", 
-    "checksum": "f7335a92-a731-428a-8756-2a47d3abe5d6", 
+    "checksum": "e90cb671-0f71-4a10-9dd0-331ac9bdbab1", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497350857.995, 
-    "createdDate": 1497261974.115, 
+    "lastUpdatedDate": 1497352365.788, 
+    "createdDate": 1497352365.788, 
     "sampleUtterances": [
         "I think one of the actors is {Actor}", 
         "{Actor} starred in it", 
@@ -39,7 +39,7 @@
     "fulfillmentActivity": {
         "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
+            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
     }
