@@ -1,6 +1,8 @@
 var sourceDispatcher = require('dispatcher/SourceDispatcher');
 var aggregator = require('aggregator/IntersectionAggregator');
 var validator = require('validator/Validator');
+const ValidationError = require('error/ValidationError');
+const MovieNotFoundError = require('error/MovieNotFoundError');
 
 var find = function(intentName, slots, sessionAttributes) {
     queryInfo = {
@@ -15,11 +17,7 @@ var find = function(intentName, slots, sessionAttributes) {
         .then((movieLists) => processMovieLists(movieLists))
         .then((singleMovieList) => {
             if (singleMovieList.length == 0 ) {
-                var err = {
-                    type: "NotFound"
-                }
-                
-                reject(err)
+                reject(new MovieNotFoundError())
                 return
             }
             resolve(singleMovieList)
@@ -40,12 +38,11 @@ var find = function(intentName, slots, sessionAttributes) {
  */
 function validateSlots(queryInfo) {
     return new Promise(function(resolve, reject){
-        validator.validate(queryInfo).then((validationResult) => {
-            if (validationResult.isValid) {
+        validator.validate(queryInfo).then((result) => {
+            if (result.isValid) {
                 resolve();
             } else {
-                validationResult["type"] = "Validation";
-                reject(validationResult);
+                reject(new ValidationError(result.incorrectSlotName, result.reason, result.suggestions));
             }
         }).catch((err) => {
             reject(err)

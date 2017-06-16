@@ -4,6 +4,8 @@ var rp = require('request-promise');
 var tmdbClient = require('source/tmdbSource');
 var wikiQuoteSource = require('source/WikiQuoteSource');
 var movieFinder = require('movieFinder');
+const ValidationError = require('error/ValidationError');
+const MovieNotFoundError = require('error/MovieNotFoundError');
 
  /**
   * This sample demonstrates an implementation of the Lex Code Hook Interface
@@ -130,11 +132,11 @@ function findMovie(intentRequest, callback) {
         callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg, movieToResponseCards(singleMovieList)))
     }).catch((err) => {
         console.log(err)
-        if (err.type === "Validation") {
+        if (err instanceof ValidationError) {
             if (intentName === "FindMovieByActor") {
                 sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, err.incorrectSlotName, err.reason + ". What is the name of the actor/actress ?");
             }
-        } else if (err.type == "NotFound" ) {
+        } else if (err instanceof MovieNotFoundError ) {
             var msg = {
                 contentType : "PlainText",
                 content : "Hmm couldn't find any movies, Can you remember any more information?"
