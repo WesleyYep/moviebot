@@ -1,8 +1,8 @@
 {
     "name": "UnsureResult", 
-    "checksum": "c32f199d-f186-46ca-b989-5a9345ef5666", 
+    "checksum": "f73d5129-bdda-4e5e-915a-dcbf7a86a756", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497684327.812, 
+    "lastUpdatedDate": 1497697675.318, 
     "createdDate": 1497674880.222, 
     "sampleUtterances": [
         "hmm not sure", 
@@ -12,7 +12,8 @@
         "wrong movie", 
         "none of the movies is correct", 
         "unsure about these movies", 
-        "don't think so"
+        "don't think so", 
+        "still unsure"
     ], 
     "slots": [], 
     "fulfillmentActivity": {

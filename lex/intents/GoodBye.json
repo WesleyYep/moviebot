@@ -1,8 +1,8 @@
 {
     "name": "GoodBye", 
-    "checksum": "c39b7d9b-8955-4c92-87ec-6ce4eaf9a48c", 
+    "checksum": "344e6c30-04ec-44c4-ba81-babae0a56b56", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497684327.852, 
+    "lastUpdatedDate": 1497697772.616, 
     "createdDate": 1497668000.592, 
     "sampleUtterances": [
         "thanks for finding the movie", 
@@ -11,7 +11,9 @@
         "nice this movie was the one i was looking", 
         "found the movie", 
         "found it thanks", 
-        "bye bye"
+        "bye bye", 
+        "goodbye", 
+        "good bye"
     ], 
     "slots": [], 
     "fulfillmentActivity": {
