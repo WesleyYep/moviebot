@@ -1,4 +1,3 @@
-CarType
 MovieLocationsAuckland
 MovieQuote
 PlotDescription
