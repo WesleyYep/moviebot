@@ -2,6 +2,14 @@
     "status": "READY", 
     "intents": [
         {
+            "intentVersion": "4", 
+            "intentName": "GoodBye"
+        }, 
+        {
+            "intentVersion": "3", 
+            "intentName": "UnsureResult"
+        }, 
+        {
             "intentVersion": "1", 
             "intentName": "ContinueFinding"
         }, 
@@ -28,7 +36,7 @@
     ], 
     "name": "MovieBot", 
     "locale": "en-US", 
-    "checksum": "ecda9c5f-21c1-445d-933d-06225efddf44", 
+    "checksum": "76e57029-b0bb-41ce-bd43-70b6ea74d7c7", 
     "abortStatement": {
         "messages": [
             {
@@ -38,7 +46,7 @@
         ]
     }, 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497525237.57, 
+    "lastUpdatedDate": 1497684373.183, 
     "createdDate": 1497515974.937, 
     "clarificationPrompt": {
         "maxAttempts": 2, 

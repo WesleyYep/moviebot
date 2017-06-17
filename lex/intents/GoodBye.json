@@ -1,0 +1,24 @@
+{
+    "name": "GoodBye", 
+    "checksum": "c39b7d9b-8955-4c92-87ec-6ce4eaf9a48c", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1497684327.852, 
+    "createdDate": 1497668000.592, 
+    "sampleUtterances": [
+        "thanks for finding the movie", 
+        "I don't want to search anymore", 
+        "exit", 
+        "nice this movie was the one i was looking", 
+        "found the movie", 
+        "found it thanks", 
+        "bye bye"
+    ], 
+    "slots": [], 
+    "fulfillmentActivity": {
+        "type": "CodeHook", 
+        "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
+            "messageVersion": "1.0"
+        }
+    }
+}
