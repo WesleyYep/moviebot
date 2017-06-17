@@ -88,6 +88,20 @@ function movieToResponseCards(movieList) {
     }
 }
 
+function getGoodByeMessage() {
+    return {
+        contentType : "PlainText",
+        content: "No problem, thank you for using the movie bot. Good bye"
+    };
+}
+
+function getFurtherInfoMessage() {
+    return {
+        contentType : "PlainText",
+        content : "Can you remember any more information?"
+    };
+}
+
 function welcome(intentRequest, callback) {
     const sessionAttributes = intentRequest.sessionAttributes || {};
 
@@ -105,7 +119,7 @@ function sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, viol
     const slots = intentRequest.currentIntent.slots;
 
     var message = { contentType: 'PlainText', content: messageContent };
-    
+
     slots[`${violatedSlot}`] = null;
     callback(elicitSlot(sessionAttributes, intentName, slots, violatedSlot, message));
     return
@@ -153,33 +167,35 @@ function findMovie(intentRequest, callback) {
 }
 
 function continueFinding(intentRequest, callback) {
-    console.log(intentRequest);
-
     const sessionAttributes = intentRequest.sessionAttributes || {};
     const slots = intentRequest.currentIntent.slots;
-
-    var msg = {
-        contentType : "PlainText",
-        content : "Can you remember any more information?"
-    }
-
-    var goodByeMsg = {
-        contentType : "PlainText",
-        content: "Thank you for using the movie bot. Good bye"
-    }
 
     var errMsg = {
         contentType: 'PlainText',
         content: 'Sorry didn\'t understand your response. So did we find your movie (yes/no)'
     }
- 
+
     if (intentRequest.currentIntent.confirmationStatus === 'Denied') {
-        callback(elicitIntent(sessionAttributes, msg))
+        callback(elicitIntent(sessionAttributes, getFurtherInfoMessage()))
     } else if (intentRequest.currentIntent.confirmationStatus === 'Confirmed') {
-        callback(close({}, 'Fulfilled', goodByeMsg))
+        callback(close({}, 'Fulfilled', getGoodByeMessage()))
     } else {
         callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, errMsg))
     }
+}
+
+function goodbye(intentRequest, callback) {
+    const sessionAttributes = intentRequest.sessionAttributes || {};
+    const slots = intentRequest.currentIntent.slots;
+
+    callback(close({}, 'Fulfilled', getGoodByeMessage()))
+}
+
+function unsureResult(intentRequest, callback) {
+    const sessionAttributes = intentRequest.sessionAttributes || {};
+    const slots = intentRequest.currentIntent.slots;
+
+    callback(elicitIntent(sessionAttributes, getFurtherInfoMessage()))
 }
 
  // --------------- Intents -----------------------
@@ -203,6 +219,10 @@ function dispatch(intentRequest, callback) {
         return findMovie(intentRequest, callback);
     } else if (intentName == 'ContinueFinding') {
         return continueFinding(intentRequest, callback);
+    } else if (intentName == 'GoodBye') {
+        return goodbye(intentRequest, callback);
+    } else if (intentName == 'UnsureResult') {
+        return unsureResult(intentRequest, callback);
     }
 
     throw new Error(`Intent with name ${intentName} not supported`);
