@@ -28,7 +28,7 @@
     ], 
     "name": "MovieBot", 
     "locale": "en-US", 
-    "checksum": "7e4b60cd-ee7b-436c-8ebe-3093f1cb1993", 
+    "checksum": "ecda9c5f-21c1-445d-933d-06225efddf44", 
     "abortStatement": {
         "messages": [
             {
@@ -38,8 +38,8 @@
         ]
     }, 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497352492.412, 
-    "createdDate": 1497352375.246, 
+    "lastUpdatedDate": 1497525237.57, 
+    "createdDate": 1497515974.937, 
     "clarificationPrompt": {
         "maxAttempts": 2, 
         "messages": [

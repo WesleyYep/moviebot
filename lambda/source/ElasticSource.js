@@ -8,8 +8,25 @@ var indexName = 'movies-v7'
 
 // This returns a promise. Async operation.
 var getMovies = function(body) {
-    // encode the plot
-    console.log("calling get movies of elastic source for: " + body);
+    return new Promise((resolve, reject) => {
+        query(body).then((responseBody) => {
+            const results = JSON.parse(responseBody).hits.hits;
+            const movies = results.map(function(movie) {
+                const title = movie._source.title;
+                return movieBuilder.builder(title).build();
+            });
+            console.log("retrieved movies: ");
+            console.log(movies);
+            resolve(movies);
+        }).catch((err) => {
+            console.log('Error: ' + err);
+            reject(err)
+        })
+    });
+};
+
+var query = function(body) {
+    console.log("calling get movies of elastic source for: " + JSON.stringify(body));
 
     return new Promise((resolve, reject) => {
         var endpoint = new AWS.Endpoint(esUri)
@@ -35,14 +52,7 @@ var getMovies = function(body) {
             
             httpResp.on('end', function (chunk) {
                 console.log(body);
-                const results = JSON.parse(body).hits.hits;
-                const movies = results.map(function(movie) {
-                    const title = movie._source.title;
-                    return movieBuilder.builder(title).build();
-                });
-                console.log("retrieved movies: ");
-                console.log(movies);
-                resolve(movies);
+                resolve(body);
             });
         }, function(err){
             console.log('Error: ' + err);
@@ -50,8 +60,9 @@ var getMovies = function(body) {
         });
 
     });
-};
+}
 
 module.exports = {
-    getMovies: getMovies
+    getMovies: getMovies,
+    query: query
 };

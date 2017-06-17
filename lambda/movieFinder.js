@@ -1,9 +1,13 @@
 var sourceDispatcher = require('dispatcher/SourceDispatcher');
 var aggregator = require('aggregator/IntersectionAggregator');
 var youtubeTrailer = require('trailer/YoutubeTrailer');
+var validator = require('validator/Validator');
+const ValidationError = require('error/ValidationError');
+const MovieNotFoundError = require('error/MovieNotFoundError');
 
-var find = function(slots, sessionAttributes) {
+var find = function(intentName, slots, sessionAttributes) {
     queryInfo = {
+        intentName: intentName,
         slots: slots,
         sessionAttributes: sessionAttributes
     };
@@ -13,7 +17,13 @@ var find = function(slots, sessionAttributes) {
         .then(() => findMovieFromSources(queryInfo))
         .then((movieLists) => processMovieLists(movieLists))
         .then((singleMovieList) => postProcess(singleMovieList))
-        .then((singleMovieList) => resolve(singleMovieList))
+        .then((singleMovieList) => {
+            if (singleMovieList.length == 0 ) {
+                reject(new MovieNotFoundError())
+                return
+            }
+            resolve(singleMovieList)
+        })
         .catch((err) => {
             reject(err);
         });
@@ -22,7 +32,7 @@ var find = function(slots, sessionAttributes) {
 
 /**
  * validateSlots will validate all the available slots information and 
- * store any info obtained during the validation step in the session attribute.
+ * assume any information in sessionAttribute have been validate
  * If a slot is invalid, it reject and return an error 
  * else if all slot is valid, return the slot and session attributes
  * 
@@ -30,7 +40,15 @@ var find = function(slots, sessionAttributes) {
  */
 function validateSlots(queryInfo) {
     return new Promise(function(resolve, reject){
-        resolve(queryInfo);
+        validator.validate(queryInfo).then((result) => {
+            if (result.isValid) {
+                resolve();
+            } else {
+                reject(new ValidationError(result.incorrectSlotName, result.reason, result.suggestions));
+            }
+        }).catch((err) => {
+            reject(err)
+        })
     });
 }
 

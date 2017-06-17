@@ -59,12 +59,13 @@ var dispatch = function(queryInfo) {
 };
 
 function retrieveInfo(slotName, queryInfo) {
-    if (queryInfo.slots.hasOwnProperty(slotName)) {
-        return queryInfo.slots[slotName];
-    }
-
     if (queryInfo.sessionAttributes.hasOwnProperty(slotName)) {
         return queryInfo.sessionAttributes[slotName];
+    }
+
+    if (queryInfo.slots.hasOwnProperty(slotName)) {
+        queryInfo.sessionAttributes[slotName] = queryInfo.slots[slotName];
+        return queryInfo.slots[slotName];
     }
 
     return null;

@@ -4,10 +4,10 @@
         "messageVersion": "1.0"
     }, 
     "name": "FindMovieByActor", 
-    "checksum": "e90cb671-0f71-4a10-9dd0-331ac9bdbab1", 
+    "checksum": "8af29ff3-d24f-46eb-b762-e30ab02d1845", 
     "version": "$LATEST", 
-    "lastUpdatedDate": 1497352365.788, 
-    "createdDate": 1497352365.788, 
+    "lastUpdatedDate": 1497515964.279, 
+    "createdDate": 1497515964.279, 
     "sampleUtterances": [
         "I think one of the actors is {Actor}", 
         "{Actor} starred in it", 
