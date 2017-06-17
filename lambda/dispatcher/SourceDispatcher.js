@@ -28,17 +28,17 @@ var dispatch = function(queryInfo) {
         var body = {
             "query" : {
                 "bool" : {
-                    "should" : []
+                    "must" : []
                 }
             }
         } 
 
         if (plot) {
-            body["query"]["bool"]["should"].push({"match" : {"plot-detailed" : plot}})
+            body["query"]["bool"]["must"].push({"match" : {"plot-detailed" : plot}})
         }
 
         if (actor) {
-            body["query"]["bool"]["should"].push({"match" : {"actors" : actor}})
+            body["query"]["bool"]["must"].push({"match" : {"actors" : actor}})
         }
         
         if ( plot || actor ) {

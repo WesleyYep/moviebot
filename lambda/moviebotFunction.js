@@ -50,7 +50,8 @@ function confirmIntent(sessionAttributes, intentName, slots, message, responseCa
             intentName,
             slots,
             message,
-        },
+            responseCard
+        }
     };
 }
 
