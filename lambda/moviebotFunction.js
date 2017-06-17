@@ -50,6 +50,7 @@ function confirmIntent(sessionAttributes, intentName, slots, message, responseCa
             intentName,
             slots,
             message,
+            responseCard
         },
     };
 }
@@ -81,8 +82,10 @@ function movieToResponseCards(movieList) {
         contentType: "application/vnd.amazonaws.card.generic",
         genericAttachments: movieList.slice(0, 10).map(movie => {
             return {
-                title: movie.getTitle(),
-                imageUrl: "https://images-na.ssl-images-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_UY1200_CR90,0,630,1200_AL_.jpg"
+                title: movie.getTitle().substring(0, 80),
+                subTitle: movie.getTrailerDescription().substring(0, 80),
+                imageUrl: movie.getTrailerThumbnail(),
+                attachmentLinkUrl: movie.getTrailerUrl()
             }
         })
     }
