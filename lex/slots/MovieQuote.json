@@ -74,6 +74,12 @@
         }, 
         {
             "value": "We got no ship, no crew, how're going to get out of this one?"
+        }, 
+        {
+            "value": "I love the smell of napalm in the morning"
+        }, 
+        {
+            "value": "Chewie, we’re home"
         }
     ], 
     "name": "MovieQuote", 

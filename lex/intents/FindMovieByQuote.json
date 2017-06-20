@@ -18,6 +18,8 @@
         "This {MovieQuote} quote is in it", 
         "Find by movie quote", 
         "Filter by movie quote", 
+        "The quote is {MovieQuote}", 
+        "A quote is {MovieQuote}", 
         "quote"
     ], 
     "slots": [
