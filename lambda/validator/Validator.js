@@ -17,11 +17,20 @@ var validate = function(queryInfo) {
     return new Promise(function(resolve, reject) {
         if (queryInfo["intentName"] == "FindMovieByActor") {
             const actorName =  slots[SlotConstants.MOVIE_ACTOR];
+            
             var body = {
                 "query" : {
                     "bool" : {
                         "must" : [
-                            {"match" : {"actors" : actorName}}
+                            {"match" : 
+                                {
+                                    "actors" : {
+                                        "query": actorName,
+                                        "fuzziness": "AUTO",
+                                        "operator":  "and"
+                                    }
+                                }
+                            }
                         ]
                     }
                 },
@@ -46,23 +55,15 @@ var validate = function(queryInfo) {
 
                 var results = jsonResponseBody.hits.hits
                 var nameMap = {}
-                //check the first movie if there is an exact match of the actor name
-                for(i = 0; i< results[0].highlight.actors.length; i++) {
-                    var targetName = results[0].highlight.actors[i];
-                    
-                    nameMap[targetName] = nameMap.hasOwnProperty(targetName) ? nameMap[targetName]++ : 1;
 
-                    if (actorName.toLowerCase() === targetName.toLowerCase()) {
-                        resolve(validationResult)
-                        return
-                    }
-                }
-
-                //none of the name from first movie match correctly so gather all the similar name and return as suggestions
-                for (i = 1; i<results.length; i++) {
+                for (i = 0; i<results.length; i++) {
                     for (j = 0; j<results[i].highlight.actors.length; j++) {
                         var targetName = results[i].highlight.actors[j];
                         nameMap[targetName] = nameMap.hasOwnProperty(targetName) ? nameMap[targetName]++ : 1;
+                        if (actorName.toLowerCase() === targetName.toLowerCase()) {
+                            resolve(validationResult)
+                            return
+                        }
                     }
                 }
 
