@@ -1,0 +1,21 @@
+{
+  "name": "lex",
+  "version": "1.0.0",
+  "description": "Test lex functionality",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.75.0",
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "uuid": "^3.1.0"
+  },
+  "dependencies": {
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
+  }
+}
