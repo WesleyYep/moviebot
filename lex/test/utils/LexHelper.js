@@ -69,12 +69,12 @@ var generateOptions = function(accessKey, secretKey, region) {
     };
 };
 
-var generateParams = function(botName, botAlias, inputText, sessionAttributes = undefined) {
+var generateParams = function(botName, botAlias, userId, inputText, sessionAttributes = undefined) {
     var params = {
         botName: botName,
         botAlias: botAlias,
         inputText: inputText,
-        userId: generateUserId()
+        userId: userId
     };
 
     if (sessionAttributes) {
@@ -94,6 +94,7 @@ var logBot = function(text) {
 
 module.exports = {
     getAwsCredentials: getAwsCredentials,
+    generateUserId: generateUserId,
     generateOptions: generateOptions,
     generateParams: generateParams,
     logUser: logUser,

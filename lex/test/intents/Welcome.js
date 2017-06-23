@@ -25,9 +25,10 @@ describe("Welcome Intent", function() {
         this.timeout(10000);
 
         const options = lexHelper.generateOptions(accessKey, secretKey, region);
+        const userId = lexHelper.generateUserId();
         var lexruntime = new AWS.LexRuntime(options);
 
-        const params = lexHelper.generateParams(botName, botAlias, text);
+        const params = lexHelper.generateParams(botName, botAlias, userId, text);
 
         var result = lexruntime.postText(params).promise();
 
