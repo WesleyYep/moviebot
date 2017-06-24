@@ -1,3 +1,5 @@
+'use strict';
+
 var uuidv1 = require('uuid/v1');
 
 const LEX_ENDPOINT = 'https://runtime.lex.us-east-1.amazonaws.com';
@@ -69,7 +71,7 @@ var generateOptions = function(accessKey, secretKey, region) {
     };
 };
 
-var generateParams = function(botName, botAlias, userId, inputText, sessionAttributes = undefined) {
+var generateParams = function(botName, botAlias, userId, inputText, sessionAttributes) {
     var params = {
         botName: botName,
         botAlias: botAlias,
