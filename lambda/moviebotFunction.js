@@ -19,7 +19,9 @@ const MovieNotFoundError = require('error/MovieNotFoundError');
 
  // --------------- Helpers that build all of the responses -----------------------
 
-function elicitSlot(sessionAttributes, intentName, slots, slotToElicit, message) {
+function elicitSlot(sessionAttributes, intentName, slots, slotToElicit, message, responseCard) {
+    if (typeof responseCard === 'undefined') { responseCard = null; }
+
     return {
         sessionAttributes,
         dialogAction: {
@@ -28,6 +30,7 @@ function elicitSlot(sessionAttributes, intentName, slots, slotToElicit, message)
             slots,
             slotToElicit,
             message,
+            responseCard
         },
     };
 }
@@ -89,6 +92,24 @@ function movieToResponseCards(movieList) {
     }
 }
 
+function actorSuggestionResponseCard(actorNameList) {
+    return {
+        contentType: "application/vnd.amazonaws.card.generic",
+        genericAttachments: [
+            {
+                title:"Actor Suggestion",
+                subTitle:"Select one of the actor below",
+                buttons:  actorNameList.slice(0, 3).map(actorName => {
+                    return {
+                        text: actorName,
+                        value: actorName
+                    }
+                })        
+            }
+        ]      
+    }
+}
+
 function getGoodByeMessage() {
     return {
         contentType : "PlainText",
@@ -115,15 +136,14 @@ function welcome(intentRequest, callback) {
     return;
 }
 
-function sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, violatedSlot, messageContent) {
+function sendInvalidSlotMessage(sessionAttributes, intentRequest, violatedSlot, messageContent, responseCard) {
     const intentName = intentRequest.currentIntent.name;
     const slots = intentRequest.currentIntent.slots;
 
     var message = { contentType: 'PlainText', content: messageContent };
 
     slots[`${violatedSlot}`] = null;
-    callback(elicitSlot(sessionAttributes, intentName, slots, violatedSlot, message));
-    return
+    return elicitSlot(sessionAttributes, intentName, slots, violatedSlot, message, responseCard);
 }
 
 function findMovie(intentRequest, callback) {
@@ -149,7 +169,15 @@ function findMovie(intentRequest, callback) {
         console.log(err)
         if (err instanceof ValidationError) {
             if (intentName === "FindMovieByActor") {
-                sendInvalidSlotMessage(sessionAttributes, intentRequest, callback, err.incorrectSlotName, err.reason + ". What is the name of the actor/actress ?");
+                var msg = err.reason + ". What is the name of the actor/actress ?";
+                var dialogAction = null;
+                if (err.suggestions.length == 0) {
+                    dialogAction = sendInvalidSlotMessage(sessionAttributes, intentRequest, err.incorrectSlotName, msg);           
+                } else {
+                    var responseCard = actorSuggestionResponseCard(err.suggestions)
+                    dialogAction = sendInvalidSlotMessage(sessionAttributes, intentRequest, err.incorrectSlotName, msg, responseCard);
+                }
+                callback(dialogAction)    
             }
         } else if (err instanceof MovieNotFoundError ) {
             var msg = {
