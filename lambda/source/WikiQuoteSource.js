@@ -28,7 +28,7 @@ var getMovies = function(quote) {
 
     // perform exact phrase search with fuzzy limit. provides finer search results.
     var options = {
-        uri: 'https://en.wikiquote.org/w/api.php?action=query&format=json&list=search&srsearch="' + encodeQuote + '"~' + fuzzyLimit + '&srprop=redirecttitle',
+        uri: 'https://en.wikiquote.org/w/api.php?action=query&format=json&list=search&srsearch="' + encodeQuote + '"~' + fuzzyLimit + '~&srprop=redirecttitle',
         json: true
     };
 
