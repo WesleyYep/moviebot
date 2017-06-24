@@ -72,3 +72,4 @@ typings/
 # temp
 **/out_*.json
 workers/output_update.txt
+.lex/
