@@ -2,7 +2,13 @@
 
 LEXPATH='lex'
 if [ "$1" = "deploy" ]; then #save to hidden .lex folder to use for deployment checksums
-    cp -r lex .lex
+    if [ -z "$AWS_LAMBDA_URI" ]; then
+        echo "Need to set AWS_LAMBDA_URI (e.g. arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction)"
+        exit 1
+    fi
+    rm -rf .lex
+    mkdir -p .lex/intents
+    mkdir -p .lex/slots
     LEXPATH=".lex"  
     echo "going to save lex to hidden folder for checksums"    
 fi
@@ -52,12 +58,16 @@ if [ "$1" = "deploy" ]; then
     # Find bot to update
     node > lex/out_MovieBot.json <<EOF
 var data = require('./lex/${name}.json');
-var myBotData = require('./.lex/${name}.json');
+try { var myBotData = require('./.lex/${name}.json'); } catch (ex) {}
 delete data.status; 
 delete data.createdDate;
 delete data.version;
 delete data.lastUpdatedDate;
-data.checksum = myBotData.checksum;
+if (myBotData) {
+    data.checksum = myBotData.checksum;
+} else {
+    delete datat.checksum
+}
 data['processBehavior'] = "BUILD";
 data['name'] = '${name}';
 if (data.intents) {
@@ -83,11 +93,15 @@ EOF
         slotName=$(tr -dc '[[:print:]]' <<< "$slotName") # remove non-printed chars        
         node > lex/slots/out_tempSlot.json <<EOF
 var data = require('./lex/slots/${slotName}.json');
-var mySlotData = require('./.lex/slots/${slotName}.json');
+try { var mySlotData = require('./.lex/slots/${slotName}.json'); } catch (ex) {}
 delete data.createdDate;
 delete data.version;
 delete data.lastUpdatedDate;
-data.checksum = mySlotData.checksum;
+if (mySlotData) {
+    data.checksum = mySlotData.checksum;
+} else {
+    delete data.checksum
+}
 console.log(JSON.stringify(data));
 EOF
         echo updating slot $slotName
@@ -104,11 +118,15 @@ EOF
         intentName=$(tr -dc '[[:print:]]' <<< "$intentName") # remove non-printed chars        
         node > lex/intents/out_tempIntent.json <<EOF
 var data = require('./lex/intents/${intentName}.json');
-var myIntentData = require('./.lex/intents/${intentName}.json');
+try { var myIntentData = require('./.lex/intents/${intentName}.json'); } catch (ex) {}
 delete data.createdDate;
 delete data.version;
 delete data.lastUpdatedDate;
-data.checksum = myIntentData.checksum;
+if (myIntentData) {
+    data.checksum = myIntentData.checksum;
+} else {
+    delete data.checksum
+}
 if (data.slots) {
     data.slots.filter((s) => {
         return !s.slotType.startsWith("AMAZON");
@@ -117,10 +135,10 @@ if (data.slots) {
     })
 }
 if (data.fulfillmentActivity.type === "CodeHook") {
-    data.fulfillmentActivity.codeHook.uri = myIntentData.fulfillmentActivity.codeHook.uri;
+    data.fulfillmentActivity.codeHook.uri = "${AWS_LAMBDA_URI}";
 }
 if (data.dialogCodeHook) {
-    data.dialogCodeHook.uri = myIntentData.fulfillmentActivity.codeHook.uri;
+    data.dialogCodeHook.uri = "${AWS_LAMBDA_URI}";
 }
 console.log(JSON.stringify(data));
 EOF
