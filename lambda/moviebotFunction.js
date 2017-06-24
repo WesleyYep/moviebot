@@ -99,7 +99,7 @@ function actorSuggestionResponseCard(actorNameList) {
             {
                 title:"Actor Suggestion",
                 subTitle:"Select one of the actor below",
-                buttons:  actorNameList.slice(0, 5).map(actorName => {
+                buttons:  actorNameList.slice(0, 3).map(actorName => {
                     return {
                         text: actorName,
                         value: actorName

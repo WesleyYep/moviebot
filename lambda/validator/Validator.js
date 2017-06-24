@@ -21,29 +21,23 @@ var validate = function(queryInfo) {
             var body = {
                 "query" : {
                     "bool" : {
-                        "must" : [
-                            {"match" : 
-                                {
-                                    "actors" : {
+                        "should" : [
+                            {
+                                "match" : {
+                                    "actorName" : {
                                         "query": actorName,
-                                        "fuzziness": "AUTO",
-                                        "operator":  "and"
+                                        "fuzziness": "2",
+                                        "max_expansions": 100
                                     }
                                 }
+                                
                             }
                         ]
-                    }
-                },
-                "highlight" : {
-                    "pre_tags" : [""],
-                    "post_tags" : [""],
-                    "fields" : {
-                        "actors" : {}
                     }
                 }
             }
 
-            elasticSource.query(body).then((responseBody) => {
+            elasticSource.query(body, "actors", "actor").then((responseBody) => {
                 var jsonResponseBody = JSON.parse(responseBody);
                 if (jsonResponseBody.hits.total == 0) {
                     validationResult.isValid = false;
@@ -57,13 +51,11 @@ var validate = function(queryInfo) {
                 var nameMap = {}
 
                 for (i = 0; i<results.length; i++) {
-                    for (j = 0; j<results[i].highlight.actors.length; j++) {
-                        var targetName = results[i].highlight.actors[j];
-                        nameMap[targetName] = nameMap.hasOwnProperty(targetName) ? nameMap[targetName]++ : 1;
-                        if (actorName.toLowerCase() === targetName.toLowerCase()) {
-                            resolve(validationResult)
-                            return
-                        }
+                    var targetName = results[i]._source.actorName;
+                    nameMap[targetName] = nameMap.hasOwnProperty(targetName) ? nameMap[targetName]++ : 1;
+                    if (actorName.toLowerCase() === targetName.toLowerCase()) {
+                        resolve(validationResult)
+                        return
                     }
                 }
 
