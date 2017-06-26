@@ -16,6 +16,11 @@ describe("Welcome Intent", function() {
         botAlias = awsCredentials.getBotAlias();
     });
 
+    beforeEach(function(done){
+        this.timeout(2000);
+        setTimeout(done, 1900);
+    })
+
     it("should return welcome response", function() {
         // GIVEN
         const text = "Hello";
