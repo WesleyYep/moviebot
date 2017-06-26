@@ -38,6 +38,11 @@ describe("FindMovieByQuote intent", function() {
         });
     });
 
+    beforeEach(function(done){
+        this.timeout(2000);
+        setTimeout(done, 1900);
+    })
+
     openingUtterancesToElicitSlot.forEach((openingUtterance) => {
         quotes.forEach((quote) => {
             it("should elicit slot given opening utterance \'" + openingUtterance + "\' and then return matching movies with quote \'" + quote + "\'", function() {
