@@ -86,7 +86,7 @@ function movieToResponseCards(movieList) {
         genericAttachments: movieList.slice(0, 10).map(movie => {
             return {
                 title: movie.getTitle().substring(0, 80),
-                subTitle: movie.getTrailerDescription().substring(0, 80),
+                subTitle: movie.getTrailerDescription() ? movie.getTrailerDescription().substring(0, 80) : "There is no description for this movie",
                 imageUrl: movie.getTrailerThumbnail(),
                 attachmentLinkUrl: movie.getTrailerUrl()
             }
