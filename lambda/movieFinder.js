@@ -1,5 +1,6 @@
 var sourceDispatcher = require('dispatcher/SourceDispatcher');
 var aggregator = require('aggregator/IntersectionAggregator');
+var youtubeTrailer = require('trailer/YoutubeTrailer');
 var validator = require('validator/Validator');
 const ValidationError = require('error/ValidationError');
 const MovieNotFoundError = require('error/MovieNotFoundError');
@@ -15,6 +16,7 @@ var find = function(intentName, slots, sessionAttributes) {
         validateSlots(queryInfo)
         .then(() => findMovieFromSources(queryInfo))
         .then((movieLists) => processMovieLists(movieLists))
+        .then((singleMovieList) => postProcess(singleMovieList))
         .then((singleMovieList) => {
             if (singleMovieList.length == 0 ) {
                 reject(new MovieNotFoundError())
@@ -75,6 +77,23 @@ function processMovieLists(movieLists) {
         console.log("Aggregated movies");
         console.log(movieList);
         resolve(movieList);
+    });
+}
+
+/**
+ * Completes any further processing after aggregated movie list
+ * @param {*} movieList 
+ */
+function postProcess(movieList) {
+    console.log("Post processing movie list");
+
+    return new Promise(function(resolve, reject) {
+
+        youtubeTrailer.apply(movieList).then((updatedMovieList) => {
+            console.log("Finished finding trailer information");
+            resolve(updatedMovieList);
+        });
+
     });
 }
 
