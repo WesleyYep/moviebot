@@ -8,7 +8,7 @@ var apply = function(movieList) {
     return new Promise(function(resolve, reject) {
         var moviePromises = movieList.map(movie => {
             return new Promise(function(resolve, reject) {
-                const encodeTitle = encodeURI(movie.getTitle() + " trailer");
+                const encodeTitle = encodeURI(movie.getTitle() + " film trailer");
                 var options = {
                     uri: 'https://www.googleapis.com/youtube/v3/search?type=video&videoDuration=short&part=snippet&q=' + encodeTitle + '&key=' + apiKey,
                     json: true
@@ -21,7 +21,8 @@ var apply = function(movieList) {
 
                         // maybe some error check
                         if (res.items.length == 0) {
-                            // do something
+                            // log that no trailers were found.
+                            console.log("No trailers were found");
                         }
 
                         // extract most relevant item
@@ -29,7 +30,7 @@ var apply = function(movieList) {
 
                         const videoId = item.id.videoId;
                         const trailerDescription = item.snippet.description;
-                        const trailerThumbnail = item.snippet.thumbnails.default.url;
+                        const trailerThumbnail = item.snippet.thumbnails.high.url;
 
                         const trailerUrl = "https://www.youtube.com/watch?v=" + videoId;
 
