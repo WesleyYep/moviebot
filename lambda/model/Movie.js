@@ -50,7 +50,7 @@ class Movie {
     }
 
     setGenre(genre) {
-        return this.genre;
+        this.genre = genre;
     }
 
     getTrailerUrl() {
