@@ -1,28 +1,49 @@
 {
     "enumerationValues": [
         {
-            "value": "just keep swimming"
+            "value": "Hasta la vista, baby"
         }, 
         {
-            "value": "may the Force be with you"
+            "value": "I don't think you've ever known a woman like me"
         }, 
         {
-            "value": "I'm the king of the world"
+            "value": "The shadows betray you, because they belong to me!"
         }, 
         {
-            "value": "here's johnny"
-        }, 
-        {
-            "value": "mama says, 'stupid is as stupid does'"
-        }, 
-        {
-            "value": "I'm going to make him an offer he can't refuse"
+            "value": "Keep your friends close, but your enemies closer"
         }, 
         {
             "value": "you either die a hero, or you live long enough to see yourself become the villain."
         }, 
         {
-            "value": "Houston, we have a problem"
+            "value": "Here at NASA we all pee the same color"
+        }, 
+        {
+            "value": "If you wear a dress and have an animal sidekick, you're a princess"
+        }, 
+        {
+            "value": "may the Force be with you"
+        }, 
+        {
+            "value": "mama says, 'stupid is as stupid does'"
+        }, 
+        {
+            "value": "Open the pod bay doors, please, HAL"
+        }, 
+        {
+            "value": "just keep swimming"
+        }, 
+        {
+            "value": "I shall call him Squishy and he shall be mine and he shall be my Squishy"
+        }, 
+        {
+            "value": "I am one with the Force. The Force is with me."
+        }, 
+        {
+            "value": "I'm going to make him an offer he can't refuse"
+        }, 
+        {
+            "value": "My precious"
         }, 
         {
             "value": "Don't think you are,know you are."
@@ -31,40 +52,34 @@
             "value": "you complete me"
         }, 
         {
-            "value": "Hasta la vista, baby"
-        }, 
-        {
             "value": "Take your stinking paws off me, you damned dirty ape"
         }, 
         {
-            "value": "Keep your friends close, but your enemies closer"
+            "value": "I'm the king of the world"
         }, 
         {
-            "value": "Open the pod bay doors, please, HAL"
+            "value": "here's johnny"
         }, 
         {
-            "value": "My precious"
+            "value": "I didn't see the light until I was already a man, by then it was nothing to me but BLINDING"
         }, 
         {
             "value": "A martini. Shaken, not stirred"
         }, 
         {
-            "value": "If you wear a dress and have an animal sidekick, you're a princess"
+            "value": "Oh, you think darkness is your ally. But you merely adopted the dark; I was born in it, moulded by it"
         }, 
         {
-            "value": "I am one with the Force. The Force is with me."
-        }, 
-        {
-            "value": "I shall call him Squishy and he shall be mine and he shall be my Squishy"
-        }, 
-        {
-            "value": "I don't think you've ever known a woman like me"
-        }, 
-        {
-            "value": "Here at NASA we all pee the same color"
+            "value": "Houston, we have a problem"
         }, 
         {
             "value": "We got no ship, no crew, how're going to get out of this one?"
+        }, 
+        {
+            "value": "I love the smell of napalm in the morning"
+        }, 
+        {
+            "value": "Chewie, we’re home"
         }
     ], 
     "name": "MovieQuote", 

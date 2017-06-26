@@ -28,17 +28,17 @@ var dispatch = function(queryInfo) {
         var body = {
             "query" : {
                 "bool" : {
-                    "should" : []
+                    "must" : []
                 }
             }
         } 
 
         if (plot) {
-            body["query"]["bool"]["should"].push({"match" : {"plot-detailed" : plot}})
+            body["query"]["bool"]["must"].push({"match" : {"plot-detailed" : plot}})
         }
 
         if (actor) {
-            body["query"]["bool"]["should"].push({"match" : {"actors" : actor}})
+            body["query"]["bool"]["must"].push({"match" : {"actors" : actor}})
         }
         
         if ( plot || actor ) {
@@ -59,13 +59,13 @@ var dispatch = function(queryInfo) {
 };
 
 function retrieveInfo(slotName, queryInfo) {
-    if (queryInfo.sessionAttributes.hasOwnProperty(slotName)) {
-        return queryInfo.sessionAttributes[slotName];
-    }
-
     if (queryInfo.slots.hasOwnProperty(slotName)) {
         queryInfo.sessionAttributes[slotName] = queryInfo.slots[slotName];
         return queryInfo.slots[slotName];
+    }
+    
+    if (queryInfo.sessionAttributes.hasOwnProperty(slotName)) {
+        return queryInfo.sessionAttributes[slotName];
     }
 
     return null;
