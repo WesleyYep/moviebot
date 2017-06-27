@@ -38,7 +38,15 @@ var dispatch = function(queryInfo) {
         }
 
         if (actor) {
-            body["query"]["bool"]["must"].push({"match" : {"actors" : actor}})
+            var actorCondition = {
+                "match" : {
+                    "actors" : {
+                        "query": actor,
+                        "operator": "AND"
+                    }
+                }
+            }
+            body["query"]["bool"]["must"].push(actorCondition)
         }
         
         if ( plot || actor ) {
