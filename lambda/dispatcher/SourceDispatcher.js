@@ -1,6 +1,7 @@
 var SlotConstants = require('../model/Slots');
 var wikiQuoteSource = require('../source/WikiQuoteSource');
 var elasticSource = require('../source/ElasticSource');
+var bingSource = require('../source/BingSource');
 
 /**
  * 
@@ -32,9 +33,13 @@ var dispatch = function(queryInfo) {
                 }
             }
         } 
-
+        
+        // if (plot) {
+        //     body["query"]["bool"]["must"].push({"match" : {"plot-detailed" : plot}})
+        // }
         if (plot) {
-            body["query"]["bool"]["must"].push({"match" : {"plot-detailed" : plot}})
+            console.log("Bing source is called");
+            sourcePromises.push(bingSource.getMovies(plot));
         }
 
         if (actor) {
@@ -49,7 +54,7 @@ var dispatch = function(queryInfo) {
             body["query"]["bool"]["must"].push(actorCondition)
         }
         
-        if ( plot || actor ) {
+        if (/* plot || */actor ) {
             console.log("Elastic source is called");
             console.log(body)
             sourcePromises.push(elasticSource.getMovies(body));
