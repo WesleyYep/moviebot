@@ -67,7 +67,7 @@ describe("FindMovieByActor intent", function() {
                     lexHelper.logBot(res.message);
                     expect(res.dialogState).to.equal('ConfirmIntent');
                     expect(res.intentName).to.equal('ContinueFinding');
-                    expect(res.message).to.match(/^Hey! We found [0-9]{1,2} matching movies\. .* Did we find your movie\? Or still unsure \?/);
+                    expect(res.message).to.match(/^Hey! We found [0-9]{1,2} matching movies\. .* Did we find your movie\(yes\/no to continue searching\)\?/);
                     expect(res).to.have.own.property('responseCard');
                 });
             });
@@ -103,7 +103,7 @@ describe("FindMovieByActor intent", function() {
         }).then((res) => {
             lexHelper.logBot(res.message)
             expect(res.dialogState).to.equal("ElicitSlot");
-            expect(res.message).to.equal("Found multiple actor. What is the name of the actor/actress ?");
+            expect(res.message).to.equal("Found multiple matching actor/actress. What is the name of the actor/actress ?");
 
             text = "jim carrey";
             lexHelper.logUser(text);
@@ -115,7 +115,7 @@ describe("FindMovieByActor intent", function() {
             lexHelper.logBot(res.message);
             expect(res.dialogState).to.equal('ConfirmIntent');
             expect(res.intentName).to.equal('ContinueFinding');
-            expect(res.message).to.match(/^Hey! We found [0-9]{1,2} matching movies\. .* Did we find your movie\? Or still unsure \?/);
+            expect(res.message).to.match(/^Hey! We found [0-9]{1,2} matching movies\. .* Did we find your movie\(yes\/no to continue searching\)\?/);
             expect(res).to.have.own.property('responseCard');
         });
 
