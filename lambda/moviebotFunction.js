@@ -158,7 +158,7 @@ function sendInvalidSlotMessage(sessionAttributes, intentRequest, violatedSlot, 
 function findMovie(intentRequest, callback) {
     const sessionAttributes = intentRequest.sessionAttributes || {};
     const slots = intentRequest.currentIntent.slots;
-    const intentName = intentRequest.currentIntent.name
+    const intentName = intentRequest.currentIntent.name;
 
     if (intentRequest.invocationSource === 'DialogCodeHook') {
         callback(delegate(sessionAttributes, slots))
@@ -236,7 +236,7 @@ function unsureResult(intentRequest, callback) {
     callback(elicitIntent(sessionAttributes, getFurtherInfoMessage(sessionAttributes)))
 }
 
- // --------------- Intents -----------------------
+// --------------- Intents -----------------------
 
 /**
  * Called when the user specifies an intent for this skill.
@@ -277,8 +277,8 @@ function loggingCallback(response, originalCallback) {
 // The JSON body of the request is provided in the event slot.
 exports.handler = (event, context, callback) => {
     try {
+        // preprocess
         console.log(`event.bot.name=${event.bot.name}`);
-
         dispatch(event, (response) => loggingCallback(response, callback));
     } catch (err) {
         callback(err);
