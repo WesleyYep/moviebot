@@ -91,6 +91,10 @@ function getVideoKey(tmdbID) {
                 for (index in resultList) {
                     if (resultList[index].site === "YouTube") {
                         if (resultList[index].type === "Trailer" ) {
+                            if (resultList[index].key == null) {
+                                continue;
+                            }
+                            
                             if (resultList[index].key.indexOf("&") < 0) {
                                 continue;
                             }
