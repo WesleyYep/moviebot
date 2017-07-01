@@ -57,7 +57,7 @@ function getProcessMovieFunc() {
         getVideoKey(tmdbID)
             .then((videoKey) =>  updateTrailer(tmdbID, videoKey))        
             .catch((err) => {
-                throw new Error(error);
+                throw new Error(err);
             });
 
         console.log("Current Movie count:" + currentMovieCount + ", Movie Title: " + movie._source.title + ", Movie Processed:" + movie._id );
