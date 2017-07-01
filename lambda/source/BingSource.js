@@ -3,6 +3,9 @@
 var rp = require('request-promise');
 var AWS = require('aws-sdk')
 
+const tmdbApiKey = process.env.TMDB_KEY;
+const bingApiKey = process.env.BING_KEY;
+
 var esUri = 'search-moviebot-squiezr3n3t55xzc3c46awndia.us-east-1.es.amazonaws.com';
 var movieIndexName = 'movies-v8';
 var movieType = 'movie';
@@ -11,21 +14,23 @@ var movieBuilder = require('../model/Movie');
 
 var query = function(queryString) {
     return new Promise((resolve, reject) => {
-        const encodeQueryString = "imdb movie about " + encodeURI(queryString);
-        const apiKey = process.env.BING_KEY;
+        const encodeQueryString = "movie about " + encodeURI(queryString);
         var options = {
-            uri: 'https://api.cognitive.microsoft.com/bing/v5.0/search?count=20&responseFilter=webpages&q=' + encodeQueryString,
+            uri: 'https://api.cognitive.microsoft.com/bing/v5.0/search?count=50&responseFilter=webpages&mkt=en-us&q=' + encodeQueryString,
             json: true,
             headers: {
-                'Ocp-Apim-Subscription-Key': apiKey
+                'Ocp-Apim-Subscription-Key': bingApiKey
             },
         };
         rp(options).then(function(res) {
             if (res.webPages && res.webPages.value) {
                 var movies = res.webPages.value.filter((m) => {
-                    return m.name.match(/.*\(\d{4}.*\).* - IMDb/g);
+           //         console.log(m.name);
+                    return m.name.match(/.*(\(\d{4}|\(film).*/g);
                 }).map((m) => {
-                    return m.name.split(/\(\d{4}\)/g)[0].trim();
+                    return m.name.split(/\(| - /g)[0].trim();
+                }).filter(function(item, pos, self) {
+                    return self.indexOf(item) == pos; //make unique
                 });
                 resolve(movies);
             }
@@ -37,68 +42,45 @@ var query = function(queryString) {
     });
 };
 
-var elasticSearchQuery = function(body) {
-    return new Promise((resolve, reject) => {    
-        var endpoint = new AWS.Endpoint(esUri)
-        var req = new AWS.HttpRequest(endpoint);
-        req.method = 'POST';
-        req.path = '/' + movieIndexName + '/' + movieType + '/_search';
-        req.region = 'us-east-1';
-        req.headers['presigned-expires'] = false;
-        req.headers['Host'] = endpoint.host;
-        req.headers['Content-Type'] = "application/json";
-        req.body = JSON.stringify(body);
-        console.log(req.body);
-
-        var creds = new AWS.EnvironmentCredentials('AWS');
-        var signer = new AWS.Signers.V4(req, 'es');
-        signer.addAuthorization(creds, new Date());
-
-        var send = new AWS.NodeHttpClient();
-
-        send.handleRequest(req, null, function(httpResp) {
-            var body = '';
-            httpResp.on('data', function (chunk) {
-                body += chunk;
+var tmdbSearchQuery = function(title) {
+    var options = {
+        uri: 'https://api.themoviedb.org/3/search/movie?api_key=' + tmdbApiKey + "&language=en-US&query=" + title,
+        json: true
+    };
+    return new Promise(function(resolve, reject) {
+        rp(options)
+            .then(function(res) {
+                const movieList = res.results;
+                if (movieList.length > 0) {
+                    console.log(movieList[0].title);
+                    resolve(movieList[0].title);
+                } else {
+                    resolve();
+                }
+            }).catch(function(err) {
+                reject(err);
             });
-            
-            httpResp.on('end', function (chunk) {
-                console.log(body);
-                resolve(body);
-            });
-        }, function(err){
-            console.log('Error: ' + err);
-            reject(err)
-        });
     });
 };
 
 var getMovies = function(plot) {
     return new Promise(function(resolve, reject) {
         query(plot).then((movies) => {
-            var body = {
-                "query" : {
-                    "bool" : {
-                        "should" : []
-                    }
-                }
-            } 
+            console.log(movies);
+            var tmdbPromises = [];
             movies.forEach((m) => {
-                body["query"]["bool"]["should"].push({"match": { "title": m }});
-            })
-            
-            elasticSearchQuery(body).then((responseBody) => {
-                const results = JSON.parse(responseBody).hits.hits;
-                const movieList = results.map(function(movie) {
-                    const title = movie._source.title;
+                tmdbPromises.push(tmdbSearchQuery(m))
+            });
+
+            Promise.all(tmdbPromises).then(responseBody => {
+                var movies = responseBody.filter((item, index, self) => self.indexOf(item) == index && item) // filter resulting movies
+                console.log(movies);
+                movies = movies.map(function(title) {
                     return movieBuilder.builder(title).build();
                 });
-                console.log("retrieved movies: ");
-                console.log(movieList);
-                resolve(movieList);
+                resolve(movies);
             }).catch((err) => {
-                console.log('Error: ' + err);
-                reject(err)
+                reject(err);
             });
 
         }).catch((err) => {
@@ -112,5 +94,20 @@ module.exports = {
     getMovies : getMovies
 }
 
-
+// getMovies("guy wears a green mask");
+// getMovies("guy throws ring into volcano");
+// getMovies("giant robot fights giant alien");
+// getMovies("guy wakes up alone on spaceship wakes up woman and saves ship");
+// getMovies("girl finds droid and learns she has jedi powers");
+// getMovies("jedi blows up death star");
+// getMovies("a train that never stop and the earth is inhabitable");
+// getMovies("magician robbing bank");
+// getMovies("infectious disease that caused everyone to be zombie");
+// getMovies("a drummer that get yell at by the teacher");
+// getMovies("wolverine travels back in time to save mutants");
+// getMovies("seven cowboys gathered to save a village from a tyrant");
+// getMovies("4 turtles and a rat");
+// getMovies("plane crash and man is alone on an island");
+// getMovies("daughter kidnapped overseas and dad travels to rescue her");
+// getMovies("apes riding horses");
 
