@@ -7,8 +7,8 @@ var youtubeURL = "https://www.youtube.com/watch?v=";
 
 const apiKey = process.env.TMDB_KEY;
 
-var numberOfResults = 10;
-var interval = 1000;
+var numberOfResults = 100;
+var interval = 500;
 
 var initOptions = {
     uri: initialQuery,
@@ -34,13 +34,14 @@ function getScrollOption(scrollId) {
     }
 }
 
-function updateDocOption(tmdbID, trailerUrl) {
+function updateTrailerOption(tmdbID, trailerURL, thumbnailURL) {
     return {
         uri: esDomain + "/movies-v8/movie/" + tmdbID + "/_update",
         method: 'POST',
         json : {
             "doc" : {
-                "trailerURL" : trailerUrl
+                "trailerURL" : trailerURL,
+                "trailerThumbnailURL" : thumbnailURL
             }
         }
     }
@@ -53,22 +54,23 @@ function getProcessMovieFunc() {
     return function(movie, currentMovieCount) {
         const tmdbID = movie._id;
 
-        getTrailerUrl(tmdbID)
-            .then((trailerUrl) => updateTrailer(tmdbID, trailerUrl))        
+        getVideoKey(tmdbID)
+            .then((videoKey) =>  updateTrailer(tmdbID, videoKey))        
             .catch((err) => {
                 throw new Error(error);
             });
 
-        console.log("Current Movie count:" + currentMovieCount + " Movie Title: " + movie._source.title + " Movie Processed:" + movie._id );
+        console.log("Current Movie count:" + currentMovieCount + ", Movie Title: " + movie._source.title + ", Movie Processed:" + movie._id );
     }
 }
 
-function getTrailerUrl(tmdbID) {
+function getVideoKey(tmdbID) {
     return new Promise((resolve, reject) => { 
         const videoURL = "https://api.themoviedb.org/3/movie/" + tmdbID + "/videos?api_key=" + apiKey;
 
         request(videoURL, function(error, response, body) {
             if (error != null) {
+                console.log('*********GET VIDEO KEY**********')
                 console.log(error)
                 reject(error)
                 return
@@ -83,13 +85,25 @@ function getTrailerUrl(tmdbID) {
                     return
                 }
 
+
+                var randomUrlKey = "";
+                //scan through to find trailer first
                 for (index in resultList) {
                     if (resultList[index].site === "YouTube") {
-                        var trailerUrl = youtubeURL + resultList[index].key
-                        resolve(trailerUrl)
-                        break
+                        if (resultList[index].type === "Trailer" ) {
+                            if (resultList[index].key.indexOf("&") < 0) {
+                                continue;
+                            }
+
+                            resolve(resultList[index].key)
+                            return
+                        } else {
+                            randomUrlKey = resultList[index].key
+                        } 
                     } 
                 }
+
+                resolve(randomUrlKey)
             } else {
                 reject("StatusCode Not 200 when retrieving youtube url");
             }
@@ -97,9 +111,9 @@ function getTrailerUrl(tmdbID) {
     })
 }
 
-function updateTrailer(tmdbID, trailerUrl) {
+function updateTrailer(tmdbID, videoKey) {
     return new Promise((resolve, reject) => {
-        if (trailerUrl === "") {
+        if (videoKey === "") {
             console.log("========================================")
             console.log("No trailer url was found for "  + tmdbID)
             console.log("========================================")
@@ -107,15 +121,19 @@ function updateTrailer(tmdbID, trailerUrl) {
             return
         }
 
-        request(updateDocOption(tmdbID, trailerUrl), function(error, response, body){
+        const trailerURL = youtubeURL + videoKey
+        const thumbnailURL = "https://i.ytimg.com/vi/" + videoKey + "/hqdefault.jpg" 
+
+        request(updateTrailerOption(tmdbID, trailerURL, thumbnailURL), function(error, response, body){
             if (error != null) {
+                console.log('*********UPDATE TRAILER**********')
                 console.log(error)
                 reject(error)
                 return
             }
 
             if (response.statusCode === 200) {
-                console.log(tmdbID + " result : " + body.result + "and trailerURL was " + trailerUrl)
+                console.log("[VIDEO] id:" + tmdbID + " result : " + body.result + ", trailerURL was " + trailerURL +  ", thumbnailURL was " + thumbnailURL)
                 resolve()
             } else {
                 reject("StatusCode Not 200 when updating elastic search document");
@@ -131,8 +149,9 @@ function getScrollingFunc() {
         console.log("==========================")
         request(getScrollOption(currentScrollId), function(error, response, body) {
             if (error != null) {
+                console.log('*********SCROLLING ERROR**********')
                 console.log(error);
-                return;
+                throw new Error(error);
             }
 
             if (response.statusCode === 200) {
@@ -182,7 +201,7 @@ request(initOptions, function (error, response, body) {
             i++;
         }
 
-        //setTimeout(getScrollingFunc(), interval * (numberOfResults+1));
+        setTimeout(getScrollingFunc(), interval * (numberOfResults+1));
     }
 });
 
