@@ -40,7 +40,7 @@ function elicitIntent(sessionAttributes, message) {
         sessionAttributes,
         dialogAction: {
             type: 'ElicitIntent',
-            message: message,
+            message: message
         },
     };
 }
@@ -119,11 +119,18 @@ function getGoodByeMessage() {
     };
 }
 
-function getFurtherInfoMessage() {
+function getFurtherInfoMessage(sessionAttributes) {
     return {
         contentType : "PlainText",
-        content : "Can you remember any more information?"
+        content : "What else can you remember about the movie (actor, plot, quote)" + " " + getFormattedCurrentSessionInfo(sessionAttributes)
     };
+}
+
+function getFormattedCurrentSessionInfo(sessionAttributes) {
+    const currentSessionInfo = Object.keys(sessionAttributes).map(k => {
+        return k + ": \"" + sessionAttributes[k] + "\""
+    }).join(", ");
+    return "[Current information => " + currentSessionInfo + "]";
 }
 
 function welcome(intentRequest, callback) {
@@ -163,7 +170,7 @@ function findMovie(intentRequest, callback) {
         //movieFinder will return a list of movie result
         var msg = {
             contentType: 'PlainText',
-            content: 'Hey! We found ' + singleMovieList.length + ' matching movies. The first movie was called ' + singleMovieList[0].title + '. Did we find your movie? Or still unsure ?'
+            content: 'Hey! We found ' + singleMovieList.length + ' matching movies. The first movie was called ' + singleMovieList[0].title + '. Did we find your movie(yes/no to continue searching)?'
         }
 
         callback(confirmIntent(sessionAttributes, 'ContinueFinding', {}, msg, movieToResponseCards(singleMovieList)))
@@ -184,13 +191,13 @@ function findMovie(intentRequest, callback) {
         } else if (err instanceof MovieNotFoundError ) {
             var msg = {
                 contentType : "PlainText",
-                content : "Hmm couldn't find any movies, Can you remember any more information?"
+                content : "Couldn't find any movies. " + getFurtherInfoMessage(sessionAttributes).content
             }
             callback(elicitIntent(sessionAttributes, msg))
         } else {
             var msg = {
                 contentType : "PlainText",
-                content : "Oh no!! something went wrong. What information did you have about the movies?"
+                content : "Oh no!! something went wrong. " + getFurtherInfoMessage(sessionAttributes).content
             }
             callback(elicitIntent(sessionAttributes, msg))
         }
@@ -207,7 +214,7 @@ function continueFinding(intentRequest, callback) {
     }
 
     if (intentRequest.currentIntent.confirmationStatus === 'Denied') {
-        callback(elicitIntent(sessionAttributes, getFurtherInfoMessage()))
+        callback(elicitIntent(sessionAttributes, getFurtherInfoMessage(sessionAttributes)))
     } else if (intentRequest.currentIntent.confirmationStatus === 'Confirmed') {
         callback(close({}, 'Fulfilled', getGoodByeMessage()))
     } else {
@@ -226,7 +233,7 @@ function unsureResult(intentRequest, callback) {
     const sessionAttributes = intentRequest.sessionAttributes || {};
     const slots = intentRequest.currentIntent.slots;
 
-    callback(elicitIntent(sessionAttributes, getFurtherInfoMessage()))
+    callback(elicitIntent(sessionAttributes, getFurtherInfoMessage(sessionAttributes)))
 }
 
  // --------------- Intents -----------------------

@@ -78,7 +78,7 @@ describe("FindMovieByQuote intent", function() {
                     lexHelper.logBot(res.message);
                     expect(res.dialogState).to.equal('ConfirmIntent');
                     expect(res.intentName).to.equal('ContinueFinding');
-                    expect(res.message).to.match(/^Hey! We found [0-9]{1,2} matching movies\. .* Did we find your movie\? Or still unsure \?/);
+                    expect(res.message).to.match(/^Hey! We found [0-9]{1,2} matching movies\. .* Did we find your movie\(yes\/no to continue searching\)\?/);
                     expect(res).to.have.own.property('responseCard');
                 });
             });
@@ -108,7 +108,7 @@ describe("FindMovieByQuote intent", function() {
                 lexHelper.logBot(res.message);
                 expect(res.dialogState).to.equal('ConfirmIntent');
                 expect(res.intentName).to.equal('ContinueFinding');
-                expect(res.message).to.match(/^Hey! We found [0-9]{1,2} matching movies\. .* Did we find your movie\? Or still unsure \?/);
+                expect(res.message).to.match(/^Hey! We found [0-9]{1,2} matching movies\. .* Did we find your movie\(yes\/no to continue searching\)\?/);
                 expect(res).to.have.own.property('responseCard');
             });
         });
