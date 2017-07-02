@@ -1,25 +1,25 @@
 {
+    "name": "ResultResponse",
+    "description": "moviebot",
     "enumerationValues": [
         {
             "value": "yes thats the movie I was looking for"
-        }, 
+        },
         {
             "value": "none of the movies is what i'm looking for"
-        }, 
+        },
         {
             "value": "yes these are the movie i'm looking for"
-        }, 
+        },
         {
             "value": "thank you so much, these movies are the one im looking one"
-        }, 
+        },
         {
             "value": "no, i'm not looking for these movie"
         }
-    ], 
-    "name": "ResultResponse", 
-    "checksum": "e85fec7e-36b6-4696-8ec1-3b1adaef76a3", 
-    "version": "$LATEST", 
-    "lastUpdatedDate": 1497515952.52, 
-    "createdDate": 1497515952.52, 
-    "description": "moviebot"
+    ],
+    "lastUpdatedDate": 1498131730.664,
+    "createdDate": 1498131730.664,
+    "version": "$LATEST",
+    "checksum": "6d5efb94-cfa7-435a-8cf9-d82e83037d02"
 }

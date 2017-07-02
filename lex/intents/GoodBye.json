@@ -1,26 +1,26 @@
 {
-    "name": "GoodBye", 
-    "checksum": "344e6c30-04ec-44c4-ba81-babae0a56b56", 
-    "version": "$LATEST", 
-    "lastUpdatedDate": 1497697772.616, 
-    "createdDate": 1497668000.592, 
+    "name": "GoodBye",
+    "slots": [],
     "sampleUtterances": [
-        "thanks for finding the movie", 
-        "I don't want to search anymore", 
-        "exit", 
-        "nice this movie was the one i was looking", 
-        "found the movie", 
-        "found it thanks", 
-        "bye bye", 
-        "goodbye", 
+        "thanks for finding the movie",
+        "I don't want to search anymore",
+        "exit",
+        "nice this movie was the one i was looking",
+        "found the movie",
+        "found it thanks",
+        "bye bye",
+        "goodbye",
         "good bye"
-    ], 
-    "slots": [], 
+    ],
     "fulfillmentActivity": {
-        "type": "CodeHook", 
+        "type": "CodeHook",
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
+            "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
             "messageVersion": "1.0"
         }
-    }
+    },
+    "lastUpdatedDate": 1498909749.586,
+    "createdDate": 1498131735.412,
+    "version": "$LATEST",
+    "checksum": "b40d4485-bc85-41f4-af10-16e8dac7df69"
 }
