@@ -42,7 +42,7 @@ var validate = function(queryInfo) {
                 if (jsonResponseBody.hits.total == 0) {
                     validationResult.isValid = false;
                     validationResult.incorrectSlotName = SlotConstants.MOVIE_ACTOR;
-                    validationResult.reason = "Could not find any actor";
+                    validationResult.reason = "Could not find any matching actor/actress";
                     resolve(validationResult)
                     return
                 }
@@ -61,7 +61,7 @@ var validate = function(queryInfo) {
 
                 validationResult.isValid = false;
                 validationResult.incorrectSlotName = SlotConstants.MOVIE_ACTOR;
-                validationResult.reason = "Found multiple actor";
+                validationResult.reason = "Found multiple matching actor/actress";
                 for (var key in nameMap) {
                     validationResult.suggestions.push(key);
                 }
