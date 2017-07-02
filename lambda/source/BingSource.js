@@ -93,21 +93,3 @@ var getMovies = function(plot) {
 module.exports = {
     getMovies : getMovies
 }
-
-// getMovies("guy wears a green mask");
-// getMovies("guy throws ring into volcano");
-// getMovies("giant robot fights giant alien");
-// getMovies("guy wakes up alone on spaceship wakes up woman and saves ship");
-// getMovies("girl finds droid and learns she has jedi powers");
-// getMovies("jedi blows up death star");
-// getMovies("a train that never stop and the earth is inhabitable");
-// getMovies("magician robbing bank");
-// getMovies("infectious disease that caused everyone to be zombie");
-// getMovies("a drummer that get yell at by the teacher");
-// getMovies("wolverine travels back in time to save mutants");
-// getMovies("seven cowboys gathered to save a village from a tyrant");
-// getMovies("4 turtles and a rat");
-// getMovies("plane crash and man is alone on an island");
-// getMovies("daughter kidnapped overseas and dad travels to rescue her");
-// getMovies("apes riding horses");
-
