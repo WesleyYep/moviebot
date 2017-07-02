@@ -95,7 +95,7 @@ function getVideoKey(tmdbID) {
                                 continue;
                             }
                             
-                            if (resultList[index].key.indexOf("&") < 0) {
+                            if (resultList[index].key.indexOf("&") >= 0) {
                                 continue;
                             }
 

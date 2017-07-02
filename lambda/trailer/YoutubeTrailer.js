@@ -8,6 +8,12 @@ var apply = function(movieList) {
     return new Promise(function(resolve, reject) {
         var moviePromises = movieList.map(movie => {
             return new Promise(function(resolve, reject) {
+                if (movie.getTrailerUrl() === undefined) {
+                    movie.setTrailerDescription("")
+                    resolve(movie)
+                    return
+                }
+
                 const encodeTitle = encodeURI(movie.getTitle() + " film trailer");
                 var options = {
                     uri: 'https://www.googleapis.com/youtube/v3/search?type=video&videoDuration=short&part=snippet&q=' + encodeTitle + '&key=' + apiKey,
