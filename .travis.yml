@@ -1,4 +1,4 @@
 language: node_js
 node_js:
   - "4.3"
-script: cd lambda && npm install && npm test
+script: cd lambda && npm install && npm test && cd ../lex && npm install && npm test
