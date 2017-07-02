@@ -8,7 +8,7 @@ var apply = function(movieList) {
     return new Promise(function(resolve, reject) {
         var moviePromises = movieList.map(movie => {
             return new Promise(function(resolve, reject) {
-                if (movie.getTrailerUrl() === undefined) {
+                if (movie.getTrailerUrl() !== undefined) {
                     movie.setTrailerDescription("")
                     resolve(movie)
                     return
