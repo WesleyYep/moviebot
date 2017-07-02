@@ -1,63 +1,63 @@
 {
-    "status": "READY", 
+    "name": "MovieBot",
     "intents": [
         {
-            "intentVersion": "6", 
-            "intentName": "GoodBye"
-        }, 
+            "intentName": "GoodBye",
+            "intentVersion": "2"
+        },
         {
-            "intentVersion": "4", 
-            "intentName": "UnsureResult"
-        }, 
+            "intentName": "UnsureResult",
+            "intentVersion": "2"
+        },
         {
-            "intentVersion": "1", 
-            "intentName": "ContinueFinding"
-        }, 
+            "intentName": "ContinueFinding",
+            "intentVersion": "1"
+        },
         {
-            "intentVersion": "1", 
-            "intentName": "Fallback"
-        }, 
+            "intentName": "Fallback",
+            "intentVersion": "1"
+        },
         {
-            "intentVersion": "1", 
-            "intentName": "FindMovieByActor"
-        }, 
+            "intentName": "FindMovieByActor",
+            "intentVersion": "1"
+        },
         {
-            "intentVersion": "1", 
-            "intentName": "FindMovieByPlot"
-        }, 
+            "intentName": "FindMovieByPlot",
+            "intentVersion": "1"
+        },
         {
-            "intentVersion": "1", 
-            "intentName": "FindMovieByQuote"
-        }, 
+            "intentName": "FindMovieByQuote",
+            "intentVersion": "1"
+        },
         {
-            "intentVersion": "1", 
-            "intentName": "Welcome"
+            "intentName": "Welcome",
+            "intentVersion": "2"
         }
-    ], 
-    "name": "MovieBot", 
-    "locale": "en-US", 
-    "checksum": "667dd38c-5fc9-457c-b299-af5abb313ae5", 
+    ],
+    "clarificationPrompt": {
+        "messages": [
+            {
+                "contentType": "PlainText",
+                "content": "Sorry, can you please repeat that?"
+            }
+        ],
+        "maxAttempts": 2
+    },
     "abortStatement": {
         "messages": [
             {
-                "content": "Sorry, I could not understand. Goodbye.", 
-                "contentType": "PlainText"
+                "contentType": "PlainText",
+                "content": "Sorry, I could not understand. Goodbye."
             }
         ]
-    }, 
-    "version": "$LATEST", 
-    "lastUpdatedDate": 1497697816.597, 
-    "createdDate": 1497515974.937, 
-    "clarificationPrompt": {
-        "maxAttempts": 2, 
-        "messages": [
-            {
-                "content": "Sorry, can you please repeat that?", 
-                "contentType": "PlainText"
-            }
-        ]
-    }, 
-    "voiceId": "Joanna", 
-    "childDirected": false, 
-    "idleSessionTTLInSeconds": 300
+    },
+    "status": "READY",
+    "lastUpdatedDate": 1498909778.099,
+    "createdDate": 1498131748.837,
+    "idleSessionTTLInSeconds": 300,
+    "voiceId": "Joanna",
+    "checksum": "f8f6a52f-f597-48c7-af92-c2372c0883a1",
+    "version": "$LATEST",
+    "locale": "en-US",
+    "childDirected": false
 }
