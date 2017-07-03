@@ -14,7 +14,7 @@ var getMovies = function(body) {
             const results = JSON.parse(responseBody).hits.hits;
             const movies = results.map(function(movie) {
                 const title = movie._source.title;
-                if (movie._source.hasOwnProperty('trailerURL')) {
+                if (movie._source.hasOwnProperty('trailerURL') && movie._source.trailerURL !== "") {
                     const trailerURL = movie._source.trailerURL
                     const thumbnailURL = movie._source.trailerThumbnailURL
                     return movieBuilder.builder(title)

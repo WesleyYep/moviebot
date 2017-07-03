@@ -6,9 +6,10 @@ var esDomain = "https://search-moviebot-squiezr3n3t55xzc3c46awndia.us-east-1.es.
 var youtubeURL = "https://www.youtube.com/watch?v=";
 
 const apiKey = process.env.TMDB_KEY;
+const youtubeApiKey = process.env.GOOGLE_DEVELOPER_KEY;
 
 var numberOfResults = 100;
-var interval = 500;
+var interval = 750;
 
 var initOptions = {
     uri: initialQuery,
@@ -55,6 +56,7 @@ function getProcessMovieFunc() {
         const tmdbID = movie._id;
 
         getVideoKey(tmdbID)
+            .then((keyTypeMap) => checkYoutubeVideoExist(keyTypeMap))
             .then((videoKey) =>  updateTrailer(tmdbID, videoKey))        
             .catch((err) => {
                 throw new Error(err);
@@ -86,28 +88,23 @@ function getVideoKey(tmdbID) {
                 }
 
 
-                var randomUrlKey = "";
+                const keyTypeMap = {}
                 //scan through to find trailer first
                 for (index in resultList) {
                     if (resultList[index].site === "YouTube") {
-                        if (resultList[index].type === "Trailer" ) {
-                            if (resultList[index].key == null) {
-                                continue;
-                            }
-                            
-                            if (resultList[index].key.indexOf("&") >= 0) {
-                                continue;
-                            }
+                        if (resultList[index].key == null) {
+                            continue;
+                        }
+                        
+                        if (resultList[index].key.indexOf("&") >= 0) {
+                            continue;
+                        }
 
-                            resolve(resultList[index].key)
-                            return
-                        } else {
-                            randomUrlKey = resultList[index].key
-                        } 
+                        keyTypeMap[resultList[index].key] = resutList[index].type
                     } 
                 }
 
-                resolve(randomUrlKey)
+                resolve(keyTypeMap)
             } else {
                 reject("StatusCode Not 200 when retrieving youtube url");
             }
@@ -115,20 +112,80 @@ function getVideoKey(tmdbID) {
     })
 }
 
+function checkYoutubeVideoExist(keyTypeMap) {
+    return new Promise((resolve, reject) => {
+        var keyStrings = "";
+        for (key in keyTypeMap) {
+            keyStrings += (key + ",");
+        }
+
+        if (keyStrings === "") {
+            resolve("")
+            return
+        }
+
+        //strip out the extra , at the end
+        const finalKeyStrings = keyStrings.substr(0, keyStrings.length-2)
+
+        const singleYoutubeURL = "https://www.googleapis.com/youtube/v3/videos?id=" + finalKeyStrings + "&key=" + youtubeApiKey + "&part=snippet"
+
+        request(singleYoutubeURL, function(error, repsonse, body) {
+            if (error != null) {
+                console.log('*********CHECK YOUTUBE VIDEO EXISTS**********')
+                console.log(error)
+                reject(error)
+                return
+            }
+
+            if (response.statusCode === 200 ) {
+                var jsonBody = JSON.parse(body);
+
+                if (jsonBody.items.length === 0) {
+                    resolve("")
+                } else {
+                    var videoKey = "";
+
+                    for (index in jsonBody.items) {
+                        videoKey = jsonBody.items[index].id
+                        if ( keyTypeMap[videoKey] === "Trailer" ) {
+                            break;
+                        } 
+                    }
+                    
+                    if (videoKey === "") {
+                        console.log("[VALIDATION] id:" + videoKey + " is valid youtube video and type is " + keyTypeMap[videoKey])
+                        resolve(videoKey)
+                    } else {
+                        console.log("[VALIDATION] id:" + finalKeyStrings + " was not valid at all")
+                        resolve("")
+                    }
+                }
+            } else {
+                reject("StatusCode Not 200 when updating elastic search document");
+            }
+        })
+    })
+}
+
 function updateTrailer(tmdbID, videoKey) {
     return new Promise((resolve, reject) => {
+
+        var trailerURL = youtubeURL + videoKey
+        var thumbnailURL = "https://i.ytimg.com/vi/" + videoKey + "/hqdefault.jpg" 
+
         if (videoKey === "") {
             console.log("========================================")
             console.log("No trailer url was found for "  + tmdbID)
             console.log("========================================")
-            resolve()
-            return
-        }
 
-        const trailerURL = youtubeURL + videoKey
-        const thumbnailURL = "https://i.ytimg.com/vi/" + videoKey + "/hqdefault.jpg" 
+            trailerURL = ""
+            thumbnailURL = ""
+        } 
 
-        request(updateTrailerOption(tmdbID, trailerURL, thumbnailURL), function(error, response, body){
+        const finalTrailerURL = trailerURL
+        const finalThumnbnailURL = thumbnailURL
+
+        request(updateTrailerOption(tmdbID, finalTrailerURL, finalThumnbnailURL), function(error, response, body){
             if (error != null) {
                 console.log('*********UPDATE TRAILER**********')
                 console.log(error)
