@@ -80,7 +80,7 @@ function getVideoKey(tmdbID) {
 
             if (response.statusCode === 200) {
                 jsonBody = JSON.parse(body);
- 
+                console.log(jsonBody)
                 var resultList = jsonBody.results;
                 if (resultList.length == 0) {
                     resolve("")
@@ -100,7 +100,7 @@ function getVideoKey(tmdbID) {
                             continue;
                         }
 
-                        keyTypeMap[resultList[index].key] = resutList[index].type
+                        keyTypeMap[resultList[index].key] = resultList[index].type
                     } 
                 }
 
@@ -129,7 +129,7 @@ function checkYoutubeVideoExist(keyTypeMap) {
 
         const singleYoutubeURL = "https://www.googleapis.com/youtube/v3/videos?id=" + finalKeyStrings + "&key=" + youtubeApiKey + "&part=snippet"
 
-        request(singleYoutubeURL, function(error, repsonse, body) {
+        request(singleYoutubeURL, function(error, response, body) {
             if (error != null) {
                 console.log('*********CHECK YOUTUBE VIDEO EXISTS**********')
                 console.log(error)
@@ -153,11 +153,11 @@ function checkYoutubeVideoExist(keyTypeMap) {
                     }
                     
                     if (videoKey === "") {
-                        console.log("[VALIDATION] id:" + videoKey + " is valid youtube video and type is " + keyTypeMap[videoKey])
-                        resolve(videoKey)
-                    } else {
                         console.log("[VALIDATION] id:" + finalKeyStrings + " was not valid at all")
                         resolve("")
+                    } else {
+                        console.log("[VALIDATION] id:" + videoKey + " is valid youtube video and type is " + keyTypeMap[videoKey])
+                        resolve(videoKey)
                     }
                 }
             } else {
