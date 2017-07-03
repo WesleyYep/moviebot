@@ -4,6 +4,7 @@ var rp = require('request-promise');
 var movieBuilder = require('../model/Movie');
 
 const fuzzyLimit = 100;
+const results = 100;
 
 /**
  * Removes any film stop words in title if there is any. i.e. (film), (1999 film).
@@ -28,7 +29,7 @@ var getMovies = function(quote) {
 
     // perform exact phrase search with fuzzy limit. provides finer search results.
     var options = {
-        uri: 'https://en.wikiquote.org/w/api.php?action=query&format=json&list=search&srsearch="' + encodeQuote + '"~' + fuzzyLimit + '~&srprop=redirecttitle',
+        uri: 'https://en.wikiquote.org/w/api.php?action=query&format=json&list=search&srsearch="' + encodeQuote + '"~' + fuzzyLimit + '~&srprop=redirecttitle~srlimit=' + results,
         json: true
     };
 
