@@ -31,7 +31,8 @@ var dispatch = function(queryInfo) {
                 "bool" : {
                     "must" : []
                 }
-            }
+            },
+            "size": 100
         } 
         
         // if (plot) {
