@@ -9,7 +9,7 @@ const apiKey = process.env.TMDB_KEY;
 const youtubeApiKey = process.env.GOOGLE_DEVELOPER_KEY;
 
 var numberOfResults = 100;
-var interval = 750;
+var interval = 500;
 
 var initOptions = {
     uri: initialQuery,
@@ -125,7 +125,7 @@ function checkYoutubeVideoExist(keyTypeMap) {
         }
 
         //strip out the extra , at the end
-        const finalKeyStrings = keyStrings.substr(0, keyStrings.length-2)
+        const finalKeyStrings = keyStrings.substr(0, keyStrings.length-1)
 
         const singleYoutubeURL = "https://www.googleapis.com/youtube/v3/videos?id=" + finalKeyStrings + "&key=" + youtubeApiKey + "&part=snippet"
 
