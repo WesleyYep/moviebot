@@ -17,47 +17,47 @@ describe('BingSourceTest', function() {
         })
     });
 
-    it('should find The Force Awakens', function() {
-        this.timeout(5000);
-        return bingSource.getMovies("girl finds droid and learns she has jedi powers").then((movies) => {
-            expect(movies.find((m) => {return m.getTitle().indexOf("Star Wars: The Force Awakens") > -1 })).to.not.equal(undefined)
-        })
-    });
+    // it('should find The Force Awakens', function() {
+    //     this.timeout(5000);
+    //     return bingSource.getMovies("girl finds droid and learns she has jedi powers").then((movies) => {
+    //         expect(movies.find((m) => {return m.getTitle().indexOf("Star Wars: The Force Awakens") > -1 })).to.not.equal(undefined)
+    //     })
+    // });
 
-    it('should find Snowpiercer', function() {
-        this.timeout(5000);
-        return bingSource.getMovies("a train that never stop and the earth is inhabitable").then((movies) => {
-            expect(movies.find((m) => {return m.getTitle().indexOf("Snowpiercer") > -1 })).to.not.equal(undefined)
-        })
-    });
+    // it('should find Snowpiercer', function() {
+    //     this.timeout(5000);
+    //     return bingSource.getMovies("a train that never stop and the earth is inhabitable").then((movies) => {
+    //         expect(movies.find((m) => {return m.getTitle().indexOf("Snowpiercer") > -1 })).to.not.equal(undefined)
+    //     })
+    // });
 
-    it('should find Whiplash', function() {
-        this.timeout(5000);
-        return bingSource.getMovies("a drummer that get yell at by the teacher").then((movies) => {
-            expect(movies.find((m) => {return m.getTitle().indexOf("Whiplash") > -1 })).to.not.equal(undefined)
-        })
-    });
+    // it('should find Whiplash', function() {
+    //     this.timeout(5000);
+    //     return bingSource.getMovies("a drummer that get yell at by the teacher").then((movies) => {
+    //         expect(movies.find((m) => {return m.getTitle().indexOf("Whiplash") > -1 })).to.not.equal(undefined)
+    //     })
+    // });
 
-    it('should find Taken', function() {
-        this.timeout(5000);
-        return bingSource.getMovies("daughter kidnapped overseas and dad travels to rescue her").then((movies) => {
-            expect(movies.find((m) => {return m.getTitle().indexOf("Taken") > -1 })).to.not.equal(undefined)
-        })
-    });
+    // it('should find Taken', function() {
+    //     this.timeout(5000);
+    //     return bingSource.getMovies("daughter kidnapped overseas and dad travels to rescue her").then((movies) => {
+    //         expect(movies.find((m) => {return m.getTitle().indexOf("Taken") > -1 })).to.not.equal(undefined)
+    //     })
+    // });
 
-    it('should find Lord of the rings', function() {
-        this.timeout(5000);
-        return bingSource.getMovies("guy throws ring into volcano").then((movies) => {
-            expect(movies.find((m) => {return m.getTitle().indexOf("The Lord of the Rings: The Fellowship of the Ring") > -1 })).to.not.equal(undefined)
-        })
-    });
+    // it('should find Lord of the rings', function() {
+    //     this.timeout(5000);
+    //     return bingSource.getMovies("guy throws ring into volcano").then((movies) => {
+    //         expect(movies.find((m) => {return m.getTitle().indexOf("The Lord of the Rings: The Fellowship of the Ring") > -1 })).to.not.equal(undefined)
+    //     })
+    // });
 
-    it('should find Star Wars: Episode IV', function() {
-        this.timeout(5000);
-        return bingSource.getMovies("jedi blows up death star").then((movies) => {
-            expect(movies.find((m) => {return m.getTitle().indexOf("Star Wars") > -1 })).to.not.equal(undefined)
-        })
-    });
+    // it('should find Star Wars: Episode IV', function() {
+    //     this.timeout(5000);
+    //     return bingSource.getMovies("jedi blows up death star").then((movies) => {
+    //         expect(movies.find((m) => {return m.getTitle().indexOf("Star Wars") > -1 })).to.not.equal(undefined)
+    //     })
+    // });
 
     // it('should find Now You See Me', function() {
     //     this.timeout(5000);
