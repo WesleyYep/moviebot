@@ -6,10 +6,6 @@ var AWS = require('aws-sdk')
 const tmdbApiKey = process.env.TMDB_KEY;
 const bingApiKey = process.env.BING_KEY;
 
-var esUri = 'search-moviebot-squiezr3n3t55xzc3c46awndia.us-east-1.es.amazonaws.com';
-var movieIndexName = 'movies-v8';
-var movieType = 'movie';
-
 var movieBuilder = require('../model/Movie');
 
 var query = function(queryString) {
