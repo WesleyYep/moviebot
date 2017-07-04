@@ -33,7 +33,12 @@ var dispatch = function(queryInfo) {
                     "must" : []
                 }
             },
-            "size": 100
+            "sort": [
+                { "_score" : "desc"},
+                { "popularity": "desc"}
+            ],
+            "track_scores": true,
+            "size": 50
         } 
         
         // if (plot) {
@@ -45,15 +50,9 @@ var dispatch = function(queryInfo) {
         }
 
         if (actor) {
-            var actorCondition = {
-                "match" : {
-                    "actors" : {
-                        "query": actor,
-                        "operator": "AND"
-                    }
-                }
-            }
-            body["query"]["bool"]["must"].push(actorCondition)
+            body["query"]["bool"]["filter"] = [
+                { "match": { "actors" : {"query" : actor}}}
+            ]
         }
         
         if (/* plot || */actor ) {
