@@ -35,7 +35,7 @@ aws lex-models get-slot-types > $LEXPATH/slots/.slots_temp.json
 # filter ones that have description = moviebot
 node > $LEXPATH/slots/slots.txt <<EOF
 var data = require('./$LEXPATH/slots/.slots_temp.json');
-data = data.slotTypes.filter((s) => { return s.description.startsWith("moviebot"); }).forEach((s) => {
+data = data.slotTypes.filter((s) => { return s.description && s.description.startsWith("moviebot"); }).forEach((s) => {
 console.log(s.name);
 });
 EOF
