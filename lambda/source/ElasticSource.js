@@ -14,7 +14,16 @@ var getMovies = function(body) {
             const results = JSON.parse(responseBody).hits.hits;
             const movies = results.map(function(movie) {
                 const title = movie._source.title;
-                return movieBuilder.builder(title).build();
+                if (movie._source.hasOwnProperty('trailerURL') && movie._source.trailerURL !== "") {
+                    const trailerURL = movie._source.trailerURL
+                    const thumbnailURL = movie._source.trailerThumbnailURL
+                    return movieBuilder.builder(title)
+                            .withTrailerUrl(trailerURL)
+                            .withTrailerThumbnail(thumbnailURL)
+                            .build();
+                } else {
+                    return movieBuilder.builder(title).build();
+                }
             });
             console.log("retrieved movies: ");
             console.log(movies);
