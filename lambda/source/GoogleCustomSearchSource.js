@@ -4,7 +4,7 @@ var rp = require('request-promise');
 var AWS = require('aws-sdk')
 
 const tmdbApiKey = process.env.TMDB_KEY;
-const bingApiKey = process.env.BING_KEY;
+const googleApiKey = process.env.GOOGLE_CUSTOM_SEARCH_KEY;
 
 var movieBuilder = require('../model/Movie');
 
@@ -12,19 +12,16 @@ var query = function(queryString) {
     return new Promise((resolve, reject) => {
         const encodeQueryString = "movie about " + encodeURI(queryString);
         var options = {
-            uri: 'https://api.cognitive.microsoft.com/bing/v5.0/search?count=50&responseFilter=webpages&mkt=en-us&q=' + encodeQueryString,
+            uri: 'https://www.googleapis.com/customsearch/v1?key=' + googleApiKey + '&cx=001786123802140316465:3jugr9fs-mq&fields=items(title)&q=' + encodeQueryString,
             json: true,
-            headers: {
-                'Ocp-Apim-Subscription-Key': bingApiKey
-            },
         };
         rp(options).then(function(res) {
-            if (res.webPages && res.webPages.value) {
-                var movies = res.webPages.value.filter((m) => {
+            if (res.items) {
+                var movies = res.items.filter((m) => {
            //         console.log(m.name);
-                    return m.name.match(/.*(\(\d{4}|\(film).*/g);
+                    return m.title.match(/.*\(\d{4}.*/g);
                 }).map((m) => {
-                    return m.name.split(/\(| - /g)[0].trim();
+                    return m.title.split(/\(/g)[0].trim();
                 }).filter(function(item, pos, self) {
                     return self.indexOf(item) == pos; //make unique
                 });
