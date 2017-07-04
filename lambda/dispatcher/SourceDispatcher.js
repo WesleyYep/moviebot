@@ -36,7 +36,7 @@ var dispatch = function(queryInfo) {
                 { "_score" : "desc"},
                 { "popularity": "desc"}
             ],
-            "trackt_scores": true,
+            "track_scores": true,
             "size": 50
         } 
         
@@ -49,9 +49,9 @@ var dispatch = function(queryInfo) {
         }
 
         if (actor) {
-            body["query"]["bool"]["filter"].push([
+            body["query"]["bool"]["filter"] = [
                 { "match": { "actors" : {"query" : actor}}}
-            ])
+            ]
         }
         
         if (/* plot || */actor ) {
