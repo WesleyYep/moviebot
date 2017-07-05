@@ -5,7 +5,7 @@
             "name": "MovieQuote",
             "slotConstraint": "Required",
             "slotType": "MovieQuote",
-            "slotTypeVersion": "1",
+            "slotTypeVersion": "$LATEST",
             "valueElicitationPrompt": {
                 "messages": [
                     {
@@ -44,8 +44,8 @@
             "messageVersion": "1.0"
         }
     },
-    "lastUpdatedDate": 1498909518.808,
+    "lastUpdatedDate": 1499252112.646,
     "createdDate": 1498131745.525,
     "version": "$LATEST",
-    "checksum": "c480cf2f-fc19-453c-a1cc-c6b13d94f4e5"
+    "checksum": "9a7a0bb5-ea2b-4a7d-b982-6ceb6d55b1ca"
 }

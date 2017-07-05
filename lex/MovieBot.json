@@ -2,43 +2,47 @@
     "name": "MovieBot",
     "intents": [
         {
+            "intentName": "Help",
+            "intentVersion": "$LATEST"
+        },
+        {
             "intentName": "GoodBye",
-            "intentVersion": "2"
+            "intentVersion": "$LATEST"
         },
         {
             "intentName": "UnsureResult",
-            "intentVersion": "2"
+            "intentVersion": "$LATEST"
         },
         {
             "intentName": "ContinueFinding",
-            "intentVersion": "1"
+            "intentVersion": "$LATEST"
         },
         {
             "intentName": "Fallback",
-            "intentVersion": "1"
+            "intentVersion": "$LATEST"
         },
         {
             "intentName": "FindMovieByActor",
-            "intentVersion": "1"
+            "intentVersion": "$LATEST"
         },
         {
             "intentName": "FindMovieByPlot",
-            "intentVersion": "1"
+            "intentVersion": "$LATEST"
         },
         {
             "intentName": "FindMovieByQuote",
-            "intentVersion": "1"
+            "intentVersion": "$LATEST"
         },
         {
             "intentName": "Welcome",
-            "intentVersion": "2"
+            "intentVersion": "$LATEST"
         }
     ],
     "clarificationPrompt": {
         "messages": [
             {
                 "contentType": "PlainText",
-                "content": "Sorry, can you please repeat that?"
+                "content": "Sorry, can you please repeat that? Try entering 'help' if you don't know how to use MovieBot."
             }
         ],
         "maxAttempts": 2
@@ -47,16 +51,16 @@
         "messages": [
             {
                 "contentType": "PlainText",
-                "content": "Sorry, I could not understand. Goodbye."
+                "content": "Sorry, I could not understand. Try entering 'help' if you don't know how to use MovieBot.Goodbye."
             }
         ]
     },
-    "status": "READY",
-    "lastUpdatedDate": 1498909778.099,
+    "status": "NOT_BUILT",
+    "lastUpdatedDate": 1499252659.484,
     "createdDate": 1498131748.837,
     "idleSessionTTLInSeconds": 300,
     "voiceId": "Joanna",
-    "checksum": "f8f6a52f-f597-48c7-af92-c2372c0883a1",
+    "checksum": "e2851f91-21da-43d2-a55c-d60790096b2e",
     "version": "$LATEST",
     "locale": "en-US",
     "childDirected": false
