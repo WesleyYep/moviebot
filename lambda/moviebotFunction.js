@@ -138,7 +138,7 @@ function welcome(intentRequest, callback) {
 
     var welcomeMsg = {
         contentType: 'PlainText',
-        content : 'Hi I\'m moviebot. I find movies that you can\'t remember. What can you remember about a particular movie?'
+        content : 'Hi I\'m moviebot. I find movies that you can\'t remember. Currently we can search by plot, quote and actors. Which of these could you remember?'
     }
 
     callback(elicitIntent(sessionAttributes, welcomeMsg));

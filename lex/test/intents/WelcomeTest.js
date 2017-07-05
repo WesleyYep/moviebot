@@ -42,7 +42,7 @@ describe("Welcome Intent", function() {
             // THEN
             lexHelper.logBot(res.message);
             expect(res.dialogState).to.equal('ElicitIntent');
-            expect(res.message).to.equal("Hi I'm moviebot. I find movies that you can't remember. What can you remember about a particular movie?");
+            expect(res.message).to.equal("Hi I'm moviebot. I find movies that you can't remember. Currently we can search by plot, quote and actors. Which of these could you remember?");
         });
     });
 
