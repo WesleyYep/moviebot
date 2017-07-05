@@ -5,7 +5,7 @@
             "name": "PlotDescription",
             "slotConstraint": "Required",
             "slotType": "PlotDescription",
-            "slotTypeVersion": "$LATEST",
+            "slotTypeVersion": "2",
             "valueElicitationPrompt": {
                 "messages": [
                     {
@@ -38,8 +38,8 @@
             "messageVersion": "1.0"
         }
     },
-    "lastUpdatedDate": 1499252111.095,
+    "lastUpdatedDate": 1499253860.194,
     "createdDate": 1498131743.848,
     "version": "$LATEST",
-    "checksum": "72c743a4-bb8b-45a9-883d-a4e15c0c6c43"
+    "checksum": "e1e3fa2d-c7e4-47f5-b574-a672bfe6dba7"
 }

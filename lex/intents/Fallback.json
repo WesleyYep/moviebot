@@ -5,7 +5,7 @@
             "name": "Something",
             "slotConstraint": "Required",
             "slotType": "Theme",
-            "slotTypeVersion": "$LATEST",
+            "slotTypeVersion": "1",
             "valueElicitationPrompt": {
                 "messages": [
                     {
@@ -25,8 +25,8 @@
     "fulfillmentActivity": {
         "type": "ReturnIntent"
     },
-    "lastUpdatedDate": 1499252107.897,
+    "lastUpdatedDate": 1499253860.163,
     "createdDate": 1498131740.519,
     "version": "$LATEST",
-    "checksum": "a3118225-8dc9-4009-bf1b-968cf886a0a3"
+    "checksum": "d98bd643-c68b-4b19-af24-57a220c6dc5a"
 }

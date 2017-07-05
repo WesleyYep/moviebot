@@ -3,39 +3,39 @@
     "intents": [
         {
             "intentName": "Help",
-            "intentVersion": "$LATEST"
+            "intentVersion": "1"
         },
         {
             "intentName": "GoodBye",
-            "intentVersion": "$LATEST"
+            "intentVersion": "3"
         },
         {
             "intentName": "UnsureResult",
-            "intentVersion": "$LATEST"
+            "intentVersion": "2"
         },
         {
             "intentName": "ContinueFinding",
-            "intentVersion": "$LATEST"
+            "intentVersion": "1"
         },
         {
             "intentName": "Fallback",
-            "intentVersion": "$LATEST"
+            "intentVersion": "1"
         },
         {
             "intentName": "FindMovieByActor",
-            "intentVersion": "$LATEST"
+            "intentVersion": "1"
         },
         {
             "intentName": "FindMovieByPlot",
-            "intentVersion": "$LATEST"
+            "intentVersion": "2"
         },
         {
             "intentName": "FindMovieByQuote",
-            "intentVersion": "$LATEST"
+            "intentVersion": "2"
         },
         {
             "intentName": "Welcome",
-            "intentVersion": "$LATEST"
+            "intentVersion": "3"
         }
     ],
     "clarificationPrompt": {
@@ -55,12 +55,12 @@
             }
         ]
     },
-    "status": "NOT_BUILT",
-    "lastUpdatedDate": 1499252659.484,
+    "status": "READY",
+    "lastUpdatedDate": 1499253915.267,
     "createdDate": 1498131748.837,
     "idleSessionTTLInSeconds": 300,
     "voiceId": "Joanna",
-    "checksum": "e2851f91-21da-43d2-a55c-d60790096b2e",
+    "checksum": "adaf2e5c-649d-4c14-9619-b8a89828bd58",
     "version": "$LATEST",
     "locale": "en-US",
     "childDirected": false

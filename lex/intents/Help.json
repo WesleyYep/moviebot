@@ -10,8 +10,8 @@
         }
     },
     "parentIntentSignature": "AMAZON.HelpIntent",
-    "lastUpdatedDate": 1499252685.283,
+    "lastUpdatedDate": 1499253859.792,
     "createdDate": 1499252659.119,
     "version": "$LATEST",
-    "checksum": "ddb3e583-6b89-4140-9ca9-929e0fa31efc"
+    "checksum": "a368b84b-09e4-4422-bb14-964f41ee8c8e"
 }
