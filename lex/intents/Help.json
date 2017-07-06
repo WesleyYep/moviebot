@@ -1,5 +1,5 @@
 {
-    "name": "ContinueFinding",
+    "name": "Help",
     "slots": [],
     "sampleUtterances": [],
     "fulfillmentActivity": {
@@ -9,8 +9,9 @@
             "messageVersion": "1.0"
         }
     },
-    "lastUpdatedDate": 1499253859.095,
-    "createdDate": 1498131738.756,
+    "parentIntentSignature": "AMAZON.HelpIntent",
+    "lastUpdatedDate": 1499253859.792,
+    "createdDate": 1499252659.119,
     "version": "$LATEST",
-    "checksum": "e745e871-9bf8-4e64-8e67-f3cd263c63f9"
+    "checksum": "a368b84b-09e4-4422-bb14-964f41ee8c8e"
 }

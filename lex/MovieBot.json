@@ -2,8 +2,12 @@
     "name": "MovieBot",
     "intents": [
         {
+            "intentName": "Help",
+            "intentVersion": "1"
+        },
+        {
             "intentName": "GoodBye",
-            "intentVersion": "2"
+            "intentVersion": "3"
         },
         {
             "intentName": "UnsureResult",
@@ -23,22 +27,22 @@
         },
         {
             "intentName": "FindMovieByPlot",
-            "intentVersion": "1"
+            "intentVersion": "2"
         },
         {
             "intentName": "FindMovieByQuote",
-            "intentVersion": "1"
+            "intentVersion": "2"
         },
         {
             "intentName": "Welcome",
-            "intentVersion": "2"
+            "intentVersion": "3"
         }
     ],
     "clarificationPrompt": {
         "messages": [
             {
                 "contentType": "PlainText",
-                "content": "Sorry, can you please repeat that?"
+                "content": "Sorry, can you please repeat that? Try entering 'help' if you don't know how to use MovieBot."
             }
         ],
         "maxAttempts": 2
@@ -47,16 +51,16 @@
         "messages": [
             {
                 "contentType": "PlainText",
-                "content": "Sorry, I could not understand. Goodbye."
+                "content": "Sorry, I could not understand. Try entering 'help' if you don't know how to use MovieBot.Goodbye."
             }
         ]
     },
     "status": "READY",
-    "lastUpdatedDate": 1498909778.099,
+    "lastUpdatedDate": 1499253915.267,
     "createdDate": 1498131748.837,
     "idleSessionTTLInSeconds": 300,
     "voiceId": "Joanna",
-    "checksum": "f8f6a52f-f597-48c7-af92-c2372c0883a1",
+    "checksum": "adaf2e5c-649d-4c14-9619-b8a89828bd58",
     "version": "$LATEST",
     "locale": "en-US",
     "childDirected": false

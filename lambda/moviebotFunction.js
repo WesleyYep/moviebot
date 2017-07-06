@@ -126,6 +126,13 @@ function getFurtherInfoMessage(sessionAttributes) {
     };
 }
 
+function getHelpMessage() {
+    return {
+        contentType: "PlainText",
+        content: "MovieBot currently supports search by plot, quote and actors. You can begin a search by telling MovieBot which search type to execute. e.g. find by actor"
+    };
+}
+
 function getFormattedCurrentSessionInfo(sessionAttributes) {
     const currentSessionInfo = Object.keys(sessionAttributes).map(k => {
         return k + ": \"" + sessionAttributes[k] + "\""
@@ -236,6 +243,13 @@ function unsureResult(intentRequest, callback) {
     callback(elicitIntent(sessionAttributes, getFurtherInfoMessage(sessionAttributes)))
 }
 
+function help(intentRequest, callback) {
+    const sessionAttributes = intentRequest.sessionAttributes || {};
+    const slots = intentRequest.currentIntent.slots;
+
+    callback(elicitIntent(sessionAttributes, getHelpMessage()));
+}
+
 // --------------- Intents -----------------------
 
 /**
@@ -261,6 +275,8 @@ function dispatch(intentRequest, callback) {
         return goodbye(intentRequest, callback);
     } else if (intentName == 'UnsureResult') {
         return unsureResult(intentRequest, callback);
+    } else if (intentName == 'Help') {
+        return help(intentRequest, callback);
     }
 
     throw new Error(`Intent with name ${intentName} not supported`);
