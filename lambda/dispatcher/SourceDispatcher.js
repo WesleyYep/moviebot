@@ -55,9 +55,9 @@ var dispatch = function(queryInfo) {
         }
 
         if (director) {
-            body["query"]["bool"]["filter"] = [
-                { "match": { "actors" : {"director" : director}}}
-            ]
+            body["query"]["bool"]["must"].push({
+                "match": { "director": director }
+            })
         }
         
         if (year) {

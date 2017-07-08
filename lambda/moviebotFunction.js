@@ -94,12 +94,12 @@ function movieToResponseCards(movieList) {
     }
 }
 
-function actorSuggestionResponseCard(actorNameList) {
+function suggestionResponseCard(actorNameList, intentName) {
     return {
         contentType: "application/vnd.amazonaws.card.generic",
         genericAttachments: [
             {
-                title:"Actor Suggestion",
+                title: intentName === "FindMovieByActor" ? "Actor Suggestion" : "Director Suggestion", 
                 subTitle:"Select one of the actor below",
                 buttons:  actorNameList.slice(0, 3).map(actorName => {
                     return {
@@ -184,13 +184,14 @@ function findMovie(intentRequest, callback) {
     }).catch((err) => {
         console.log(err)
         if (err instanceof ValidationError) {
-            if (intentName === "FindMovieByActor") {
-                var msg = err.reason + ". What is the name of the actor/actress ?";
+            if (intentName === "FindMovieByActor" || intentName === "FindMovieByDirector") {
+                var msg = err.reason;
+                intentName === "FindMovieByActor" ? msg += ". What is the name of the actor/actress ?" : msg += ". Who is the director?";
                 var dialogAction = null;
                 if (err.suggestions.length == 0) {
                     dialogAction = sendInvalidSlotMessage(sessionAttributes, intentRequest, err.incorrectSlotName, msg);           
                 } else {
-                    var responseCard = actorSuggestionResponseCard(err.suggestions)
+                    var responseCard = suggestionResponseCard(err.suggestions, intentName)
                     dialogAction = sendInvalidSlotMessage(sessionAttributes, intentRequest, err.incorrectSlotName, msg, responseCard);
                 }
                 callback(dialogAction)    
