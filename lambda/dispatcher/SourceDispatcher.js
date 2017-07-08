@@ -18,6 +18,8 @@ var dispatch = function(queryInfo) {
     const actor = retrieveInfo(SlotConstants.MOVIE_ACTOR, queryInfo);
     const quote = retrieveInfo(SlotConstants.MOVIEQUOTE, queryInfo);
     const plot = retrieveInfo(SlotConstants.MOVIEPLOT, queryInfo);
+    const director = retrieveInfo(SlotConstants.MOVIE_DIRECTOR, queryInfo);
+    const year = retrieveInfo(SlotConstants.MOVIE_YEAR, queryInfo);
 
     var sourcePromises = [];
 
@@ -41,9 +43,6 @@ var dispatch = function(queryInfo) {
             "size": 50
         } 
         
-        // if (plot) {
-        //     body["query"]["bool"]["must"].push({"match" : {"plot-detailed" : plot}})
-        // }
         if (plot) {
             console.log("Google source is called");
             sourcePromises.push(googleSource.getMovies(plot));
@@ -54,14 +53,30 @@ var dispatch = function(queryInfo) {
                 { "match": { "actors" : {"query" : actor}}}
             ]
         }
+
+        if (director) {
+            body["query"]["bool"]["filter"] = [
+                { "match": { "actors" : {"director" : director}}}
+            ]
+        }
         
-        if (/* plot || */actor ) {
+        if (year) {
+            body["query"]["bool"]["filter"] = {
+               "range": {
+                  "releaseDate": {
+                     "gte": year + "||/y",
+                     "lte": year + "||/y",
+                     "format": "yyyy"
+                  }
+               }
+           }
+        }
+        
+        if (actor || director || year) {
             console.log("Elastic source is called");
             console.log(body)
             sourcePromises.push(elasticSource.getMovies(body));
         }
-
-        // Other sources. Not sure how it will work
 
         Promise.all(sourcePromises).then(sourceMovies => {
             resolve(sourceMovies);

@@ -267,7 +267,8 @@ function dispatch(intentRequest, callback) {
         return welcome(intentRequest, callback);
     } else if (intentName == 'FindMovie') {
         return findMovie(intentRequest, callback);
-    } else if (intentName == 'FindMovieByActor' || intentName == 'FindMovieByPlot' || intentName == 'FindMovieByQuote') {
+    } else if (intentName == 'FindMovieByActor' || intentName == 'FindMovieByPlot' || intentName == 'FindMovieByQuote' 
+                || intentName == 'FindMovieByDirector' || intentName == 'FindMovieByYear' ) {
         return findMovie(intentRequest, callback);
     } else if (intentName == 'ContinueFinding') {
         return continueFinding(intentRequest, callback);
