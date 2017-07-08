@@ -133,6 +133,8 @@ request(initOptions, function (error, response, body) {
         }
 
         setTimeout(getScrollingFunc(), interval * (numberOfResults+1));
+    } else {
+        console.log(response.statusCode)
     }
 });
 
