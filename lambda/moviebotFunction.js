@@ -122,14 +122,14 @@ function getGoodByeMessage() {
 function getFurtherInfoMessage(sessionAttributes) {
     return {
         contentType : "PlainText",
-        content : "What else can you remember about the movie (actor, plot, quote)" + " " + getFormattedCurrentSessionInfo(sessionAttributes)
+        content : "What else can you remember about the movie (actor, plot, quote, year, director)" + " " + getFormattedCurrentSessionInfo(sessionAttributes)
     };
 }
 
 function getHelpMessage() {
     return {
         contentType: "PlainText",
-        content: "MovieBot currently supports search by plot, quote and actors. You can begin a search by telling MovieBot which search type to execute. e.g. find by actor"
+        content: "MovieBot currently supports search by plot, quote, actors, year, and director. You can begin a search by telling MovieBot which search type to execute. e.g. find by actor"
     };
 }
 
@@ -145,7 +145,7 @@ function welcome(intentRequest, callback) {
 
     var welcomeMsg = {
         contentType: 'PlainText',
-        content : 'Hi I\'m moviebot. I find movies that you can\'t remember. Currently we can search by plot, quote and actors. Which of these could you remember?'
+        content : 'Hi I\'m moviebot. I find movies that you can\'t remember. Currently we can search by plot, quote, actors, year, and director. Which of these could you remember?'
     }
 
     callback(elicitIntent(sessionAttributes, welcomeMsg));
