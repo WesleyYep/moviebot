@@ -1,9 +1,11 @@
 Help
 GoodBye
 UnsureResult
+FindMovieByDirector
 ContinueFinding
 Fallback
 FindMovieByActor
 FindMovieByPlot
 FindMovieByQuote
+FindMovieByYear
 Welcome

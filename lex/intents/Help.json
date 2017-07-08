@@ -1,17 +1,17 @@
 {
-    "name": "Help",
-    "slots": [],
-    "sampleUtterances": [],
+    "name": "Help", 
+    "checksum": "0d023d28-243b-4a8e-80f4-2ab304fece19", 
+    "parentIntentSignature": "AMAZON.HelpIntent", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1499490053.906, 
+    "createdDate": 1499467294.889, 
+    "sampleUtterances": [], 
+    "slots": [], 
     "fulfillmentActivity": {
-        "type": "CodeHook",
+        "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
+            "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
-    },
-    "parentIntentSignature": "AMAZON.HelpIntent",
-    "lastUpdatedDate": 1499253859.792,
-    "createdDate": 1499252659.119,
-    "version": "$LATEST",
-    "checksum": "a368b84b-09e4-4422-bb14-964f41ee8c8e"
+    }
 }

@@ -1,27 +1,27 @@
 {
-    "name": "Welcome",
-    "slots": [],
+    "name": "Welcome", 
+    "checksum": "51930ec1-68c6-47dc-83a9-34b97ca456e4", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1499490053.807, 
+    "createdDate": 1498258471.12, 
     "sampleUtterances": [
-        "Hello",
-        "Hi",
-        "Good morning",
-        "Good afternoon",
-        "Good day",
-        "How are you",
-        "Morning",
-        "Hey",
-        "What's up",
+        "Hello", 
+        "Hi", 
+        "Good morning", 
+        "Good afternoon", 
+        "Good day", 
+        "How are you", 
+        "Morning", 
+        "Hey", 
+        "What's up", 
         "Sup"
-    ],
+    ], 
+    "slots": [], 
     "fulfillmentActivity": {
-        "type": "CodeHook",
+        "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
+            "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
-    },
-    "lastUpdatedDate": 1499253859.739,
-    "createdDate": 1498131747.26,
-    "version": "$LATEST",
-    "checksum": "73964d72-0f70-4a84-b678-1476546014f1"
+    }
 }
