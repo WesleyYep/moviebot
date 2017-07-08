@@ -2,6 +2,7 @@ var sourceDispatcher = require('dispatcher/SourceDispatcher');
 var aggregator = require('aggregator/IntersectionAggregator');
 var youtubeTrailer = require('trailer/YoutubeTrailer');
 var validator = require('validator/Validator');
+var movieHydrator = require('hydrator/Hydrator')
 const ValidationError = require('error/ValidationError');
 const MovieNotFoundError = require('error/MovieNotFoundError');
 
@@ -15,6 +16,7 @@ var find = function(intentName, slots, sessionAttributes) {
     return new Promise(function(resolve, reject) {
         validateSlots(queryInfo)
         .then(() => findMovieFromSources(queryInfo))
+        .then((movieLists) => hydrateMovieLists(movieLists))
         .then((movieLists) => processMovieLists(movieLists))
         .then((singleMovieList) => postProcess(singleMovieList))
         .then((singleMovieList) => {
@@ -69,6 +71,23 @@ function findMovieFromSources(queryInfo) {
     });
 }
 
+function hydrateMovieLists(movieLists) {
+    console.log("Hydrating each movie list")
+    return new Promise(function(resolve, reject) {
+        const promiseList = []
+        for (index = 0; index < movieLists.length; index++) {
+            promiseList.push(movieHydrator.hydrate(movieLists[index]))
+        }
+
+        Promise.all(promiseList).then(hydratedMovieLists => {
+            console.log("finish hydrating")
+            console.log(hydratedMovieLists)
+            resolve(hydratedMovieLists);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
 
 function processMovieLists(movieLists) {
     console.log("Processing movie list");

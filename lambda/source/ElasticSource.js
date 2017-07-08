@@ -17,9 +17,15 @@ var getMovies = function(body) {
                 if (movie._source.hasOwnProperty('trailerURL') && movie._source.trailerURL !== "") {
                     const trailerURL = movie._source.trailerURL
                     const thumbnailURL = movie._source.trailerThumbnailURL
+                    const director = movie._source.director
+                    const releaseDate = movie._source.releaseDate
+                    const genres = movie._source.genres
                     return movieBuilder.builder(title)
                             .withTrailerUrl(trailerURL)
                             .withTrailerThumbnail(thumbnailURL)
+                            .withDirector(director)
+                            .withGenre(genres)
+                            .withReleaseDate(releaseDate)
                             .build();
                 } else {
                     return movieBuilder.builder(title).build();
