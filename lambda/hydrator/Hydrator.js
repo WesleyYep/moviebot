@@ -40,7 +40,10 @@ function hydrateMovieFromES(movie) {
                         }
                     }
                 }
-            }
+            },
+            "sort": [
+                { "popularity": "desc"}
+            ]
         }
 
         elasticSource.getMovies(searchBody).then((resultMovieList) => {
