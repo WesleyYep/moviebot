@@ -2,7 +2,7 @@ var request = require('request');
 
 var initialQuery = "https://search-moviebot-squiezr3n3t55xzc3c46awndia.us-east-1.es.amazonaws.com/movies-v8/movie/_search?scroll=5m";
 var scrollQuery = "https://search-moviebot-squiezr3n3t55xzc3c46awndia.us-east-1.es.amazonaws.com/_search/scroll";
-var insertActorName = "https://search-moviebot-squiezr3n3t55xzc3c46awndia.us-east-1.es.amazonaws.com/actors/actor-2";
+var insertDirectorName = "https://search-moviebot-squiezr3n3t55xzc3c46awndia.us-east-1.es.amazonaws.com/directors-v6/director";
 
 var numberOfResults = 100;
 var interval = 1000;
@@ -12,15 +12,14 @@ var initOptions = {
     method: 'POST',
     json : {
         "size": numberOfResults,
-        "_source": ["actors"]
+        "_source": ["director"]
     }
 }
 
-var actorCount = 0;
 var movieCount = 0;
 var isFinish = false;
 const seenMap = {};
-
+var directorCount = 0;
 
 function getScrollOption(scrollId) {
     return {
@@ -33,12 +32,12 @@ function getScrollOption(scrollId) {
     }
 }
 
-function insertActorDocumentOption(id, actorName) {
+function insertDirectorDocumentOption(id, directorName) {
     return {
-        uri: insertActorName + "/" + id,
+        uri: insertDirectorName + "/" + id,
         method: 'PUT',
         json : {
-            "actorName" : actorName
+            "directorName" : directorName
         }
     }
 }
@@ -48,32 +47,27 @@ var i = 1;
 
 function getProcessMovieFunc() {
     return function(movie, currentMovieCount) {
-        const actorList = movie._source.actors;
-        if (actorList == null) {
+        const name = movie._source.director;
+        if (!name) {
             return;
         }
-        
-        for (index in actorList) {
-            const name = actorList[index] 
-            const title = movie._source.title;
+        const title = movie._source.title;
+        if (!(name in seenMap)) {
+            seenMap[name] = true;
+            directorCount++;
+            request(insertDirectorDocumentOption(directorCount, name), function(error, response, body) {
+                if (error != null) {
+                    console.log(error);
+                    throw new Error("Didn't work for" + name + " and movie is " + title);
+                }
 
-            if (!(name in seenMap)) {
-                seenMap[name] = true;
-                actorCount++;
-                request(insertActorDocumentOption(actorCount, name), function(error, response, body) {
-                    if (error != null) {
-                        console.log(error);
-                        throw new Error("Didn't work for" + name + " and movie is " + title);
-                    }
-
-                    if (response.statusCode === 201) {
-                        console.log("Actor processed: " + name);
-                    } else {
-                        console.log(response.body)
-                        throw new Error("Didn't work for" + name + " and movie is " + title);
-                    }
-                })
-            }
+                if (response.statusCode === 201) {
+                    console.log("Director processed: " + name);
+                } else {
+                    console.log(response.body)
+                    throw new Error("Didn't work for" + name + " and movie is " + title);
+                }
+            })
         }
         console.log("Current Movie count:" + currentMovieCount + " Movie Processed:" + movie._id + " Seen Map Size:" + Object.keys(seenMap).length);
     }
@@ -139,6 +133,8 @@ request(initOptions, function (error, response, body) {
         }
 
         setTimeout(getScrollingFunc(), interval * (numberOfResults+1));
+    } else {
+        console.log(response.statusCode)
     }
 });
 

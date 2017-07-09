@@ -1,46 +1,46 @@
 {
-    "name": "FindMovieByActor",
+    "dialogCodeHook": {
+        "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
+        "messageVersion": "1.0"
+    }, 
+    "name": "FindMovieByActor", 
+    "checksum": "1b1a5894-7bff-405c-b0ff-923d83100553", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1498258646.816, 
+    "createdDate": 1498258646.816, 
+    "sampleUtterances": [
+        "I think one of the actors is {Actor}", 
+        "{Actor} starred in it", 
+        "an actor is {Actor}", 
+        "I think one of the actress is {Actor}", 
+        "an actress is {Actor}", 
+        "find movie by actor", 
+        "can I filter by actor", 
+        "actor"
+    ], 
     "slots": [
         {
-            "name": "Actor",
-            "slotConstraint": "Required",
-            "slotType": "AMAZON.Actor",
+            "slotType": "AMAZON.Actor", 
+            "name": "Actor", 
+            "slotConstraint": "Required", 
             "valueElicitationPrompt": {
+                "maxAttempts": 2, 
                 "messages": [
                     {
-                        "contentType": "PlainText",
-                        "content": "Sure what actor/actress do you know is in the movie?"
+                        "content": "Sure what actor/actress do you know is in the movie?", 
+                        "contentType": "PlainText"
                     }
-                ],
-                "maxAttempts": 2
-            },
-            "priority": 1,
+                ]
+            }, 
+            "priority": 1, 
             "sampleUtterances": []
         }
-    ],
-    "sampleUtterances": [
-        "I think one of the actors is {Actor}",
-        "{Actor} starred in it",
-        "an actor is {Actor}",
-        "I think one of the actress is {Actor}",
-        "an actress is {Actor}",
-        "find movie by actor",
-        "can I filter by actor",
-        "actor"
-    ],
-    "dialogCodeHook": {
-        "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
-        "messageVersion": "1.0"
-    },
+    ], 
     "fulfillmentActivity": {
-        "type": "CodeHook",
+        "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
+            "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
-    },
-    "lastUpdatedDate": 1498131742.156,
-    "createdDate": 1498131742.156,
-    "version": "$LATEST",
-    "checksum": "16b8988a-d4b7-460f-b3b2-c49cf03cc083"
+    }
 }

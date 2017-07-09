@@ -1,0 +1,58 @@
+{
+    "dialogCodeHook": {
+        "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
+        "messageVersion": "1.0"
+    }, 
+    "name": "FindMovieByYear", 
+    "checksum": "fdc555dd-d41a-4a4f-a574-e3fdbe6d33ea", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1499510748.86, 
+    "createdDate": 1499493116.033, 
+    "sampleUtterances": [
+        "I know the year", 
+        "I know the release date", 
+        "I know when it was released", 
+        "I know the year of release", 
+        "I know the date of release", 
+        "I know the release year", 
+        "The year was {Year}", 
+        "The release date was {Year}", 
+        "The release year was {Year}", 
+        "It was released in {Year}", 
+        "It came out in {Year}", 
+        "I know it was released in {Year}", 
+        "{Year} was the year of release", 
+        "The year is {Year}", 
+        "Filter by year", 
+        "filter by release year", 
+        "filter by release date", 
+        "filter by date", 
+        "year was {Year}", 
+        "year"
+    ], 
+    "slots": [
+        {
+            "slotType": "AMAZON.FOUR_DIGIT_NUMBER", 
+            "name": "Year", 
+            "slotConstraint": "Required", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "What year was the movie released?", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 1, 
+            "sampleUtterances": []
+        }
+    ], 
+    "fulfillmentActivity": {
+        "type": "CodeHook", 
+        "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
+            "messageVersion": "1.0"
+        }
+    }
+}

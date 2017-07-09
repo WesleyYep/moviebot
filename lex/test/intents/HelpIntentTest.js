@@ -48,7 +48,7 @@ describe("Help intent", function() {
                 // THEN
                 lexHelper.logBot(res.message);
                 expect(res.dialogState).to.equal('ElicitIntent');
-                expect(res.message).to.equal('MovieBot currently supports search by plot, quote and actors. You can begin a search by telling MovieBot which search type to execute. e.g. find by actor');
+                expect(res.message).to.equal('MovieBot currently supports search by plot, quote, actors, year, and director. You can begin a search by telling MovieBot which search type to execute. e.g. find by actor');
             });
         });
     });

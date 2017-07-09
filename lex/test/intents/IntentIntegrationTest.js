@@ -67,7 +67,7 @@ describe("Intent integration", function() {
             // THEN
             lexHelper.logBot(res.message);
             expect(res.dialogState).to.equal('ElicitIntent');
-            expect(res.message).to.equal('What else can you remember about the movie (actor, plot, quote) [Current information => Actor: "' + actor + '"]');
+            expect(res.message).to.equal('What else can you remember about the movie (actor, plot, quote, year, director) [Current information => Actor: "' + actor + '"]');
             expect(res.sessionAttributes).to.have.property("Actor").to.equal(actor);
 
             text = "find by quote";

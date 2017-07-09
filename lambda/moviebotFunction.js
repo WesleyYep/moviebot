@@ -94,12 +94,12 @@ function movieToResponseCards(movieList) {
     }
 }
 
-function actorSuggestionResponseCard(actorNameList) {
+function suggestionResponseCard(actorNameList, intentName) {
     return {
         contentType: "application/vnd.amazonaws.card.generic",
         genericAttachments: [
             {
-                title:"Actor Suggestion",
+                title: intentName === "FindMovieByActor" ? "Actor Suggestion" : "Director Suggestion", 
                 subTitle:"Select one of the actor below",
                 buttons:  actorNameList.slice(0, 3).map(actorName => {
                     return {
@@ -122,14 +122,14 @@ function getGoodByeMessage() {
 function getFurtherInfoMessage(sessionAttributes) {
     return {
         contentType : "PlainText",
-        content : "What else can you remember about the movie (actor, plot, quote)" + " " + getFormattedCurrentSessionInfo(sessionAttributes)
+        content : "What else can you remember about the movie (actor, plot, quote, year, director)" + " " + getFormattedCurrentSessionInfo(sessionAttributes)
     };
 }
 
 function getHelpMessage() {
     return {
         contentType: "PlainText",
-        content: "MovieBot currently supports search by plot, quote and actors. You can begin a search by telling MovieBot which search type to execute. e.g. find by actor"
+        content: "MovieBot currently supports search by plot, quote, actors, year, and director. You can begin a search by telling MovieBot which search type to execute. e.g. find by actor"
     };
 }
 
@@ -145,7 +145,7 @@ function welcome(intentRequest, callback) {
 
     var welcomeMsg = {
         contentType: 'PlainText',
-        content : 'Hi I\'m moviebot. I find movies that you can\'t remember. Currently we can search by plot, quote and actors. Which of these could you remember?'
+        content : 'Hi I\'m moviebot. I find movies that you can\'t remember. Currently we can search by plot, quote, actors, year, and director. Which of these could you remember?'
     }
 
     callback(elicitIntent(sessionAttributes, welcomeMsg));
@@ -184,13 +184,14 @@ function findMovie(intentRequest, callback) {
     }).catch((err) => {
         console.log(err)
         if (err instanceof ValidationError) {
-            if (intentName === "FindMovieByActor") {
-                var msg = err.reason + ". What is the name of the actor/actress ?";
+            if (intentName === "FindMovieByActor" || intentName === "FindMovieByDirector") {
+                var msg = err.reason;
+                intentName === "FindMovieByActor" ? msg += ". What is the name of the actor/actress ?" : msg += ". Who is the director?";
                 var dialogAction = null;
                 if (err.suggestions.length == 0) {
                     dialogAction = sendInvalidSlotMessage(sessionAttributes, intentRequest, err.incorrectSlotName, msg);           
                 } else {
-                    var responseCard = actorSuggestionResponseCard(err.suggestions)
+                    var responseCard = suggestionResponseCard(err.suggestions, intentName)
                     dialogAction = sendInvalidSlotMessage(sessionAttributes, intentRequest, err.incorrectSlotName, msg, responseCard);
                 }
                 callback(dialogAction)    
@@ -267,7 +268,8 @@ function dispatch(intentRequest, callback) {
         return welcome(intentRequest, callback);
     } else if (intentName == 'FindMovie') {
         return findMovie(intentRequest, callback);
-    } else if (intentName == 'FindMovieByActor' || intentName == 'FindMovieByPlot' || intentName == 'FindMovieByQuote') {
+    } else if (intentName == 'FindMovieByActor' || intentName == 'FindMovieByPlot' || intentName == 'FindMovieByQuote' 
+                || intentName == 'FindMovieByDirector' || intentName == 'FindMovieByYear' ) {
         return findMovie(intentRequest, callback);
     } else if (intentName == 'ContinueFinding') {
         return continueFinding(intentRequest, callback);
