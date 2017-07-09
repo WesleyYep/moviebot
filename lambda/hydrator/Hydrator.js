@@ -88,9 +88,6 @@ function isUndefined(field) {
     return typeof field === 'undefined'
 }
 
-
-
-
 module.exports = {
     hydrate: hydrate
 }
