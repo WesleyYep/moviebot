@@ -1,4 +1,5 @@
 var elasticSource = require('../source/ElasticSource');
+var moment = require('moment');
 
 var hydrate = function(movieList) {
     return new Promise(function(resolve, reject) {
@@ -34,7 +35,7 @@ function hydrateMovieFromES(movie) {
             "query" : {
                 "bool" : {
                     "must" : {
-                        "match" : {
+                        "match_phrase" : {
                             "title" : movie.getTitle()
                         }
                     }
@@ -50,13 +51,18 @@ function hydrateMovieFromES(movie) {
                     continue
                 }
 
+                if (isUndefined(releaseDate)) {
+                    movie.setReleaseDate(currentMovie.getReleaseDate())
+                } else {
+                    if (!moment(movie.getReleaseDate()).isSame(currentMovie.getReleaseDate, "year")) {
+                        //different release year means that its a different movies with the same title so continue
+                        continue
+                    }
+                }
+
                 //do not override existing information
                 if (isUndefined(director)) {
                     movie.setDirector(currentMovie.getDirector())
-                }
-
-                if (isUndefined(releaseDate)) {
-                    movie.setReleaseDate(currentMovie.getReleaseDate())
                 }
 
                 if (isUndefined(genre)) {
