@@ -1,16 +1,16 @@
 {
-    "name": "ContinueFinding", 
-    "checksum": "9f8cf4fe-7666-4df0-a76c-38595bb5190f", 
-    "version": "$LATEST", 
-    "lastUpdatedDate": 1499490052.638, 
-    "createdDate": 1498258643.036, 
-    "sampleUtterances": [], 
-    "slots": [], 
+    "name": "ContinueFinding",
+    "slots": [],
+    "sampleUtterances": [],
     "fulfillmentActivity": {
-        "type": "CodeHook", 
+        "type": "CodeHook",
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
+            "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
             "messageVersion": "1.0"
         }
-    }
+    },
+    "lastUpdatedDate": 1499677884.953,
+    "createdDate": 1498131738.756,
+    "version": "$LATEST",
+    "checksum": "8dab084d-453d-4418-b91f-72d16b177f43"
 }

@@ -1,32 +1,32 @@
 {
-    "name": "Fallback", 
-    "checksum": "f3ef78f4-9995-44f5-abf9-d4a3433a3e68", 
-    "version": "$LATEST", 
-    "lastUpdatedDate": 1499490054.68, 
-    "createdDate": 1498258644.869, 
-    "sampleUtterances": [
-        "I think {Something} is in it"
-    ], 
+    "name": "Fallback",
     "slots": [
         {
-            "slotType": "Theme", 
-            "name": "Something", 
-            "slotConstraint": "Required", 
+            "name": "Something",
+            "slotConstraint": "Required",
+            "slotType": "Theme",
+            "slotTypeVersion": "1",
             "valueElicitationPrompt": {
-                "maxAttempts": 2, 
                 "messages": [
                     {
-                        "content": "Sorry", 
-                        "contentType": "PlainText"
+                        "contentType": "PlainText",
+                        "content": "Sorry"
                     }
-                ]
-            }, 
-            "priority": 1, 
-            "slotTypeVersion": "1", 
+                ],
+                "maxAttempts": 2
+            },
+            "priority": 1,
             "sampleUtterances": []
         }
-    ], 
+    ],
+    "sampleUtterances": [
+        "I think {Something} is in it"
+    ],
     "fulfillmentActivity": {
         "type": "ReturnIntent"
-    }
+    },
+    "lastUpdatedDate": 1499677885.598,
+    "createdDate": 1498131740.519,
+    "version": "$LATEST",
+    "checksum": "0431d6fe-34a7-47a7-a3c9-e9ac0c25986e"
 }

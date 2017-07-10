@@ -1,45 +1,45 @@
 {
-    "dialogCodeHook": {
-        "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
-        "messageVersion": "1.0"
-    }, 
-    "name": "FindMovieByPlot", 
-    "checksum": "7c4e109f-375c-43f4-bd1f-2a4eed22b449", 
-    "version": "$LATEST", 
-    "lastUpdatedDate": 1499490054.812, 
-    "createdDate": 1498258466.984, 
-    "sampleUtterances": [
-        "The plot is {PlotDescription}", 
-        "I want to filter by plot", 
-        "plot", 
-        "The movie was about {PlotDescription}", 
-        "the story was {PlotDescription}", 
-        "can I find the movie by plot"
-    ], 
+    "name": "FindMovieByPlot",
     "slots": [
         {
-            "slotType": "PlotDescription", 
-            "name": "PlotDescription", 
-            "slotConstraint": "Required", 
+            "name": "PlotDescription",
+            "slotConstraint": "Required",
+            "slotType": "PlotDescription",
+            "slotTypeVersion": "2",
             "valueElicitationPrompt": {
-                "maxAttempts": 2, 
                 "messages": [
                     {
-                        "content": "What is the plot of the movie ?", 
-                        "contentType": "PlainText"
+                        "contentType": "PlainText",
+                        "content": "What is the plot of the movie ?"
                     }
-                ]
-            }, 
-            "priority": 1, 
-            "slotTypeVersion": "2", 
+                ],
+                "maxAttempts": 2
+            },
+            "priority": 1,
             "sampleUtterances": []
         }
-    ], 
+    ],
+    "sampleUtterances": [
+        "The plot is {PlotDescription}",
+        "I want to filter by plot",
+        "plot",
+        "The movie was about {PlotDescription}",
+        "the story was {PlotDescription}",
+        "can I find the movie by plot"
+    ],
+    "dialogCodeHook": {
+        "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
+        "messageVersion": "1.0"
+    },
     "fulfillmentActivity": {
-        "type": "CodeHook", 
+        "type": "CodeHook",
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
+            "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
             "messageVersion": "1.0"
         }
-    }
+    },
+    "lastUpdatedDate": 1499677885.87,
+    "createdDate": 1498131743.848,
+    "version": "$LATEST",
+    "checksum": "689b7169-df42-4d38-bba2-31f2fd8a8168"
 }
