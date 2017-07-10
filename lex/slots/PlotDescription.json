@@ -1,76 +1,76 @@
 {
+    "name": "PlotDescription",
+    "description": "moviebot",
     "enumerationValues": [
         {
             "value": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency"
-        }, 
+        },
         {
             "value": "a small waste collecting robot inadvertently embarks on a space journey that will ultimately decide the fate of mankind"
-        }, 
+        },
         {
             "value": "a girl turned into a bear by spirits"
-        }, 
+        },
         {
             "value": "New York zoo animals escape"
-        }, 
+        },
         {
             "value": "jedi fighting sith"
-        }, 
+        },
         {
             "value": "a boy wizard fights a dark lord over a stone"
-        }, 
+        },
         {
             "value": "An amazon woman joins the war to help man defeat the nazis"
-        }, 
+        },
         {
             "value": "I'm not a traitor. I just wised up. You will too."
-        }, 
+        },
         {
             "value": "man stranded on an island"
-        }, 
+        },
         {
             "value": "kill people who stole his car and kill his dog"
-        }, 
+        },
         {
             "value": "a man leaves his daughter on earth while he explores space for a new planet for life"
-        }, 
+        },
         {
             "value": "Following the death of a publishing tycoon, news reporters scramble to discover the meaning of his final utterance"
-        }, 
+        },
         {
             "value": "An insurance salesman discovers his entire life is actually a TV show"
-        }, 
+        },
         {
             "value": "The rise and fall of a corrupt politician, who makes his friends richer and retains power by dint of a populist appeal"
-        }, 
+        },
         {
             "value": "An angel helps a compassionate but despairingly frustrated businessman by showing what life would have been like if he never existed"
-        }, 
+        },
         {
             "value": "A Polish Jewish musician struggles to survive the destruction of the Warsaw ghetto of World War II"
-        }, 
+        },
         {
             "value": "King Arthur and his knights embark on a low-budget search for the Grail, encountering many very silly obstacles"
-        }, 
+        },
         {
             "value": "old man ties balloons to his house and flies"
-        }, 
+        },
         {
             "value": "two powerful superheros don't trust each other and end up fighting"
-        }, 
+        },
         {
             "value": "Englishman wins a raffle prize and goes to Cannes"
-        }, 
+        },
         {
             "value": "A cowboy toy is profoundly threatened and jealous when a fancy spaceman toy supplants him as top toy in a boy's room"
-        }, 
+        },
         {
             "value": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against the controllers of it"
         }
-    ], 
-    "name": "PlotDescription", 
-    "checksum": "b78c229f-451b-4df5-9e2a-602fd1451d68", 
-    "version": "$LATEST", 
-    "lastUpdatedDate": 1498985414.9, 
-    "createdDate": 1498258447.45, 
-    "description": "moviebot"
+    ],
+    "lastUpdatedDate": 1498962348.23,
+    "createdDate": 1498131727.54,
+    "version": "$LATEST",
+    "checksum": "6c817d46-a2bf-4c50-b95a-74919db71f85"
 }

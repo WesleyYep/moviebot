@@ -1,75 +1,75 @@
 {
-    "status": "READY", 
+    "name": "MovieBot",
     "intents": [
         {
-            "intentVersion": "1", 
-            "intentName": "Help"
-        }, 
+            "intentName": "Help",
+            "intentVersion": "2"
+        },
         {
-            "intentVersion": "1", 
-            "intentName": "GoodBye"
-        }, 
+            "intentName": "GoodBye",
+            "intentVersion": "4"
+        },
         {
-            "intentVersion": "3", 
-            "intentName": "UnsureResult"
-        }, 
+            "intentName": "UnsureResult",
+            "intentVersion": "3"
+        },
         {
-            "intentVersion": "2", 
-            "intentName": "FindMovieByDirector"
-        }, 
+            "intentName": "FindMovieByDirector",
+            "intentVersion": "1"
+        },
         {
-            "intentVersion": "1", 
-            "intentName": "ContinueFinding"
-        }, 
+            "intentName": "ContinueFinding",
+            "intentVersion": "1"
+        },
         {
-            "intentVersion": "1", 
-            "intentName": "Fallback"
-        }, 
+            "intentName": "Fallback",
+            "intentVersion": "1"
+        },
         {
-            "intentVersion": "1", 
-            "intentName": "FindMovieByActor"
-        }, 
+            "intentName": "FindMovieByActor",
+            "intentVersion": "1"
+        },
         {
-            "intentVersion": "2", 
-            "intentName": "FindMovieByPlot"
-        }, 
+            "intentName": "FindMovieByPlot",
+            "intentVersion": "2"
+        },
         {
-            "intentVersion": "2", 
-            "intentName": "FindMovieByQuote"
-        }, 
+            "intentName": "FindMovieByQuote",
+            "intentVersion": "2"
+        },
         {
-            "intentVersion": "2", 
-            "intentName": "FindMovieByYear"
-        }, 
+            "intentName": "FindMovieByYear",
+            "intentVersion": "1"
+        },
         {
-            "intentVersion": "2", 
-            "intentName": "Welcome"
+            "intentName": "Welcome",
+            "intentVersion": "4"
         }
-    ], 
-    "name": "MovieBot", 
-    "locale": "en-US", 
-    "checksum": "7258a77a-3e5b-41bd-9843-a68b364a2a1c", 
+    ],
+    "clarificationPrompt": {
+        "messages": [
+            {
+                "contentType": "PlainText",
+                "content": "Sorry, can you please repeat that? Try entering 'help' if you don't know how to use MovieBot."
+            }
+        ],
+        "maxAttempts": 2
+    },
     "abortStatement": {
         "messages": [
             {
-                "content": "Sorry, I could not understand. Try entering 'help' if you don't know how to use MovieBot.Goodbye.", 
-                "contentType": "PlainText"
+                "contentType": "PlainText",
+                "content": "Sorry, I could not understand. Try entering 'help' if you don't know how to use MovieBot.Goodbye."
             }
         ]
-    }, 
-    "version": "$LATEST", 
-    "lastUpdatedDate": 1499510788.106, 
-    "createdDate": 1498258654.088, 
-    "clarificationPrompt": {
-        "maxAttempts": 2, 
-        "messages": [
-            {
-                "content": "Sorry, can you please repeat that? Try entering 'help' if you don't know how to use MovieBot.", 
-                "contentType": "PlainText"
-            }
-        ]
-    }, 
-    "voiceId": "Joanna", 
-    "childDirected": false, 
-    "idleSessionTTLInSeconds": 300
+    },
+    "status": "READY",
+    "lastUpdatedDate": 1499677930.506,
+    "createdDate": 1498131748.837,
+    "idleSessionTTLInSeconds": 300,
+    "voiceId": "Joanna",
+    "checksum": "e4fdc97f-bf77-4e4b-b7d0-f595f1a98ac0",
+    "version": "$LATEST",
+    "locale": "en-US",
+    "childDirected": false
 }

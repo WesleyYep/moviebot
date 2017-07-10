@@ -1,52 +1,52 @@
 {
-    "dialogCodeHook": {
-        "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
-        "messageVersion": "1.0"
-    }, 
-    "name": "FindMovieByDirector", 
-    "checksum": "7f3a075b-f086-4478-a714-5bc0e93c1876", 
-    "version": "$LATEST", 
-    "lastUpdatedDate": 1499490157.656, 
-    "createdDate": 1499487058.028, 
-    "sampleUtterances": [
-        "I know the director", 
-        "The director is {Director}", 
-        "The director was {Director}", 
-        "Director is {Director}", 
-        "Director was {Director}", 
-        "Director", 
-        "Director please", 
-        "I know director is {Director}", 
-        "I know the director was {Director}", 
-        "{Director} was the director", 
-        "{Director} is the director", 
-        "It was directed by {Director}", 
-        "It is directed by {Director}", 
-        "filter by director"
-    ], 
+    "name": "FindMovieByDirector",
     "slots": [
         {
-            "slotType": "AMAZON.Director", 
-            "name": "Director", 
-            "slotConstraint": "Required", 
+            "name": "Director",
+            "slotConstraint": "Required",
+            "slotType": "AMAZON.Director",
             "valueElicitationPrompt": {
-                "maxAttempts": 2, 
                 "messages": [
                     {
-                        "content": "Who is the director?", 
-                        "contentType": "PlainText"
+                        "contentType": "PlainText",
+                        "content": "Who is the director?"
                     }
-                ]
-            }, 
-            "priority": 1, 
+                ],
+                "maxAttempts": 2
+            },
+            "priority": 1,
             "sampleUtterances": []
         }
-    ], 
+    ],
+    "sampleUtterances": [
+        "I know the director",
+        "The director is {Director}",
+        "The director was {Director}",
+        "Director is {Director}",
+        "Director was {Director}",
+        "Director",
+        "Director please",
+        "I know director is {Director}",
+        "I know the director was {Director}",
+        "{Director} was the director",
+        "{Director} is the director",
+        "It was directed by {Director}",
+        "It is directed by {Director}",
+        "filter by director"
+    ],
+    "dialogCodeHook": {
+        "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
+        "messageVersion": "1.0"
+    },
     "fulfillmentActivity": {
-        "type": "CodeHook", 
+        "type": "CodeHook",
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:231755972326:function:moviebotFunction", 
+            "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
             "messageVersion": "1.0"
         }
-    }
+    },
+    "lastUpdatedDate": 1499673080.154,
+    "createdDate": 1499673080.154,
+    "version": "$LATEST",
+    "checksum": "5071969f-23a7-4891-b9d6-7fb98da9ac59"
 }
