@@ -29,24 +29,23 @@ var apply = function(movieList) {
                         if (res.items.length == 0) {
                             // log that no trailers were found.
                             console.log("No trailers were found");
+                        } else {
+                            // extract most relevant item
+                            const item = res.items[0];
+
+                            const videoId = item.id.videoId;
+                            const trailerDescription = item.snippet.description;
+                            const trailerThumbnail = item.snippet.thumbnails.high.url;
+
+                            const trailerUrl = "https://www.youtube.com/watch?v=" + videoId;
+
+                            movie.setTrailerUrl(trailerUrl);
+                            movie.setTrailerDescription(trailerDescription);
+                            movie.setTrailerThumbnail(trailerThumbnail);
                         }
-
-                        // extract most relevant item
-                        const item = res.items[0];
-
-                        const videoId = item.id.videoId;
-                        const trailerDescription = item.snippet.description;
-                        const trailerThumbnail = item.snippet.thumbnails.high.url;
-
-                        const trailerUrl = "https://www.youtube.com/watch?v=" + videoId;
-
-                        movie.setTrailerUrl(trailerUrl);
-                        movie.setTrailerDescription(trailerDescription);
-                        movie.setTrailerThumbnail(trailerThumbnail);
-
                         resolve(movie);
                     }).catch(function(err) {
-                        reject();
+                        reject(err);
                     });
             });
         });
