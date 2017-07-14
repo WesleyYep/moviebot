@@ -40,7 +40,7 @@ var dispatch = function(queryInfo) {
                 { "popularity": "desc"}
             ],
             "track_scores": true,
-            "size": 50
+            "size": 30
         } 
         
         if (plot) {

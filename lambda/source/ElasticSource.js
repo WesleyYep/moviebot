@@ -14,16 +14,25 @@ var getMovies = function(body) {
             const results = JSON.parse(responseBody).hits.hits;
             const movies = results.map(function(movie) {
                 const title = movie._source.title;
+                const director = movie._source.director
+                const releaseDate = movie._source.releaseDate
+                const genres = movie._source.genres
+
+                const movieObject = movieBuilder.builder(title)
+                    .withDirector(director)
+                    .withGenre(genres)
+                    .withReleaseDate(releaseDate)
+                    .build();
+
                 if (movie._source.hasOwnProperty('trailerURL') && movie._source.trailerURL !== "") {
                     const trailerURL = movie._source.trailerURL
                     const thumbnailURL = movie._source.trailerThumbnailURL
-                    return movieBuilder.builder(title)
-                            .withTrailerUrl(trailerURL)
-                            .withTrailerThumbnail(thumbnailURL)
-                            .build();
-                } else {
-                    return movieBuilder.builder(title).build();
+
+                    movieObject.setTrailerUrl(trailerURL)
+                    movieObject.setTrailerThumbnail(thumbnailURL)
                 }
+
+                return movieObject
             });
             console.log("retrieved movies: ");
             console.log(movies);
