@@ -51,13 +51,13 @@ var dispatch = function(queryInfo) {
 
         if (actor) {
             body["query"]["bool"]["filter"].push({ 
-                "match": { "actors" : {"query" : actor}}
+                "match_phrase": { "actors" : {"query" : actor}}
             })
         }
 
         if (director) {
             body["query"]["bool"]["must"].push({
-                "match": { "director": director }
+                "match_phrase": { "director": director }
             })
         }
         
