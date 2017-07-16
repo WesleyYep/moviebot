@@ -32,7 +32,8 @@ var dispatch = function(queryInfo) {
         var body = {
             "query" : {
                 "bool" : {
-                    "must" : []
+                    "must" : [],
+                    "filter": []
                 }
             },
             "sort": [
@@ -49,9 +50,9 @@ var dispatch = function(queryInfo) {
         }
 
         if (actor) {
-            body["query"]["bool"]["filter"] = [
-                { "match": { "actors" : {"query" : actor}}}
-            ]
+            body["query"]["bool"]["filter"].push({ 
+                "match": { "actors" : {"query" : actor}}
+            })
         }
 
         if (director) {
@@ -61,7 +62,7 @@ var dispatch = function(queryInfo) {
         }
         
         if (year) {
-            body["query"]["bool"]["filter"] = {
+            body["query"]["bool"]["filter"].push({
                "range": {
                   "releaseDate": {
                      "gte": year + "||/y",
@@ -69,7 +70,7 @@ var dispatch = function(queryInfo) {
                      "format": "yyyy"
                   }
                }
-           }
+           })
         }
         
         if (actor || director || year) {
