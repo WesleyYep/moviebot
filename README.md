@@ -91,6 +91,12 @@ User: help
 Bot: MovieBot currently supports search by plot, quote, actors, year, and director. You can begin a search by telling MovieBot which search type to execute. e.g. find by actor
 ```
 
+### Clear current information
+```
+User: clear current information
+Bot: Current information cleared. What can you remember about the movie (actor, plot ,quote, year, director) [Current information => ]
+```
+
 ### Goodbye  
 ```
 User: goodbye
