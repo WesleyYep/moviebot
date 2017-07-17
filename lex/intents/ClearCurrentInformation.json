@@ -1,0 +1,19 @@
+{
+    "name": "ClearCurrentInformation", 
+    "checksum": "79412778-83cc-4d7f-bccd-f4c062316606", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1500288381.336, 
+    "createdDate": 1500286007.757, 
+    "sampleUtterances": [
+        "i want to clear current information", 
+        "clear current information"
+    ], 
+    "slots": [], 
+    "fulfillmentActivity": {
+        "type": "CodeHook", 
+        "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
+            "messageVersion": "1.0"
+        }
+    }
+}

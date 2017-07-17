@@ -1,31 +1,31 @@
 {
-    "name": "Theme",
-    "description": "moviebot",
     "enumerationValues": [
         {
             "value": "love and a lot of hugging"
-        },
+        }, 
         {
             "value": "spaceship"
-        },
+        }, 
         {
             "value": "red car"
-        },
+        }, 
         {
             "value": "time travel"
-        },
+        }, 
         {
             "value": "soccer game"
-        },
+        }, 
         {
             "value": "fighting"
-        },
+        }, 
         {
             "value": "fighting in a basketball"
         }
-    ],
-    "lastUpdatedDate": 1498131733.774,
-    "createdDate": 1498131733.774,
-    "version": "$LATEST",
-    "checksum": "61778b26-8ff9-4183-a053-1046b9e0ad71"
+    ], 
+    "name": "Theme", 
+    "checksum": "ea138582-5384-4db4-9579-a912bbc3240b", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1497176108.238, 
+    "createdDate": 1497136938.195, 
+    "description": "moviebot"
 }

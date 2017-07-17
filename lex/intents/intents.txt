@@ -9,3 +9,4 @@ FindMovieByPlot
 FindMovieByQuote
 FindMovieByYear
 Welcome
+ClearCurrentInformation

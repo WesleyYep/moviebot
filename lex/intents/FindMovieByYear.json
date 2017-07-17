@@ -1,58 +1,58 @@
 {
-    "name": "FindMovieByYear",
+    "dialogCodeHook": {
+        "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
+        "messageVersion": "1.0"
+    }, 
+    "name": "FindMovieByYear", 
+    "checksum": "f9a15cbc-bdd5-4584-acb5-19f6adaa17c1", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1499670950.857, 
+    "createdDate": 1499670950.857, 
+    "sampleUtterances": [
+        "I know the year", 
+        "I know the release date", 
+        "I know when it was released", 
+        "I know the year of release", 
+        "I know the date of release", 
+        "I know the release year", 
+        "The year was {Year}", 
+        "The release date was {Year}", 
+        "The release year was {Year}", 
+        "It was released in {Year}", 
+        "It came out in {Year}", 
+        "I know it was released in {Year}", 
+        "{Year} was the year of release", 
+        "The year is {Year}", 
+        "Filter by year", 
+        "filter by release year", 
+        "filter by release date", 
+        "filter by date", 
+        "year was {Year}", 
+        "year"
+    ], 
     "slots": [
         {
-            "name": "Year",
-            "slotConstraint": "Required",
-            "slotType": "AMAZON.FOUR_DIGIT_NUMBER",
+            "slotType": "AMAZON.FOUR_DIGIT_NUMBER", 
+            "name": "Year", 
+            "slotConstraint": "Required", 
             "valueElicitationPrompt": {
+                "maxAttempts": 2, 
                 "messages": [
                     {
-                        "contentType": "PlainText",
-                        "content": "What year was the movie released?"
+                        "content": "What year was the movie released?", 
+                        "contentType": "PlainText"
                     }
-                ],
-                "maxAttempts": 2
-            },
-            "priority": 1,
+                ]
+            }, 
+            "priority": 1, 
             "sampleUtterances": []
         }
-    ],
-    "sampleUtterances": [
-        "I know the year",
-        "I know the release date",
-        "I know when it was released",
-        "I know the year of release",
-        "I know the date of release",
-        "I know the release year",
-        "The year was {Year}",
-        "The release date was {Year}",
-        "The release year was {Year}",
-        "It was released in {Year}",
-        "It came out in {Year}",
-        "I know it was released in {Year}",
-        "{Year} was the year of release",
-        "The year is {Year}",
-        "Filter by year",
-        "filter by release year",
-        "filter by release date",
-        "filter by date",
-        "year was {Year}",
-        "year"
-    ],
-    "dialogCodeHook": {
-        "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
-        "messageVersion": "1.0"
-    },
+    ], 
     "fulfillmentActivity": {
-        "type": "CodeHook",
+        "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
+            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
-    },
-    "lastUpdatedDate": 1499673090.071,
-    "createdDate": 1499673090.071,
-    "version": "$LATEST",
-    "checksum": "4d78e819-3553-4c82-a088-bd0df2604cd0"
+    }
 }
