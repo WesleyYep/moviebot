@@ -1,94 +1,94 @@
 {
-    "name": "MovieQuote",
-    "description": "moviebot",
     "enumerationValues": [
         {
             "value": "Hasta la vista, baby"
-        },
+        }, 
         {
             "value": "I don't think you've ever known a woman like me"
-        },
+        }, 
         {
             "value": "The shadows betray you, because they belong to me!"
-        },
+        }, 
         {
             "value": "Keep your friends close, but your enemies closer"
-        },
+        }, 
         {
             "value": "you either die a hero, or you live long enough to see yourself become the villain."
-        },
+        }, 
         {
             "value": "I'm not a traitor. I just wised up. You will too."
-        },
+        }, 
         {
             "value": "Here at NASA we all pee the same color"
-        },
+        }, 
         {
             "value": "If you wear a dress and have an animal sidekick, you're a princess"
-        },
+        }, 
         {
             "value": "may the Force be with you"
-        },
+        }, 
         {
             "value": "mama says, 'stupid is as stupid does'"
-        },
+        }, 
         {
             "value": "Chewie, were home"
-        },
+        }, 
         {
             "value": "Open the pod bay doors, please, HAL"
-        },
+        }, 
         {
             "value": "just keep swimming"
-        },
+        }, 
         {
             "value": "I love the smell of napalm in the morning"
-        },
+        }, 
         {
             "value": "I shall call him Squishy and he shall be mine and he shall be my Squishy"
-        },
+        }, 
         {
             "value": "I am one with the Force. The Force is with me."
-        },
+        }, 
         {
             "value": "I'm going to make him an offer he can't refuse"
-        },
+        }, 
         {
             "value": "My precious"
-        },
+        }, 
         {
             "value": "Don't think you are,know you are."
-        },
+        }, 
         {
             "value": "you complete me"
-        },
+        }, 
         {
             "value": "Take your stinking paws off me, you damned dirty ape"
-        },
+        }, 
         {
             "value": "I'm the king of the world"
-        },
+        }, 
         {
             "value": "here's johnny"
-        },
+        }, 
         {
             "value": "I didn't see the light until I was already a man, by then it was nothing to me but BLINDING"
-        },
+        }, 
         {
             "value": "A martini. Shaken, not stirred"
-        },
+        }, 
         {
             "value": "Oh, you think darkness is your ally. But you merely adopted the dark; I was born in it, moulded by it"
-        },
+        }, 
         {
             "value": "Houston, we have a problem"
-        },
+        }, 
         {
             "value": "We got no ship, no crew, how're going to get out of this one?"
         }
-    ],
-    "lastUpdatedDate": 1498962321.24,
-    "createdDate": 1498131724.456,
-    "version": "$LATEST",
-    "checksum": "14ce3484-3456-4eb6-83cd-a84f5f664f4b"
+    ], 
+    "name": "MovieQuote", 
+    "checksum": "92c5ab5b-2b18-4547-80fa-f53aa963dd1a", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1499161024.357, 
+    "createdDate": 1498115283.297, 
+    "description": "moviebot"
 }

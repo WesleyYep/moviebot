@@ -56,7 +56,7 @@ var dispatch = function(queryInfo) {
         }
 
         if (director) {
-            body["query"]["bool"]["must"].push({
+            body["query"]["bool"]["filter"].push({
                 "match_phrase": { "director": director }
             })
         }

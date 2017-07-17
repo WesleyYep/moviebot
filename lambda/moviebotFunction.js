@@ -122,8 +122,16 @@ function getGoodByeMessage() {
 function getFurtherInfoMessage(sessionAttributes) {
     return {
         contentType : "PlainText",
-        content : "What else can you remember about the movie (actor, plot, quote, year, director)" + " " + getFormattedCurrentSessionInfo(sessionAttributes)
+        content : "What else can you remember about the movie (actor, plot, quote, year, director)" + " " + getFormattedCurrentSessionInfo(sessionAttributes) + 
+        ". You can say \"clear current information\" to clear current information"
     };
+}
+
+function getClearedInfoMessage(sessionAttributes) {
+    return {
+        contentType: "PlainText",
+        content : "Current information cleared. What can you remember about the movie (actor, plot ,quote, year, director)" + " " + getFormattedCurrentSessionInfo(sessionAttributes)
+    }
 }
 
 function getHelpMessage() {
@@ -251,6 +259,12 @@ function help(intentRequest, callback) {
     callback(elicitIntent(sessionAttributes, getHelpMessage()));
 }
 
+function clearCurrentInformation(intentRequest, callback) {
+    const sessionAttributes = {}
+
+    callback(elicitIntent(sessionAttributes, getClearedInfoMessage(sessionAttributes)));
+}
+
 // --------------- Intents -----------------------
 
 /**
@@ -279,6 +293,8 @@ function dispatch(intentRequest, callback) {
         return unsureResult(intentRequest, callback);
     } else if (intentName == 'Help') {
         return help(intentRequest, callback);
+    } else if (intentName == 'ClearCurrentInformation') {
+        return clearCurrentInformation(intentRequest, callback);
     }
 
     throw new Error(`Intent with name ${intentName} not supported`);

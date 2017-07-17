@@ -1,26 +1,26 @@
 {
-    "name": "UnsureResult",
-    "slots": [],
+    "name": "UnsureResult", 
+    "checksum": "1e76c937-bcb1-4db7-ae04-9cbbd311545c", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1500104618.681, 
+    "createdDate": 1498115304.879, 
     "sampleUtterances": [
-        "hmm not sure",
-        "i don't know",
-        "i'm still unsure sorry",
-        "these movie isn't the one i'm looking for ",
-        "wrong movie",
-        "none of the movies is correct",
-        "unsure about these movies",
-        "don't think so",
+        "hmm not sure", 
+        "i don't know", 
+        "i'm still unsure sorry", 
+        "these movie isn't the one i'm looking for ", 
+        "wrong movie", 
+        "none of the movies is correct", 
+        "unsure about these movies", 
+        "don't think so", 
         "still unsure"
-    ],
+    ], 
+    "slots": [], 
     "fulfillmentActivity": {
-        "type": "CodeHook",
+        "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
+            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
-    },
-    "lastUpdatedDate": 1499677885.267,
-    "createdDate": 1498131737.143,
-    "version": "$LATEST",
-    "checksum": "9c413e36-22e0-4ca4-b060-c7c5b3de5b94"
+    }
 }

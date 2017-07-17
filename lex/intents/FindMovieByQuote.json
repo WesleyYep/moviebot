@@ -1,51 +1,51 @@
 {
-    "name": "FindMovieByQuote",
+    "dialogCodeHook": {
+        "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
+        "messageVersion": "1.0"
+    }, 
+    "name": "FindMovieByQuote", 
+    "checksum": "c7e147dd-0424-4f55-a322-f8a736f08795", 
+    "version": "$LATEST", 
+    "lastUpdatedDate": 1500104619.751, 
+    "createdDate": 1498115317.693, 
+    "sampleUtterances": [
+        "I would like to filter by movie quote", 
+        "Can I find by movie quote", 
+        "Can I find by quote", 
+        "The movie has {MovieQuote} quote in it", 
+        "{MovieQuote} quote is in it", 
+        "I want to find by movie quote", 
+        "This {MovieQuote} quote is in it", 
+        "Find by movie quote", 
+        "Filter by movie quote", 
+        "The quote is {MovieQuote}", 
+        "A quote is {MovieQuote}", 
+        "quote"
+    ], 
     "slots": [
         {
-            "name": "MovieQuote",
-            "slotConstraint": "Required",
-            "slotType": "MovieQuote",
-            "slotTypeVersion": "2",
+            "slotType": "MovieQuote", 
+            "name": "MovieQuote", 
+            "slotConstraint": "Required", 
             "valueElicitationPrompt": {
+                "maxAttempts": 2, 
                 "messages": [
                     {
-                        "contentType": "PlainText",
-                        "content": "What quote is in the movie?"
+                        "content": "What quote is in the movie?", 
+                        "contentType": "PlainText"
                     }
-                ],
-                "maxAttempts": 2
-            },
-            "priority": 1,
+                ]
+            }, 
+            "priority": 1, 
+            "slotTypeVersion": "2", 
             "sampleUtterances": []
         }
-    ],
-    "sampleUtterances": [
-        "I would like to filter by movie quote",
-        "Can I find by movie quote",
-        "Can I find by quote",
-        "The movie has {MovieQuote} quote in it",
-        "{MovieQuote} quote is in it",
-        "I want to find by movie quote",
-        "This {MovieQuote} quote is in it",
-        "Find by movie quote",
-        "Filter by movie quote",
-        "The quote is {MovieQuote}",
-        "A quote is {MovieQuote}",
-        "quote"
-    ],
-    "dialogCodeHook": {
-        "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
-        "messageVersion": "1.0"
-    },
+    ], 
     "fulfillmentActivity": {
-        "type": "CodeHook",
+        "type": "CodeHook", 
         "codeHook": {
-            "uri": "arn:aws:lambda:us-east-1:795188759856:function:moviebotFunction",
+            "uri": "arn:aws:lambda:us-east-1:644402692986:function:moviebotFunction", 
             "messageVersion": "1.0"
         }
-    },
-    "lastUpdatedDate": 1499677885.854,
-    "createdDate": 1498131745.525,
-    "version": "$LATEST",
-    "checksum": "a1214fa5-2d3d-49c4-8631-35a5c0a818c2"
+    }
 }
