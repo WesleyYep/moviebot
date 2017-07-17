@@ -10,6 +10,7 @@ Currently MovieBot supports the following information:
 * Find by actor/actress  
 * Find by director  
 * Find by plot  
+* Find by year  
 
 The results are shown to the user along with a link to the movie trailer.  
 
@@ -83,6 +84,15 @@ User: find by plot
 Bot: What is the plot of the movie ?
 User: apes riding in horses taking over the world
 Bot: Hey! We found 4 matching movies. The first movie was called Rise of the Planet of the Apes. Did we find your movie(yes/no to continue searching)?
+```
+
+### Year
+Movies can be searched by the release year
+
+```
+Users: find by year
+Bot: What year was the movie released?
+Bot: Hey! We found 30 matching movies. The first movie was called Pirates of the Caribbean: On Stranger Tides. Did we find your movie(yes/no to continue searching)?
 ```
 
 ### Help  
