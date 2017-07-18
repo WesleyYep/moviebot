@@ -12,9 +12,10 @@
     "request-promise": "^4.2.1"
   },
   "devDependencies": {
+    "aws-sdk": "*",
     "chai": "^4.0.2",
     "mocha": "^3.4.2",
-    "aws-sdk": "*"
+    "stopword": "^0.1.6"
   },
   "author": "",
   "license": "ISC"
