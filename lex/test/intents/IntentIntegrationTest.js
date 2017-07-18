@@ -3,7 +3,7 @@ var expect = chai.expect;
 var lexHelper = require('../utils/LexHelper');
 var AWS = require('aws-sdk');
 
-describe.only("Intent integration", function() {
+describe("Intent integration", function() {
     var botName, botAlias, accessKey, secretKey, region;
 
     before("Initialise http variables and signature", function() {
