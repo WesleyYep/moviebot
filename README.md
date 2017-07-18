@@ -92,7 +92,22 @@ Movies can be searched by the release year
 ```
 Users: find by year
 Bot: What year was the movie released?
+User: the movie was release in 2011
 Bot: Hey! We found 30 matching movies. The first movie was called Pirates of the Caribbean: On Stranger Tides. Did we find your movie(yes/no to continue searching)?
+```
+
+### Combination Query
+You can also combined different information together to narrow down the result and find the movie you are looking for
+
+```
+User: hello moviebot
+Bot: Hi I'm moviebot. I find movies that you can't remember. Currently we can search by plot, quote, actors, year, and director. Which of these could you remember?
+User: one of the actors is chris hemsworth
+Bot: Hey! We found 17 matching movies. The first movie was called The Avengers. Did we find your movie(yes/no to continue searching)? [There are response cards with movie title and movie trailer]
+User: no
+Bot: What else can you remember about the movie (actor, plot, quote, year, director) [Current information => Actor: "chris hemsworth"]. You can say "clear current information" to clear current information
+User: the year was 2012
+Bot: Hey! We found 4 matching movies. The first movie was called The Avengers. Did we find your movie(yes/no to continue searching)?
 ```
 
 ### Help  
