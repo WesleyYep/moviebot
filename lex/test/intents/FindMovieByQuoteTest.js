@@ -9,7 +9,7 @@ describe("FindMovieByQuote intent", function() {
 
     // quote to test
     const quotes = [
-        "You either die a hero or you live long enough to die a villain",
+        "You either die a hero or you live long enough to become a villain",
         "Frankly, my dear, I don't give a damn",
         "I'm gonna make him an offer he can't refuse"
     ];
