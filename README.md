@@ -15,7 +15,7 @@ Currently MovieBot supports the following information:
 The results are shown to the user along with a link to the movie trailer.  
 
 ## Testing  
-TODO - Add testing and facebook link  
+The moviebot is available at https://www.facebook.com/messages/t/473457956340413 and the moviebot facebook page is https://www.facebook.com/MovieBot-473457956340413/
 
 ## Features  
 MovieBot allows users to find movie titles they can't remember. It currently supports the below functionality through interacting with the chatbot. The chatbot responds accordingly based on certain utterances.  
