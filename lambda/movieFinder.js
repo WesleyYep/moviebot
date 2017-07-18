@@ -75,13 +75,19 @@ function hydrateMovieLists(movieLists) {
     console.log("Hydrating each movie list")
     return new Promise(function(resolve, reject) {
         const promiseList = []
-        for (index = 0; index < movieLists.length; index++) {
-            promiseList.push(movieHydrator.hydrate(movieLists[index]))
-        }
+        console.log('overall movielist inside', movieLists)
+
+        movieLists.forEach((movieList) => {
+            promiseList.push(movieHydrator.hydrate(movieList))
+        })
+
+        console.log("TOTAL PROMISE LIST LENGTH", promiseList.length)
 
         Promise.all(promiseList).then(hydratedMovieLists => {
+            console.log('================')
             console.log("finish hydrating")
             console.log(hydratedMovieLists)
+            console.log('================')
             resolve(hydratedMovieLists);
         }).catch((err) => {
             reject(err);

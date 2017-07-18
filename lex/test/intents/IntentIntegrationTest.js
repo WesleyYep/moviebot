@@ -3,7 +3,7 @@ var expect = chai.expect;
 var lexHelper = require('../utils/LexHelper');
 var AWS = require('aws-sdk');
 
-describe("Intent integration", function() {
+describe.only("Intent integration", function() {
     var botName, botAlias, accessKey, secretKey, region;
 
     before("Initialise http variables and signature", function() {
@@ -67,7 +67,8 @@ describe("Intent integration", function() {
             // THEN
             lexHelper.logBot(res.message);
             expect(res.dialogState).to.equal('ElicitIntent');
-            expect(res.message).to.equal('What else can you remember about the movie (actor, plot, quote, year, director) [Current information => Actor: "' + actor + '"]');
+            expect(res.message).to.equal('What else can you remember about the movie (actor, plot, quote, year, director) [Current information => Actor: "' + actor 
+            + '"]. You can say "clear current information" to clear current information')
             expect(res.sessionAttributes).to.have.property("Actor").to.equal(actor);
 
             text = "find by quote";

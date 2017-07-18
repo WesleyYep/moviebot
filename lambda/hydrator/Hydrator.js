@@ -2,6 +2,7 @@ var elasticSource = require('../source/ElasticSource');
 var moment = require('moment');
 
 var hydrate = function(movieList) {
+    console.log('hydrating', movieList)
     return new Promise(function(resolve, reject) {
         const promiseList = []
         for (index = 0; index < movieList.length; index++) {
